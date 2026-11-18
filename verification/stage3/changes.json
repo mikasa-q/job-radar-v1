@@ -1,0 +1,50 @@
+{
+  "src/job_radar/storage.py": {
+    "before": "7689ce18b21217e86be529628d61f28b33da3122da40610746a12ab649a00a24",
+    "after": "2910cdc5731be0de2592679ae37cfe118db769c57c1c28c5919e56d9571e00ee"
+  },
+  "src/job_radar/api.py": {
+    "before": null,
+    "after": "c860656d823bcd68404dfe2f52716d07b530479c7fd09639ebc63ca116138b65"
+  },
+  "src/job_radar/schemas.py": {
+    "before": null,
+    "after": "82b3cc3440b08234edb3f691fe1af8f08cad7bb96e9bd864b6247bac6261eb53"
+  },
+  "tests/test_api.py": {
+    "before": null,
+    "after": "ad2cb1b8f6a9c5a69942d1f87ec29e7bed575ac150678598e76f42b6bc51fdc2"
+  },
+  "tests/test_storage_api.py": {
+    "before": null,
+    "after": "d6c0b322938d0193a17bdee0350bb1fa57edb24ff7d2877e1632d10a00f22a86"
+  },
+  "requirements.txt": {
+    "before": "2899f82bee41846d2e3b445001d33fec545fa4b69dc5d1c06f0e80736c941f52",
+    "after": "370c404656a11e679877d9ae6c28cef1ce777e3f863b1f71d8914c472cb4a29f"
+  },
+  "requirements.lock.txt": {
+    "before": null,
+    "after": "b3b180c63c164a585ac2cb798f3fc17174a06bf526cb9d2899371ade1bedfc69"
+  },
+  "pytest.ini": {
+    "before": null,
+    "after": "c809c969ec7e11b9ff37784e9c6fcc0b7c5148d168e18b05aed797e03fbd6ead"
+  },
+  "README.md": {
+    "before": "1a365cfaf3ba82395d3858a3b7565a7c7dc5c77c651c397339f969a6e55c3a7d",
+    "after": "806abdc18108e9fc5fd94ec87d77f94904793cb8740ec04ba960e7d189751aba"
+  },
+  "NOTES.md": {
+    "before": "41ecc77acc6882266b9a583597704160d7b9d10727475ef5a17fcb80cd8b8e5f",
+    "after": "03a70483714a74471dfed732c03b5711da03fff39b09a6c60c9d6bc38436cb60"
+  },
+  "CHECK.sh": {
+    "before": "ee95b08e7dbaf983af2c6fcb67d06aa327f63029571f4eeb53c9df1aea960dad",
+    "after": "3163ed9dd8fe47678ec2076a8d90302c99428223bd8a9de7b8b92e1e86e7d085"
+  },
+  "docs/STAGE3_FASTAPI.md": {
+    "before": null,
+    "after": "2125b4c809dac3d0ea0c995206ca7b48ab669d2750151a60b21b44532ba3ffac"
+  }
+}

@@ -1,0 +1,37 @@
+# Stage 3 v1 frozen contracts (2026-11-12)
+
+Authoritative shared models: `src/job_radar/rag_models.py`. Stage 1D and Stage 2 models and APIs stay unchanged. Primary agent owns shared contracts, dependencies, engine entry, examples and NOTES. All work is in this delivery's `modified/` copy until verified application.
+
+## B — evidence chunks (`rag_chunks.py`, `tests/test_rag_chunks.py`)
+
+- `chunk_job(candidate: JobCandidate, *, budget: TokenBudget, config: ChunkConfig|None=None) -> list[EvidenceChunk]`.
+- Encoding text = sanitized title + newline + sanitized source description range. Original quote remains exact `description[start:end]`; mapping entries refer to original title/description and positions in encoding_text. Sanitize same URL/email/phone patterns as Stage 2; map retained characters, do not confuse sanitized offsets with original. Contact-only chunks may be skipped.
+- Count includes role instruction/special tokens via budget.count. Reject invalid offsets, tokenizer IDs/lengths, too-small title budget. No truncation. Use paragraph/sentence boundaries then real tokenizer offsets for long sentences; configurable bounded token overlap, progress and coverage including tail. Version hash binds configuration through manifest.
+- `aggregate_chunks(hits: list[ChunkHit], *, recall_k: int) -> AggregatedChunks`: max score per job, stable identity ties, retain best chunk evidence; no sum/length advantage; output dense RetrievalHit job ranks. Reject incompatible duplicate identities/hashes, NaN.
+- No fake vector tests. A deterministic test TokenBudget can exercise structural offsets but must be named synthetic tokenizer and never reported as real tokenizer/model evidence.
+
+## C — independent index (`rag_index.py`, `tests/test_rag_index.py`)
+
+- `DerivedIndex(root: str|Path)` requires an independent directory, never opens legacy or evidence databases.
+- `update(jobs: list[JobCandidate], *, manifest: IndexManifest, chunks: list[EvidenceChunk]|None=None, embedding_client: EmbeddingClient|None=None, failpoint: str|None=None) -> IndexUpdate`. Full supplied snapshot defines adds/changes/deletes. Failpoints `before_switch` and `during_build` are tests only. Validate schema/version/hash and chunk source coordinates before any switch. Plain BM25 builds need no tokenizer/chunks/runtime. Dense spec requires matching real client metadata; no vectors fabricated.
+- `manifest() -> IndexManifest`, `documents(keys: list[JobKey]) -> list[RetrievalDocument]`, `chunks(keys: list[JobKey]) -> list[EvidenceChunk]`, `dense_hits(query: RetrievalQuery, keys: list[JobKey], *, config: EngineConfig, embedding_client: EmbeddingClient) -> AggregatedChunks`, `assert_candidates(jobs: list[JobCandidate]) -> None`. Read-only query operations validate current generation/compatibility/integrity. Extra indexed jobs never enter supplied keys. Candidate content/metadata mismatches raise fixed `index_...` RetrievalError; no silent stale use. `assert_candidates` validates only requested members (index can contain superset).
+- Store independent SQLite generations plus atomic CURRENT pointer, transactional staging, complete integrity/content checks. Restart uses old compatible generation after interrupted update; never automatically accepts incompatible expected config. An optional `expected: IndexManifest|None=None` constructor keyword may enforce compatibility. Report same/no-op generation when unchanged. Metadata-only changes do not reencode; content changes only affected; config incompatibility rebuilds channel. Dense vectors float32 BLOBs, streamed for candidate keys, role/exact-text/config/model cache keys. Avoid loading full Python float matrix. BM25 documents/terms persist; existing retrieve_bm25 recomputes exact eligible candidate statistics. Store corpus df/length/count for audit, not substitution for subset scoring.
+- Rebuild new generation reuses unchanged compatible cached vectors, no content changed means no embedding calls. Validate snapshot hash against canonical_hash(sorted candidate model_dump(mode='json') by dataset/job); generation excluded from compatibility; index snapshot includes metadata as well as content.
+
+## A — evaluation (`rag_evaluation.py`, `tests/test_rag_evaluation.py`, `examples/stage3_evaluation.synthetic.json`)
+
+- `validate_dataset(dataset: EvaluationSet) -> EvaluationSet`: duplicate queries/judgments/unknown query refs; profile_group and job_group cannot cross dev/test; keep unjudged separate; synthetic expectations never human gold. Data sources/status/evidence and assessor/review records retained.
+- `evaluate_rankings(dataset: EvaluationSet, rankings: dict[str,list[JobKey]], *, split: str, experiment: ExperimentSpec|None=None) -> dict`: dedup jobs first; stable ranked-list ordering; report Recall@1/5/10, MRR@10, nDCG@10; threshold >=1, gain 2**grade-1, discount log2(rank+1). Hand-computed tests. Empty relevant queries reported null and separate. Unjudged not negative: explicitly report coverage/incomplete quality and per-query unjudged; do not claim valid full quality on incomplete labels. Human quality ready only all evaluated candidates human-judged and complete candidate universe.
+- `run_experiments(dataset, experiments: list[ExperimentSpec], ranker: Callable, *, split='dev') -> dict`: ranker(query: EvalQuery,spec: ExperimentSpec)->list[JobKey]. Dev experiments only; test requires exactly one frozen_on_dev config, no tuning/automatic selection on test. Record hashes/config versions, per-query deltas/error categories, synthetic correctness distinct human quality. No fake vectors; tests use authored rankings only.
+- Synthetic sample is machine authored, clearly synthetic_expected; no secret/resume corpus access. No modifications to BM25/RRF algorithms.
+
+## Primary — integration and real runtime
+
+`match_jobs_indexed(request: MatchingRequest, *, index: DerivedIndex, config: EngineConfig|None=None, embedding_client: EmbeddingClient|None=None) -> IndexedMatchingResult` lives in a NEW `rag_engine.py`. Reuse Stage 2 rule/bm25/rrf functions, same filtering/tie semantics, explicit dense error/degrade. Existing match_jobs unchanged. Index metadata must equal current requested candidates. Query limits/formal gates unchanged.
+
+Runtime preflight is isolated, exact wheel versions/hashes resolved before install; import/tiny tensor test before any model file downloads. Real models downloaded one at a time pinned full revision with manifest hashes, infer CPU/batch1/local_files_only/trust_remote_code=False. TokenBudget implementation uses actual fast tokenizer offsets and prefixes. Supervised subprocess resource/timeout guards, no in-process OOM claims. Synthetic correctness, real operability, human relevance are three separate results.
+
+## Post-freeze explicit extensions (primary reviewed)
+
+- Evaluation `candidate_keys: list[JobKey]|None=None` optional keyword on evaluate_rankings/run_experiments. Explicit snapshot universe enables complete-human readiness; union alone stays pending. Universe hash retained; duplicate/outside labels rejected. Real-model variants require model_sha256 experiment metadata.
+- `with index.reader() as snapshot:` yields a read-only, lifetime-bounded view with the same manifest/documents/chunks/assert_candidates/dense_hits APIs pinned to one generation. Indexed engine uses it, avoiding cross-generation races between validation and search. Mutation on a view is rejected; calls after exit fail. Compatible unchanged projections copy existing documents; only added/changed content retokenizes.

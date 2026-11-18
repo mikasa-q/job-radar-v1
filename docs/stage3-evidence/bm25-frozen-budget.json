@@ -1,0 +1,17 @@
+{
+  "max_process_tree_rss_bytes": 2147483648,
+  "max_process_seconds": 180,
+  "max_p95_search_seconds": 5.0,
+  "max_index_bytes": 1073741824,
+  "repetitions": 7,
+  "warmup": 1,
+  "scales": [
+    100,
+    1000,
+    10000
+  ],
+  "candidate_limit": 1000,
+  "cache": "lexical_no_query_cache",
+  "title_weight": 2.0,
+  "synthetic_description_chars": 68
+}

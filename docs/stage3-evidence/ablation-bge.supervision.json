@@ -1,0 +1,25 @@
+{
+  "command": [
+    "/Users/thc/.codex/visualizations/2026/11/12/01a1d05b-33ee-7331-9a41-172588d232af/jobradar-stage3/runtime/venv/bin/python",
+    "-B",
+    "/Users/thc/.codex/visualizations/2026/11/12/01a1d05b-33ee-7331-9a41-172588d232af/jobradar-stage3/modified/examples/stage3_real_ablation.py",
+    "--model",
+    "BAAI/bge-small-zh-v1.5",
+    "--revision",
+    "7999e1d3359715c523056ef9478215996d62a620",
+    "--snapshot",
+    "/Users/thc/.codex/visualizations/2026/11/12/01a1d05b-33ee-7331-9a41-172588d232af/jobradar-stage3/models/BAAI--bge-small-zh-v1.5/7999e1d3359715c523056ef9478215996d62a620",
+    "--runtime-sha",
+    "53af5bed5ce2c4f2aa3e92c2239103313e60edfdc34f6b0044fd6f1d40552692",
+    "--model-sha",
+    "6cd1f05554b8633e1b70fbe707ffbb20f92d86d76ea00ec8fae98a42c8635ecf",
+    "--index",
+    "/Users/thc/.codex/visualizations/2026/11/12/01a1d05b-33ee-7331-9a41-172588d232af/jobradar-stage3/ablation-index-bge",
+    "--output",
+    "/Users/thc/.codex/visualizations/2026/11/12/01a1d05b-33ee-7331-9a41-172588d232af/jobradar-stage3/ablation-bge.json"
+  ],
+  "exit_status": 0,
+  "seconds": 8.263787985022645,
+  "process_tree_peak_rss_bytes": 375037952,
+  "stop_reason": null
+}

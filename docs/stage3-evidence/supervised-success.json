@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "dimension": 512,
+  "supervision": {
+    "seconds": 9.414569863991346,
+    "process_tree_peak_rss_bytes": 368095232,
+    "exit_status": 0,
+    "reason": null
+  }
+}

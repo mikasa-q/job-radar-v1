@@ -1,0 +1,1160 @@
+{
+  "document_sha256": "192e4163495800109be4419be8ef8b2ce969094ed89d7d9fa0bc5fcf29586edb",
+  "evidence": [
+    {
+      "evidence_id": "ed292e125f1a1af94d6968cd2",
+      "job_span": null,
+      "key": null,
+      "kind": "resume",
+      "path": "skills[0]",
+      "quote": "课程项目：使用 Python 和 FastAPI 开发接口。",
+      "resume_ref": {
+        "block_id": "p001-b001",
+        "page": 1,
+        "quote": "课程项目：使用 Python 和 FastAPI 开发接口。"
+      },
+      "source_sha256": "e77dc149b635491f82daa0e1518acfbe101597adadee46f12f3e59320e16412a",
+      "value_json": "{\"block_text\":\"课程项目：使用 Python 和 FastAPI 开发接口。\",\"context\":\"course\",\"mention\":{\"evidence\":[{\"block_id\":\"p001-b001\",\"page\":1,\"quote\":\"课程项目：使用 Python 和 FastAPI 开发接口。\"}],\"value\":\"Python\"},\"name\":\"Python\"}"
+    },
+    {
+      "evidence_id": "ea60f01c0a6b5ce41e9405f5f",
+      "job_span": null,
+      "key": null,
+      "kind": "resume",
+      "path": "skills[1]",
+      "quote": "课程项目：使用 Python 和 FastAPI 开发接口。",
+      "resume_ref": {
+        "block_id": "p001-b001",
+        "page": 1,
+        "quote": "课程项目：使用 Python 和 FastAPI 开发接口。"
+      },
+      "source_sha256": "e77dc149b635491f82daa0e1518acfbe101597adadee46f12f3e59320e16412a",
+      "value_json": "{\"block_text\":\"课程项目：使用 Python 和 FastAPI 开发接口。\",\"context\":\"course\",\"mention\":{\"evidence\":[{\"block_id\":\"p001-b001\",\"page\":1,\"quote\":\"课程项目：使用 Python 和 FastAPI 开发接口。\"}],\"value\":\"FastAPI\"},\"name\":\"FastAPI\"}"
+    },
+    {
+      "evidence_id": "e121a42360290caf05f0539d8",
+      "job_span": null,
+      "key": null,
+      "kind": "resume",
+      "path": "document.pages[0].blocks[p001-b001]",
+      "quote": "课程项目：使用 Python 和 FastAPI 开发接口。",
+      "resume_ref": {
+        "block_id": "p001-b001",
+        "page": 1,
+        "quote": "课程项目：使用 Python 和 FastAPI 开发接口。"
+      },
+      "source_sha256": "e77dc149b635491f82daa0e1518acfbe101597adadee46f12f3e59320e16412a",
+      "value_json": "{\"block_text\":\"课程项目：使用 Python 和 FastAPI 开发接口。\",\"scope\":\"original_document_block_not_extracted_fact\"}"
+    },
+    {
+      "evidence_id": "e075c025e066bec4451e8eb91",
+      "job_span": null,
+      "key": null,
+      "kind": "preference",
+      "path": "preferences.cities",
+      "quote": null,
+      "resume_ref": null,
+      "source_sha256": "aa36166f9a85148c18abcb9d5aa8efcbc9915da7a06a58653beaaa02da19082b",
+      "value_json": "null"
+    },
+    {
+      "evidence_id": "e5289d1c2c24c166127e92bc1",
+      "job_span": null,
+      "key": null,
+      "kind": "preference",
+      "path": "preferences.target_roles",
+      "quote": null,
+      "resume_ref": null,
+      "source_sha256": "aa36166f9a85148c18abcb9d5aa8efcbc9915da7a06a58653beaaa02da19082b",
+      "value_json": "null"
+    },
+    {
+      "evidence_id": "ea9cb43bec13a292a3a97b377",
+      "job_span": null,
+      "key": null,
+      "kind": "preference",
+      "path": "preferences.available_days_per_week",
+      "quote": null,
+      "resume_ref": null,
+      "source_sha256": "aa36166f9a85148c18abcb9d5aa8efcbc9915da7a06a58653beaaa02da19082b",
+      "value_json": "null"
+    },
+    {
+      "evidence_id": "eff59ae8221858439b59b17f0",
+      "job_span": null,
+      "key": null,
+      "kind": "preference",
+      "path": "preferences.available_duration_months",
+      "quote": null,
+      "resume_ref": null,
+      "source_sha256": "aa36166f9a85148c18abcb9d5aa8efcbc9915da7a06a58653beaaa02da19082b",
+      "value_json": "null"
+    },
+    {
+      "evidence_id": "ed635f32c3268798c9a1ce6ff",
+      "job_span": null,
+      "key": null,
+      "kind": "scope",
+      "path": "profile",
+      "quote": null,
+      "resume_ref": null,
+      "source_sha256": "aa36166f9a85148c18abcb9d5aa8efcbc9915da7a06a58653beaaa02da19082b",
+      "value_json": "{\"absence_means\":\"not_found_in_supplied_profile_not_absent_ability\",\"document_source_sha256\":\"e77dc149b635491f82daa0e1518acfbe101597adadee46f12f3e59320e16412a\",\"original_document_rechecked\":true,\"profile\":{\"builder_version\":\"resume-profile-rules-v1\",\"education\":[],\"preferences\":{\"available_days_per_week\":null,\"available_duration_months\":null,\"cities\":null,\"target_roles\":null},\"profile_id\":\"synthetic-stage4-S1\",\"profile_schema_version\":\"resume-profile-v1\",\"profile_version\":1,\"projects\":[],\"review_status\":\"unconfirmed\",\"schema_version\":\"matching-input-v1\",\"skills\":[{\"context\":\"course\",\"mention\":{\"evidence\":[{\"block_id\":\"p001-b001\",\"page\":1,\"quote\":\"课程项目：使用 Python 和 FastAPI 开发接口。\"}],\"value\":\"Python\"},\"name\":\"Python\"},{\"context\":\"course\",\"mention\":{\"evidence\":[{\"block_id\":\"p001-b001\",\"page\":1,\"quote\":\"课程项目：使用 Python 和 FastAPI 开发接口。\"}],\"value\":\"FastAPI\"},\"name\":\"FastAPI\"}],\"source\":{\"document_schema_version\":\"resume-document-v1\",\"extractor_version\":\"synthetic-v1\",\"parser_version\":\"synthetic-v1\",\"source_sha256\":\"e77dc149b635491f82daa0e1518acfbe101597adadee46f12f3e59320e16412a\"},\"summary\":null,\"warnings\":[\"rules_skills_only\",\"not_extracted:education\",\"not_extracted:projects\",\"not_extracted:work_experience\",\"not_extracted:summary\"],\"work_experience\":[]},\"scope\":\"supplied_matching_profile_only\"}"
+    },
+    {
+      "evidence_id": "ee62ab88526dbec9f495850b5",
+      "job_span": {
+        "end": 7,
+        "field": "title",
+        "quote": "合成接口开发岗",
+        "start": 0
+      },
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 1
+      },
+      "kind": "job",
+      "path": "job.title",
+      "quote": "合成接口开发岗",
+      "resume_ref": null,
+      "source_sha256": "8033b5a8b1b34930909ef25239607cec2735193b9737e7c4df9781547a267d75",
+      "value_json": "{\"field\":\"title\",\"text\":\"合成接口开发岗\"}"
+    },
+    {
+      "evidence_id": "ed726aa2d43cefe0fa338fed8",
+      "job_span": {
+        "end": 35,
+        "field": "description",
+        "quote": "要求掌握 Python 和 FastAPI。熟悉 Docker 加分。",
+        "start": 0
+      },
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 1
+      },
+      "kind": "job",
+      "path": "job.description",
+      "quote": "要求掌握 Python 和 FastAPI。熟悉 Docker 加分。",
+      "resume_ref": null,
+      "source_sha256": "a9a36196af724ec20cb94d87563f33a2394a1d9497606e547fb7bf0d3cb256f9",
+      "value_json": "{\"field\":\"description\",\"text\":\"要求掌握 Python 和 FastAPI。熟悉 Docker 加分。\"}"
+    },
+    {
+      "evidence_id": "e9d501f3cb8b6279216707338",
+      "job_span": null,
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 1
+      },
+      "kind": "rule",
+      "path": "rules.skills[0]",
+      "quote": null,
+      "resume_ref": null,
+      "source_sha256": "1d825304cf3d0b07997e8be241a3af3c049e1aa48eccc1d8e1544d8f3fbd3dde",
+      "value_json": "{\"alternatives\":[\"Python\"],\"job_evidence\":[{\"end\":21,\"field\":\"description\",\"quote\":\"要求掌握 Python 和 FastAPI\",\"start\":0}],\"kind\":\"required\",\"matched\":[\"Python\"],\"resume_evidence\":[{\"block_id\":\"p001-b001\",\"page\":1,\"quote\":\"课程项目：使用 Python 和 FastAPI 开发接口。\"}],\"resume_paths\":[\"skills[0]\"],\"status\":\"evidence_found\"}"
+    },
+    {
+      "evidence_id": "ea69e43ae0e7d12cbf5408a8f",
+      "job_span": {
+        "end": 21,
+        "field": "description",
+        "quote": "要求掌握 Python 和 FastAPI",
+        "start": 0
+      },
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 1
+      },
+      "kind": "job",
+      "path": "job.description[0:21]",
+      "quote": "要求掌握 Python 和 FastAPI",
+      "resume_ref": null,
+      "source_sha256": "a9a36196af724ec20cb94d87563f33a2394a1d9497606e547fb7bf0d3cb256f9",
+      "value_json": "{\"field\":\"description\",\"text\":\"要求掌握 Python 和 FastAPI\"}"
+    },
+    {
+      "evidence_id": "e30332caf08c4367a46392be5",
+      "job_span": null,
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 1
+      },
+      "kind": "rule",
+      "path": "rules.skills[1]",
+      "quote": null,
+      "resume_ref": null,
+      "source_sha256": "1d825304cf3d0b07997e8be241a3af3c049e1aa48eccc1d8e1544d8f3fbd3dde",
+      "value_json": "{\"alternatives\":[\"FastAPI\"],\"job_evidence\":[{\"end\":21,\"field\":\"description\",\"quote\":\"要求掌握 Python 和 FastAPI\",\"start\":0}],\"kind\":\"required\",\"matched\":[\"FastAPI\"],\"resume_evidence\":[{\"block_id\":\"p001-b001\",\"page\":1,\"quote\":\"课程项目：使用 Python 和 FastAPI 开发接口。\"}],\"resume_paths\":[\"skills[1]\"],\"status\":\"evidence_found\"}"
+    },
+    {
+      "evidence_id": "e583c3610ac26e5fd652ec12a",
+      "job_span": null,
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 1
+      },
+      "kind": "rule",
+      "path": "rules.skills[2]",
+      "quote": null,
+      "resume_ref": null,
+      "source_sha256": "1d825304cf3d0b07997e8be241a3af3c049e1aa48eccc1d8e1544d8f3fbd3dde",
+      "value_json": "{\"alternatives\":[\"Docker\"],\"job_evidence\":[{\"end\":34,\"field\":\"description\",\"quote\":\"熟悉 Docker 加分\",\"start\":22}],\"kind\":\"bonus\",\"matched\":[],\"resume_evidence\":[],\"resume_paths\":[],\"status\":\"not_found\"}"
+    },
+    {
+      "evidence_id": "ec021ac3bca51e9f2630ec159",
+      "job_span": {
+        "end": 34,
+        "field": "description",
+        "quote": "熟悉 Docker 加分",
+        "start": 22
+      },
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 1
+      },
+      "kind": "job",
+      "path": "job.description[22:34]",
+      "quote": "熟悉 Docker 加分",
+      "resume_ref": null,
+      "source_sha256": "a9a36196af724ec20cb94d87563f33a2394a1d9497606e547fb7bf0d3cb256f9",
+      "value_json": "{\"field\":\"description\",\"text\":\"熟悉 Docker 加分\"}"
+    },
+    {
+      "evidence_id": "ef8c0854eea1788260bab1d14",
+      "job_span": null,
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 1
+      },
+      "kind": "rule",
+      "path": "rules.constraints[0]",
+      "quote": null,
+      "resume_ref": null,
+      "source_sha256": "1d825304cf3d0b07997e8be241a3af3c049e1aa48eccc1d8e1544d8f3fbd3dde",
+      "value_json": "{\"hard\":false,\"job_evidence\":[],\"name\":\"city\",\"reason\":\"city_unspecified_or_unparsed\",\"resume_evidence\":[],\"resume_paths\":[],\"status\":\"unknown\"}"
+    },
+    {
+      "evidence_id": "eda457c84c37712cf4440904f",
+      "job_span": null,
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 1
+      },
+      "kind": "rule",
+      "path": "rules.constraints[1]",
+      "quote": null,
+      "resume_ref": null,
+      "source_sha256": "1d825304cf3d0b07997e8be241a3af3c049e1aa48eccc1d8e1544d8f3fbd3dde",
+      "value_json": "{\"hard\":false,\"job_evidence\":[],\"name\":\"attendance\",\"reason\":\"attendance_unspecified_or_unparsed\",\"resume_evidence\":[],\"resume_paths\":[],\"status\":\"unknown\"}"
+    },
+    {
+      "evidence_id": "e35c059cb9442f4a2e1c2898a",
+      "job_span": null,
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 1
+      },
+      "kind": "rule",
+      "path": "rules.constraints[2]",
+      "quote": null,
+      "resume_ref": null,
+      "source_sha256": "1d825304cf3d0b07997e8be241a3af3c049e1aa48eccc1d8e1544d8f3fbd3dde",
+      "value_json": "{\"hard\":false,\"job_evidence\":[],\"name\":\"duration\",\"reason\":\"duration_unspecified_or_unparsed\",\"resume_evidence\":[],\"resume_paths\":[],\"status\":\"unknown\"}"
+    },
+    {
+      "evidence_id": "ecc8cb615664d02a81f72af34",
+      "job_span": null,
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 1
+      },
+      "kind": "rule",
+      "path": "rules",
+      "quote": null,
+      "resume_ref": null,
+      "source_sha256": "1d825304cf3d0b07997e8be241a3af3c049e1aa48eccc1d8e1544d8f3fbd3dde",
+      "value_json": "{\"constraints\":[{\"hard\":false,\"job_evidence\":[],\"name\":\"city\",\"reason\":\"city_unspecified_or_unparsed\",\"resume_evidence\":[],\"resume_paths\":[],\"status\":\"unknown\"},{\"hard\":false,\"job_evidence\":[],\"name\":\"attendance\",\"reason\":\"attendance_unspecified_or_unparsed\",\"resume_evidence\":[],\"resume_paths\":[],\"status\":\"unknown\"},{\"hard\":false,\"job_evidence\":[],\"name\":\"duration\",\"reason\":\"duration_unspecified_or_unparsed\",\"resume_evidence\":[],\"resume_paths\":[],\"status\":\"unknown\"}],\"coverage\":1.0,\"covered_required\":2,\"skills\":[{\"alternatives\":[\"Python\"],\"job_evidence\":[{\"end\":21,\"field\":\"description\",\"quote\":\"要求掌握 Python 和 FastAPI\",\"start\":0}],\"kind\":\"required\",\"matched\":[\"Python\"],\"resume_evidence\":[{\"block_id\":\"p001-b001\",\"page\":1,\"quote\":\"课程项目：使用 Python 和 FastAPI 开发接口。\"}],\"resume_paths\":[\"skills[0]\"],\"status\":\"evidence_found\"},{\"alternatives\":[\"FastAPI\"],\"job_evidence\":[{\"end\":21,\"field\":\"description\",\"quote\":\"要求掌握 Python 和 FastAPI\",\"start\":0}],\"kind\":\"required\",\"matched\":[\"FastAPI\"],\"resume_evidence\":[{\"block_id\":\"p001-b001\",\"page\":1,\"quote\":\"课程项目：使用 Python 和 FastAPI 开发接口。\"}],\"resume_paths\":[\"skills[1]\"],\"status\":\"evidence_found\"},{\"alternatives\":[\"Docker\"],\"job_evidence\":[{\"end\":34,\"field\":\"description\",\"quote\":\"熟悉 Docker 加分\",\"start\":22}],\"kind\":\"bonus\",\"matched\":[],\"resume_evidence\":[],\"resume_paths\":[],\"status\":\"not_found\"}],\"total_required\":2,\"version\":\"matching-rules-v1\",\"warnings\":[]}"
+    },
+    {
+      "evidence_id": "e30fa5ebc0fe203a8ce39a704",
+      "job_span": null,
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 1
+      },
+      "kind": "retrieval",
+      "path": "retrieval",
+      "quote": null,
+      "resume_ref": null,
+      "source_sha256": "9bafacf861436283e927ed293e52b1032d979918d39d4ea346f1dbbce786e108",
+      "value_json": "{\"actual_mode\":\"bm25_rules\",\"bm25\":{\"channel\":\"bm25\",\"key\":{\"dataset_id\":\"synthetic-stage4-acceptance-v1\",\"job_id\":1},\"matched_terms\":[\"python\",\"fastapi\"],\"rank\":1,\"score\":1.5350633589488543},\"channels\":[{\"channel\":\"bm25\",\"dimension\":null,\"model_id\":null,\"reason\":null,\"revision\":null,\"status\":\"ok\"},{\"channel\":\"dense\",\"dimension\":null,\"model_id\":null,\"reason\":\"not_requested\",\"revision\":null,\"status\":\"disabled\"}],\"dense\":null,\"fusion_score\":0.01639344262295082,\"rank\":1,\"requested_mode\":\"bm25_rules\"}"
+    },
+    {
+      "evidence_id": "ead1b5a379f1056f59cafc7cb",
+      "job_span": {
+        "end": 7,
+        "field": "title",
+        "quote": "合成通用后端岗",
+        "start": 0
+      },
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 2
+      },
+      "kind": "job",
+      "path": "job.title",
+      "quote": "合成通用后端岗",
+      "resume_ref": null,
+      "source_sha256": "568adf1fd4e2c5cac42562d8b695d26d49bbe978063f3bb02aeb8b3e90b1dbf8",
+      "value_json": "{\"field\":\"title\",\"text\":\"合成通用后端岗\"}"
+    },
+    {
+      "evidence_id": "e797d99c0558b5b04574c18e1",
+      "job_span": {
+        "end": 29,
+        "field": "description",
+        "quote": "要求掌握 Python 或 Java。熟悉 Git 加分。",
+        "start": 0
+      },
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 2
+      },
+      "kind": "job",
+      "path": "job.description",
+      "quote": "要求掌握 Python 或 Java。熟悉 Git 加分。",
+      "resume_ref": null,
+      "source_sha256": "45a2eef65492804d726b07ecd1ffbbf4e7f748b081d25e8e2b8b28fd001da252",
+      "value_json": "{\"field\":\"description\",\"text\":\"要求掌握 Python 或 Java。熟悉 Git 加分。\"}"
+    },
+    {
+      "evidence_id": "ee043d16391d4f0b58cfcea07",
+      "job_span": null,
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 2
+      },
+      "kind": "rule",
+      "path": "rules.skills[0]",
+      "quote": null,
+      "resume_ref": null,
+      "source_sha256": "39eca1ec1695aedfe1f53c89ec3c2ccf7dc4e769d32cd4c780093290a9226c0f",
+      "value_json": "{\"alternatives\":[\"Python\",\"Java\"],\"job_evidence\":[{\"end\":18,\"field\":\"description\",\"quote\":\"要求掌握 Python 或 Java\",\"start\":0}],\"kind\":\"required\",\"matched\":[\"Python\"],\"resume_evidence\":[{\"block_id\":\"p001-b001\",\"page\":1,\"quote\":\"课程项目：使用 Python 和 FastAPI 开发接口。\"}],\"resume_paths\":[\"skills[0]\"],\"status\":\"evidence_found\"}"
+    },
+    {
+      "evidence_id": "ec0d1dac54dccfbf8382362c3",
+      "job_span": {
+        "end": 18,
+        "field": "description",
+        "quote": "要求掌握 Python 或 Java",
+        "start": 0
+      },
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 2
+      },
+      "kind": "job",
+      "path": "job.description[0:18]",
+      "quote": "要求掌握 Python 或 Java",
+      "resume_ref": null,
+      "source_sha256": "45a2eef65492804d726b07ecd1ffbbf4e7f748b081d25e8e2b8b28fd001da252",
+      "value_json": "{\"field\":\"description\",\"text\":\"要求掌握 Python 或 Java\"}"
+    },
+    {
+      "evidence_id": "e27600e822fa3dc32b3b23f48",
+      "job_span": null,
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 2
+      },
+      "kind": "rule",
+      "path": "rules.skills[1]",
+      "quote": null,
+      "resume_ref": null,
+      "source_sha256": "39eca1ec1695aedfe1f53c89ec3c2ccf7dc4e769d32cd4c780093290a9226c0f",
+      "value_json": "{\"alternatives\":[\"Git\"],\"job_evidence\":[{\"end\":28,\"field\":\"description\",\"quote\":\"熟悉 Git 加分\",\"start\":19}],\"kind\":\"bonus\",\"matched\":[],\"resume_evidence\":[],\"resume_paths\":[],\"status\":\"not_found\"}"
+    },
+    {
+      "evidence_id": "e098fe0c9bc6a638e9a953bc4",
+      "job_span": {
+        "end": 28,
+        "field": "description",
+        "quote": "熟悉 Git 加分",
+        "start": 19
+      },
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 2
+      },
+      "kind": "job",
+      "path": "job.description[19:28]",
+      "quote": "熟悉 Git 加分",
+      "resume_ref": null,
+      "source_sha256": "45a2eef65492804d726b07ecd1ffbbf4e7f748b081d25e8e2b8b28fd001da252",
+      "value_json": "{\"field\":\"description\",\"text\":\"熟悉 Git 加分\"}"
+    },
+    {
+      "evidence_id": "ee1d56a85cef4dd47eaf4c599",
+      "job_span": null,
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 2
+      },
+      "kind": "rule",
+      "path": "rules.constraints[0]",
+      "quote": null,
+      "resume_ref": null,
+      "source_sha256": "39eca1ec1695aedfe1f53c89ec3c2ccf7dc4e769d32cd4c780093290a9226c0f",
+      "value_json": "{\"hard\":false,\"job_evidence\":[],\"name\":\"city\",\"reason\":\"city_unspecified_or_unparsed\",\"resume_evidence\":[],\"resume_paths\":[],\"status\":\"unknown\"}"
+    },
+    {
+      "evidence_id": "e411063cb538b251d39627811",
+      "job_span": null,
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 2
+      },
+      "kind": "rule",
+      "path": "rules.constraints[1]",
+      "quote": null,
+      "resume_ref": null,
+      "source_sha256": "39eca1ec1695aedfe1f53c89ec3c2ccf7dc4e769d32cd4c780093290a9226c0f",
+      "value_json": "{\"hard\":false,\"job_evidence\":[],\"name\":\"attendance\",\"reason\":\"attendance_unspecified_or_unparsed\",\"resume_evidence\":[],\"resume_paths\":[],\"status\":\"unknown\"}"
+    },
+    {
+      "evidence_id": "eec3f8ae139a264af815a6eb2",
+      "job_span": null,
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 2
+      },
+      "kind": "rule",
+      "path": "rules.constraints[2]",
+      "quote": null,
+      "resume_ref": null,
+      "source_sha256": "39eca1ec1695aedfe1f53c89ec3c2ccf7dc4e769d32cd4c780093290a9226c0f",
+      "value_json": "{\"hard\":false,\"job_evidence\":[],\"name\":\"duration\",\"reason\":\"duration_unspecified_or_unparsed\",\"resume_evidence\":[],\"resume_paths\":[],\"status\":\"unknown\"}"
+    },
+    {
+      "evidence_id": "edeb894652c335e8e49f03395",
+      "job_span": null,
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 2
+      },
+      "kind": "rule",
+      "path": "rules",
+      "quote": null,
+      "resume_ref": null,
+      "source_sha256": "39eca1ec1695aedfe1f53c89ec3c2ccf7dc4e769d32cd4c780093290a9226c0f",
+      "value_json": "{\"constraints\":[{\"hard\":false,\"job_evidence\":[],\"name\":\"city\",\"reason\":\"city_unspecified_or_unparsed\",\"resume_evidence\":[],\"resume_paths\":[],\"status\":\"unknown\"},{\"hard\":false,\"job_evidence\":[],\"name\":\"attendance\",\"reason\":\"attendance_unspecified_or_unparsed\",\"resume_evidence\":[],\"resume_paths\":[],\"status\":\"unknown\"},{\"hard\":false,\"job_evidence\":[],\"name\":\"duration\",\"reason\":\"duration_unspecified_or_unparsed\",\"resume_evidence\":[],\"resume_paths\":[],\"status\":\"unknown\"}],\"coverage\":1.0,\"covered_required\":1,\"skills\":[{\"alternatives\":[\"Python\",\"Java\"],\"job_evidence\":[{\"end\":18,\"field\":\"description\",\"quote\":\"要求掌握 Python 或 Java\",\"start\":0}],\"kind\":\"required\",\"matched\":[\"Python\"],\"resume_evidence\":[{\"block_id\":\"p001-b001\",\"page\":1,\"quote\":\"课程项目：使用 Python 和 FastAPI 开发接口。\"}],\"resume_paths\":[\"skills[0]\"],\"status\":\"evidence_found\"},{\"alternatives\":[\"Git\"],\"job_evidence\":[{\"end\":28,\"field\":\"description\",\"quote\":\"熟悉 Git 加分\",\"start\":19}],\"kind\":\"bonus\",\"matched\":[],\"resume_evidence\":[],\"resume_paths\":[],\"status\":\"not_found\"}],\"total_required\":1,\"version\":\"matching-rules-v1\",\"warnings\":[]}"
+    },
+    {
+      "evidence_id": "e81d44b1c0d8c097c7c7197cb",
+      "job_span": null,
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 2
+      },
+      "kind": "retrieval",
+      "path": "retrieval",
+      "quote": null,
+      "resume_ref": null,
+      "source_sha256": "9bafacf861436283e927ed293e52b1032d979918d39d4ea346f1dbbce786e108",
+      "value_json": "{\"actual_mode\":\"bm25_rules\",\"bm25\":{\"channel\":\"bm25\",\"key\":{\"dataset_id\":\"synthetic-stage4-acceptance-v1\",\"job_id\":2},\"matched_terms\":[\"python\"],\"rank\":2,\"score\":0.3508278137102286},\"channels\":[{\"channel\":\"bm25\",\"dimension\":null,\"model_id\":null,\"reason\":null,\"revision\":null,\"status\":\"ok\"},{\"channel\":\"dense\",\"dimension\":null,\"model_id\":null,\"reason\":\"not_requested\",\"revision\":null,\"status\":\"disabled\"}],\"dense\":null,\"fusion_score\":0.016129032258064516,\"rank\":2,\"requested_mode\":\"bm25_rules\"}"
+    },
+    {
+      "evidence_id": "ea7550f438159923ac5fd3a77",
+      "job_span": {
+        "end": 7,
+        "field": "title",
+        "quote": "合成数据接口岗",
+        "start": 0
+      },
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 3
+      },
+      "kind": "job",
+      "path": "job.title",
+      "quote": "合成数据接口岗",
+      "resume_ref": null,
+      "source_sha256": "c6d709cc4c0787204f0c3481429f67555584f1284cdfb2e35a66d6d3cf46910f",
+      "value_json": "{\"field\":\"title\",\"text\":\"合成数据接口岗\"}"
+    },
+    {
+      "evidence_id": "e8fdeff19b33e35ab540764cf",
+      "job_span": {
+        "end": 30,
+        "field": "description",
+        "quote": "要求掌握 Python 和 SQL。熟悉 Redis 加分。",
+        "start": 0
+      },
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 3
+      },
+      "kind": "job",
+      "path": "job.description",
+      "quote": "要求掌握 Python 和 SQL。熟悉 Redis 加分。",
+      "resume_ref": null,
+      "source_sha256": "25ffc18c5ea2931acee0914acc0b74cf5fdaea6ed1e83637256d82d7819ba25e",
+      "value_json": "{\"field\":\"description\",\"text\":\"要求掌握 Python 和 SQL。熟悉 Redis 加分。\"}"
+    },
+    {
+      "evidence_id": "e3803ddc1c495729b7c30c450",
+      "job_span": null,
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 3
+      },
+      "kind": "rule",
+      "path": "rules.skills[0]",
+      "quote": null,
+      "resume_ref": null,
+      "source_sha256": "4a743701d730bafbcc7bb65bec1bc67cac4535395347100697e2acea17bd46bd",
+      "value_json": "{\"alternatives\":[\"Python\"],\"job_evidence\":[{\"end\":17,\"field\":\"description\",\"quote\":\"要求掌握 Python 和 SQL\",\"start\":0}],\"kind\":\"required\",\"matched\":[\"Python\"],\"resume_evidence\":[{\"block_id\":\"p001-b001\",\"page\":1,\"quote\":\"课程项目：使用 Python 和 FastAPI 开发接口。\"}],\"resume_paths\":[\"skills[0]\"],\"status\":\"evidence_found\"}"
+    },
+    {
+      "evidence_id": "e1229a23a8e3718302d7186e8",
+      "job_span": {
+        "end": 17,
+        "field": "description",
+        "quote": "要求掌握 Python 和 SQL",
+        "start": 0
+      },
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 3
+      },
+      "kind": "job",
+      "path": "job.description[0:17]",
+      "quote": "要求掌握 Python 和 SQL",
+      "resume_ref": null,
+      "source_sha256": "25ffc18c5ea2931acee0914acc0b74cf5fdaea6ed1e83637256d82d7819ba25e",
+      "value_json": "{\"field\":\"description\",\"text\":\"要求掌握 Python 和 SQL\"}"
+    },
+    {
+      "evidence_id": "edc77694ac2528a68248748f3",
+      "job_span": null,
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 3
+      },
+      "kind": "rule",
+      "path": "rules.skills[1]",
+      "quote": null,
+      "resume_ref": null,
+      "source_sha256": "4a743701d730bafbcc7bb65bec1bc67cac4535395347100697e2acea17bd46bd",
+      "value_json": "{\"alternatives\":[\"SQL\"],\"job_evidence\":[{\"end\":17,\"field\":\"description\",\"quote\":\"要求掌握 Python 和 SQL\",\"start\":0}],\"kind\":\"required\",\"matched\":[],\"resume_evidence\":[],\"resume_paths\":[],\"status\":\"not_found\"}"
+    },
+    {
+      "evidence_id": "e8cb9320d23a370a61d066b50",
+      "job_span": null,
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 3
+      },
+      "kind": "rule",
+      "path": "rules.skills[2]",
+      "quote": null,
+      "resume_ref": null,
+      "source_sha256": "4a743701d730bafbcc7bb65bec1bc67cac4535395347100697e2acea17bd46bd",
+      "value_json": "{\"alternatives\":[\"Redis\"],\"job_evidence\":[{\"end\":29,\"field\":\"description\",\"quote\":\"熟悉 Redis 加分\",\"start\":18}],\"kind\":\"bonus\",\"matched\":[],\"resume_evidence\":[],\"resume_paths\":[],\"status\":\"not_found\"}"
+    },
+    {
+      "evidence_id": "e1c37c218b7a8e75eb6f697f9",
+      "job_span": {
+        "end": 29,
+        "field": "description",
+        "quote": "熟悉 Redis 加分",
+        "start": 18
+      },
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 3
+      },
+      "kind": "job",
+      "path": "job.description[18:29]",
+      "quote": "熟悉 Redis 加分",
+      "resume_ref": null,
+      "source_sha256": "25ffc18c5ea2931acee0914acc0b74cf5fdaea6ed1e83637256d82d7819ba25e",
+      "value_json": "{\"field\":\"description\",\"text\":\"熟悉 Redis 加分\"}"
+    },
+    {
+      "evidence_id": "eebbdc14a05105c8b9f97f27b",
+      "job_span": null,
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 3
+      },
+      "kind": "rule",
+      "path": "rules.constraints[0]",
+      "quote": null,
+      "resume_ref": null,
+      "source_sha256": "4a743701d730bafbcc7bb65bec1bc67cac4535395347100697e2acea17bd46bd",
+      "value_json": "{\"hard\":false,\"job_evidence\":[],\"name\":\"city\",\"reason\":\"city_unspecified_or_unparsed\",\"resume_evidence\":[],\"resume_paths\":[],\"status\":\"unknown\"}"
+    },
+    {
+      "evidence_id": "e2d34ff5bf3ede6fe255032b2",
+      "job_span": null,
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 3
+      },
+      "kind": "rule",
+      "path": "rules.constraints[1]",
+      "quote": null,
+      "resume_ref": null,
+      "source_sha256": "4a743701d730bafbcc7bb65bec1bc67cac4535395347100697e2acea17bd46bd",
+      "value_json": "{\"hard\":false,\"job_evidence\":[],\"name\":\"attendance\",\"reason\":\"attendance_unspecified_or_unparsed\",\"resume_evidence\":[],\"resume_paths\":[],\"status\":\"unknown\"}"
+    },
+    {
+      "evidence_id": "e463eabd22dca2dd7ac91e20e",
+      "job_span": null,
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 3
+      },
+      "kind": "rule",
+      "path": "rules.constraints[2]",
+      "quote": null,
+      "resume_ref": null,
+      "source_sha256": "4a743701d730bafbcc7bb65bec1bc67cac4535395347100697e2acea17bd46bd",
+      "value_json": "{\"hard\":false,\"job_evidence\":[],\"name\":\"duration\",\"reason\":\"duration_unspecified_or_unparsed\",\"resume_evidence\":[],\"resume_paths\":[],\"status\":\"unknown\"}"
+    },
+    {
+      "evidence_id": "ef99905b3e9ae86e01691c4bc",
+      "job_span": null,
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 3
+      },
+      "kind": "rule",
+      "path": "rules",
+      "quote": null,
+      "resume_ref": null,
+      "source_sha256": "4a743701d730bafbcc7bb65bec1bc67cac4535395347100697e2acea17bd46bd",
+      "value_json": "{\"constraints\":[{\"hard\":false,\"job_evidence\":[],\"name\":\"city\",\"reason\":\"city_unspecified_or_unparsed\",\"resume_evidence\":[],\"resume_paths\":[],\"status\":\"unknown\"},{\"hard\":false,\"job_evidence\":[],\"name\":\"attendance\",\"reason\":\"attendance_unspecified_or_unparsed\",\"resume_evidence\":[],\"resume_paths\":[],\"status\":\"unknown\"},{\"hard\":false,\"job_evidence\":[],\"name\":\"duration\",\"reason\":\"duration_unspecified_or_unparsed\",\"resume_evidence\":[],\"resume_paths\":[],\"status\":\"unknown\"}],\"coverage\":0.5,\"covered_required\":1,\"skills\":[{\"alternatives\":[\"Python\"],\"job_evidence\":[{\"end\":17,\"field\":\"description\",\"quote\":\"要求掌握 Python 和 SQL\",\"start\":0}],\"kind\":\"required\",\"matched\":[\"Python\"],\"resume_evidence\":[{\"block_id\":\"p001-b001\",\"page\":1,\"quote\":\"课程项目：使用 Python 和 FastAPI 开发接口。\"}],\"resume_paths\":[\"skills[0]\"],\"status\":\"evidence_found\"},{\"alternatives\":[\"SQL\"],\"job_evidence\":[{\"end\":17,\"field\":\"description\",\"quote\":\"要求掌握 Python 和 SQL\",\"start\":0}],\"kind\":\"required\",\"matched\":[],\"resume_evidence\":[],\"resume_paths\":[],\"status\":\"not_found\"},{\"alternatives\":[\"Redis\"],\"job_evidence\":[{\"end\":29,\"field\":\"description\",\"quote\":\"熟悉 Redis 加分\",\"start\":18}],\"kind\":\"bonus\",\"matched\":[],\"resume_evidence\":[],\"resume_paths\":[],\"status\":\"not_found\"}],\"total_required\":2,\"version\":\"matching-rules-v1\",\"warnings\":[]}"
+    },
+    {
+      "evidence_id": "e795473863d27739446a16d2b",
+      "job_span": null,
+      "key": {
+        "dataset_id": "synthetic-stage4-acceptance-v1",
+        "job_id": 3
+      },
+      "kind": "retrieval",
+      "path": "retrieval",
+      "quote": null,
+      "resume_ref": null,
+      "source_sha256": "9bafacf861436283e927ed293e52b1032d979918d39d4ea346f1dbbce786e108",
+      "value_json": "{\"actual_mode\":\"bm25_rules\",\"bm25\":{\"channel\":\"bm25\",\"key\":{\"dataset_id\":\"synthetic-stage4-acceptance-v1\",\"job_id\":3},\"matched_terms\":[\"python\"],\"rank\":3,\"score\":0.3508278137102286},\"channels\":[{\"channel\":\"bm25\",\"dimension\":null,\"model_id\":null,\"reason\":null,\"revision\":null,\"status\":\"ok\"},{\"channel\":\"dense\",\"dimension\":null,\"model_id\":null,\"reason\":\"not_requested\",\"revision\":null,\"status\":\"disabled\"}],\"dense\":null,\"fusion_score\":0.015873015873015872,\"rank\":3,\"requested_mode\":\"bm25_rules\"}"
+    }
+  ],
+  "limitations": [
+    "citations_validate_location_not_semantic_entailment",
+    "retrieval_scores_are_not_hiring_probabilities",
+    "scope_absence_is_not_ability_absence",
+    "source_truth_and_recruiting_status_not_verified",
+    "index_snapshot_may_include_jobs_outside_request",
+    "contact_minimization_is_not_full_anonymization",
+    "debug_inputs_may_be_unconfirmed"
+  ],
+  "profile_sha256": "aa36166f9a85148c18abcb9d5aa8efcbc9915da7a06a58653beaaa02da19082b",
+  "request_sha256": "6085da4cc4dff068bd0cef10f738fb53f09294221126026e4557f398015425d2",
+  "retrieval": {
+    "chunk_hits": [],
+    "manifest": {
+      "build_version": "rag-v1",
+      "chunk_config": {
+        "max_chunks_per_job": 2048,
+        "max_tokens": 512,
+        "overlap_tokens": 32,
+        "version": "evidence-chunks-v1"
+      },
+      "dense": null,
+      "generation": "synthetic-stage4-g1",
+      "lexical_version": "char-bigram-alias-v1",
+      "projection_version": "retrieval-text-v1",
+      "schema_version": "derived-index-v1",
+      "snapshot_sha256": "c923b74898a933f6c4de0f79ce10ebcccdb7c014ed26bedc0c3b3f8de74464eb"
+    },
+    "matching": {
+      "actual_mode": "bm25_rules",
+      "channels": [
+        {
+          "channel": "bm25",
+          "dimension": null,
+          "model_id": null,
+          "reason": null,
+          "revision": null,
+          "status": "ok"
+        },
+        {
+          "channel": "dense",
+          "dimension": null,
+          "model_id": null,
+          "reason": "not_requested",
+          "revision": null,
+          "status": "disabled"
+        }
+      ],
+      "config": {
+        "allow_dense_fallback": false,
+        "b": 0.75,
+        "hard_constraints": [],
+        "k1": 1.5,
+        "max_jobs": 1000,
+        "max_text_chars": 16000,
+        "mode": "bm25_rules",
+        "recall_k": 50,
+        "rrf_k": 60,
+        "schema_version": "engine-config-v1",
+        "title_weight": 2.0,
+        "top_k": 10
+      },
+      "engine_version": "matching-engine-v1",
+      "excluded": [],
+      "profile_id": "synthetic-stage4-S1",
+      "profile_review_status": "unconfirmed",
+      "profile_version": 1,
+      "purpose": "debug",
+      "requested_mode": "bm25_rules",
+      "results": [
+        {
+          "bm25": {
+            "channel": "bm25",
+            "key": {
+              "dataset_id": "synthetic-stage4-acceptance-v1",
+              "job_id": 1
+            },
+            "matched_terms": [
+              "python",
+              "fastapi"
+            ],
+            "rank": 1,
+            "score": 1.5350633589488543
+          },
+          "dense": null,
+          "fact_sha256": "8033b5a8b1b34930909ef25239607cec2735193b9737e7c4df9781547a267d75",
+          "fusion_score": 0.01639344262295082,
+          "jd_sha256": "a9a36196af724ec20cb94d87563f33a2394a1d9497606e547fb7bf0d3cb256f9",
+          "key": {
+            "dataset_id": "synthetic-stage4-acceptance-v1",
+            "job_id": 1
+          },
+          "provenance": [
+            {
+              "import_run_id": "synthetic-stage4-acceptance-v1",
+              "imported_at": "2026-11-15T00:00:00Z",
+              "input_format": "txt",
+              "parser_version": "synthetic-v1",
+              "provenance_id": 1,
+              "source_file_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+          ],
+          "rank": 1,
+          "review_status": "unconfirmed",
+          "rules": {
+            "constraints": [
+              {
+                "hard": false,
+                "job_evidence": [],
+                "name": "city",
+                "reason": "city_unspecified_or_unparsed",
+                "resume_evidence": [],
+                "resume_paths": [],
+                "status": "unknown"
+              },
+              {
+                "hard": false,
+                "job_evidence": [],
+                "name": "attendance",
+                "reason": "attendance_unspecified_or_unparsed",
+                "resume_evidence": [],
+                "resume_paths": [],
+                "status": "unknown"
+              },
+              {
+                "hard": false,
+                "job_evidence": [],
+                "name": "duration",
+                "reason": "duration_unspecified_or_unparsed",
+                "resume_evidence": [],
+                "resume_paths": [],
+                "status": "unknown"
+              }
+            ],
+            "coverage": 1.0,
+            "covered_required": 2,
+            "skills": [
+              {
+                "alternatives": [
+                  "Python"
+                ],
+                "job_evidence": [
+                  {
+                    "end": 21,
+                    "field": "description",
+                    "quote": "要求掌握 Python 和 FastAPI",
+                    "start": 0
+                  }
+                ],
+                "kind": "required",
+                "matched": [
+                  "Python"
+                ],
+                "resume_evidence": [
+                  {
+                    "block_id": "p001-b001",
+                    "page": 1,
+                    "quote": "课程项目：使用 Python 和 FastAPI 开发接口。"
+                  }
+                ],
+                "resume_paths": [
+                  "skills[0]"
+                ],
+                "status": "evidence_found"
+              },
+              {
+                "alternatives": [
+                  "FastAPI"
+                ],
+                "job_evidence": [
+                  {
+                    "end": 21,
+                    "field": "description",
+                    "quote": "要求掌握 Python 和 FastAPI",
+                    "start": 0
+                  }
+                ],
+                "kind": "required",
+                "matched": [
+                  "FastAPI"
+                ],
+                "resume_evidence": [
+                  {
+                    "block_id": "p001-b001",
+                    "page": 1,
+                    "quote": "课程项目：使用 Python 和 FastAPI 开发接口。"
+                  }
+                ],
+                "resume_paths": [
+                  "skills[1]"
+                ],
+                "status": "evidence_found"
+              },
+              {
+                "alternatives": [
+                  "Docker"
+                ],
+                "job_evidence": [
+                  {
+                    "end": 34,
+                    "field": "description",
+                    "quote": "熟悉 Docker 加分",
+                    "start": 22
+                  }
+                ],
+                "kind": "bonus",
+                "matched": [],
+                "resume_evidence": [],
+                "resume_paths": [],
+                "status": "not_found"
+              }
+            ],
+            "total_required": 2,
+            "version": "matching-rules-v1",
+            "warnings": []
+          },
+          "url": "https://example.org/stage4-acceptance/1",
+          "warnings": []
+        },
+        {
+          "bm25": {
+            "channel": "bm25",
+            "key": {
+              "dataset_id": "synthetic-stage4-acceptance-v1",
+              "job_id": 2
+            },
+            "matched_terms": [
+              "python"
+            ],
+            "rank": 2,
+            "score": 0.3508278137102286
+          },
+          "dense": null,
+          "fact_sha256": "568adf1fd4e2c5cac42562d8b695d26d49bbe978063f3bb02aeb8b3e90b1dbf8",
+          "fusion_score": 0.016129032258064516,
+          "jd_sha256": "45a2eef65492804d726b07ecd1ffbbf4e7f748b081d25e8e2b8b28fd001da252",
+          "key": {
+            "dataset_id": "synthetic-stage4-acceptance-v1",
+            "job_id": 2
+          },
+          "provenance": [
+            {
+              "import_run_id": "synthetic-stage4-acceptance-v1",
+              "imported_at": "2026-11-15T00:00:00Z",
+              "input_format": "txt",
+              "parser_version": "synthetic-v1",
+              "provenance_id": 2,
+              "source_file_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+          ],
+          "rank": 2,
+          "review_status": "unconfirmed",
+          "rules": {
+            "constraints": [
+              {
+                "hard": false,
+                "job_evidence": [],
+                "name": "city",
+                "reason": "city_unspecified_or_unparsed",
+                "resume_evidence": [],
+                "resume_paths": [],
+                "status": "unknown"
+              },
+              {
+                "hard": false,
+                "job_evidence": [],
+                "name": "attendance",
+                "reason": "attendance_unspecified_or_unparsed",
+                "resume_evidence": [],
+                "resume_paths": [],
+                "status": "unknown"
+              },
+              {
+                "hard": false,
+                "job_evidence": [],
+                "name": "duration",
+                "reason": "duration_unspecified_or_unparsed",
+                "resume_evidence": [],
+                "resume_paths": [],
+                "status": "unknown"
+              }
+            ],
+            "coverage": 1.0,
+            "covered_required": 1,
+            "skills": [
+              {
+                "alternatives": [
+                  "Python",
+                  "Java"
+                ],
+                "job_evidence": [
+                  {
+                    "end": 18,
+                    "field": "description",
+                    "quote": "要求掌握 Python 或 Java",
+                    "start": 0
+                  }
+                ],
+                "kind": "required",
+                "matched": [
+                  "Python"
+                ],
+                "resume_evidence": [
+                  {
+                    "block_id": "p001-b001",
+                    "page": 1,
+                    "quote": "课程项目：使用 Python 和 FastAPI 开发接口。"
+                  }
+                ],
+                "resume_paths": [
+                  "skills[0]"
+                ],
+                "status": "evidence_found"
+              },
+              {
+                "alternatives": [
+                  "Git"
+                ],
+                "job_evidence": [
+                  {
+                    "end": 28,
+                    "field": "description",
+                    "quote": "熟悉 Git 加分",
+                    "start": 19
+                  }
+                ],
+                "kind": "bonus",
+                "matched": [],
+                "resume_evidence": [],
+                "resume_paths": [],
+                "status": "not_found"
+              }
+            ],
+            "total_required": 1,
+            "version": "matching-rules-v1",
+            "warnings": []
+          },
+          "url": "https://example.org/stage4-acceptance/2",
+          "warnings": []
+        },
+        {
+          "bm25": {
+            "channel": "bm25",
+            "key": {
+              "dataset_id": "synthetic-stage4-acceptance-v1",
+              "job_id": 3
+            },
+            "matched_terms": [
+              "python"
+            ],
+            "rank": 3,
+            "score": 0.3508278137102286
+          },
+          "dense": null,
+          "fact_sha256": "c6d709cc4c0787204f0c3481429f67555584f1284cdfb2e35a66d6d3cf46910f",
+          "fusion_score": 0.015873015873015872,
+          "jd_sha256": "25ffc18c5ea2931acee0914acc0b74cf5fdaea6ed1e83637256d82d7819ba25e",
+          "key": {
+            "dataset_id": "synthetic-stage4-acceptance-v1",
+            "job_id": 3
+          },
+          "provenance": [
+            {
+              "import_run_id": "synthetic-stage4-acceptance-v1",
+              "imported_at": "2026-11-15T00:00:00Z",
+              "input_format": "txt",
+              "parser_version": "synthetic-v1",
+              "provenance_id": 3,
+              "source_file_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+          ],
+          "rank": 3,
+          "review_status": "unconfirmed",
+          "rules": {
+            "constraints": [
+              {
+                "hard": false,
+                "job_evidence": [],
+                "name": "city",
+                "reason": "city_unspecified_or_unparsed",
+                "resume_evidence": [],
+                "resume_paths": [],
+                "status": "unknown"
+              },
+              {
+                "hard": false,
+                "job_evidence": [],
+                "name": "attendance",
+                "reason": "attendance_unspecified_or_unparsed",
+                "resume_evidence": [],
+                "resume_paths": [],
+                "status": "unknown"
+              },
+              {
+                "hard": false,
+                "job_evidence": [],
+                "name": "duration",
+                "reason": "duration_unspecified_or_unparsed",
+                "resume_evidence": [],
+                "resume_paths": [],
+                "status": "unknown"
+              }
+            ],
+            "coverage": 0.5,
+            "covered_required": 1,
+            "skills": [
+              {
+                "alternatives": [
+                  "Python"
+                ],
+                "job_evidence": [
+                  {
+                    "end": 17,
+                    "field": "description",
+                    "quote": "要求掌握 Python 和 SQL",
+                    "start": 0
+                  }
+                ],
+                "kind": "required",
+                "matched": [
+                  "Python"
+                ],
+                "resume_evidence": [
+                  {
+                    "block_id": "p001-b001",
+                    "page": 1,
+                    "quote": "课程项目：使用 Python 和 FastAPI 开发接口。"
+                  }
+                ],
+                "resume_paths": [
+                  "skills[0]"
+                ],
+                "status": "evidence_found"
+              },
+              {
+                "alternatives": [
+                  "SQL"
+                ],
+                "job_evidence": [
+                  {
+                    "end": 17,
+                    "field": "description",
+                    "quote": "要求掌握 Python 和 SQL",
+                    "start": 0
+                  }
+                ],
+                "kind": "required",
+                "matched": [],
+                "resume_evidence": [],
+                "resume_paths": [],
+                "status": "not_found"
+              },
+              {
+                "alternatives": [
+                  "Redis"
+                ],
+                "job_evidence": [
+                  {
+                    "end": 29,
+                    "field": "description",
+                    "quote": "熟悉 Redis 加分",
+                    "start": 18
+                  }
+                ],
+                "kind": "bonus",
+                "matched": [],
+                "resume_evidence": [],
+                "resume_paths": [],
+                "status": "not_found"
+              }
+            ],
+            "total_required": 2,
+            "version": "matching-rules-v1",
+            "warnings": []
+          },
+          "url": "https://example.org/stage4-acceptance/3",
+          "warnings": []
+        }
+      ],
+      "schema_version": "matching-result-v1",
+      "source": {
+        "document_schema_version": "resume-document-v1",
+        "extractor_version": "synthetic-v1",
+        "parser_version": "synthetic-v1",
+        "source_sha256": "e77dc149b635491f82daa0e1518acfbe101597adadee46f12f3e59320e16412a"
+      },
+      "status": "ok",
+      "warnings": [
+        "rules_skills_only",
+        "not_extracted:education",
+        "not_extracted:projects",
+        "not_extracted:work_experience",
+        "not_extracted:summary"
+      ]
+    },
+    "schema_version": "indexed-matching-v1"
+  },
+  "retrieval_sha256": "9bafacf861436283e927ed293e52b1032d979918d39d4ea346f1dbbce786e108",
+  "schema_version": "match-evidence-v1",
+  "selected_keys": [
+    {
+      "dataset_id": "synthetic-stage4-acceptance-v1",
+      "job_id": 1
+    }
+  ]
+}

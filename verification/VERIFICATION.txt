@@ -1,0 +1,174 @@
+JobRadar real-source update verification
+
+Changed branch/field:
+- Added real-page adapter branch in src/job_radar/parser.py -> site auto-detection and dispatch.
+- Added src/job_radar/sources.py -> Boss public homepage and Python.org listing-card fields.
+- Added crawler/CLI options -> site, timeout, save-html, base-url, keyword, and actionable failure handling.
+- Added source-specific fields -> description_kind=listing_summary, salary, experience, education, posted_at.
+
+Four artifacts:
+- MODIFIED_FILE: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/verification/MODIFIED_FILE
+- DIFF_FILE: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/verification/DIFF_FILE
+- VERIFICATION.txt: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/verification/VERIFICATION.txt
+- executable ROLLBACK.sh: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/ROLLBACK.sh
+
+Original baseline hash:
+- baseline src/job_radar/parser.py SHA-256: 586c35f22c19b2cf534625f9c4dd793aec33a77404f5df8d517cf1a806a1fa64
+- baseline project snapshot: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/work/boss-update/baseline
+
+BASELINE exact command:
+cd /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar && ./CHECK.sh baseline
+BASELINE input: original tests/test_parser.py + sample_data/jobs.html; no network.
+BASELINE exact literal output/result:
+BASELINE: 1 failed, 2 passed (stale fixture assertion)
+BASELINE exit status: 1
+
+MODIFIED exact command:
+cd /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar && ./CHECK.sh modified
+MODIFIED input: 31 offline cases, real listing-card snapshots, mocked HTTP success/errors, CLI output-preservation checks.
+MODIFIED exact literal output/result:
+MODIFIED: 31 passed
+MODIFIED exit status: 0
+
+ROLLBACK exact command:
+cd /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar && ./CHECK.sh rollback
+ROLLBACK input: separate modified-project copy + 13 original files with SHA-256 manifest.
+ROLLBACK exact literal output/result:
+ROLLBACK: 13 hashes restored; 2 jobs; baseline 1 failed, 2 passed
+ROLLBACK exit status: 0
+
+Working modified status after rollback test:
+- /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/src/job_radar/sources.py remains present and modified.
+- MODIFIED_FILE SHA-256: 5e05c56eafcce10d408c0a9013da800dea9d160ee4f96a9ea593d6a8cd44e642
+- rollback was tested on a generated separate copy and that copy was removed after verification.
+
+Observed live-source evidence:
+- BOSS initial public homepage response: HTTP 200; 81 .sub-li cards parsed and saved as data/boss-home.jobs.json.
+- BOSS later live request: verification page; CLI exited 2 with “采集失败：Boss 返回验证页面；本次停止，原 JSON 保持不变。”
+- Python.org live request: HTTP 200; 21 listing cards parsed and saved as data/python-org.jobs.json.
+- description is explicitly a listing summary, not a full job description.
+
+Live CLI exact command and literal output:
+cd /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar && PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src .venv/bin/python -m job_radar.cli https://www.python.org/jobs/ --site python-org --save-html data/python-org.latest.html --output data/python-org.jobs.json
+采集 21 条岗位，已保存到 data/python-org.jobs.json
+Exit status: 0
+
+Boss real homepage snapshot exact command and literal output:
+cd /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar && PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src .venv/bin/python -m job_radar.cli sample_data/boss-home.html --site boss --output data/boss-home.jobs.json
+采集 81 条岗位，已保存到 data/boss-home.jobs.json
+Exit status: 0
+
+Boss current live exact command and literal output:
+cd /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar && PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src .venv/bin/python -m job_radar.cli https://www.zhipin.com/ --site boss --output data/boss-live.jobs.json --save-html ../../work/boss-update/boss-live-response.html
+采集失败：Boss 返回验证页面；本次停止，原 JSON 保持不变。
+Exit status: 2
+
+Raw test logs: verification/BASELINE.log, MODIFIED.log, ROLLBACK.log.
+All original project files remain unchanged at /Users/thc/Documents/Codex/2026-09-27/niu/outputs/job-radar.
+
+Patch verification: patch -p1 reconstructs 37 files byte-for-byte from a separate baseline copy. Exit status: 0.
+
+Custom-filter update verification (2026-10-26)
+
+Changed branch/field:
+- Added `src/job_radar/filters.py` with title/city/company/skill/exclude-keyword/remote-only filters.
+- Added matching CLI flags in `src/job_radar/cli.py`; `crawler.py` now applies them after parse/deduplicate.
+- Different filter categories combine with AND; repeated values in one category combine with OR.
+
+Four artifacts retained:
+- MODIFIED_FILE: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/verification/MODIFIED_FILE
+- DIFF_FILE: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/verification/DIFF_FILE
+- VERIFICATION.txt: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/verification/VERIFICATION.txt
+- executable ROLLBACK.sh: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/ROLLBACK.sh
+
+BASELINE exact command:
+cd /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar && PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src .venv/bin/python -m pytest -q verification/baseline/tests
+BASELINE input: original baseline tests.
+BASELINE exact literal output/result: 1 failed, 2 passed (stale fixture assertion)
+BASELINE exit status: 1
+
+MODIFIED exact command:
+cd /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar && PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src .venv/bin/python -m pytest -q tests
+MODIFIED input: 39 offline tests including custom-filter, config, and SQLite tests.
+MODIFIED exact literal output/result: 39 passed
+MODIFIED exit status: 0
+
+ROLLBACK exact command:
+cd /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar && ./CHECK.sh rollback
+ROLLBACK input: separate copy and original hash manifest.
+ROLLBACK exact literal output/result: ROLLBACK: 13 hashes restored; 2 jobs; baseline 1 failed, 2 passed
+ROLLBACK exit status: 0
+
+Custom-filter command results on data/python-org.latest.html:
+- `--title Python --remote-only`: `采集 8 条岗位，已保存到 data/python-remote.jobs.json` (exit 0)
+- `--title Python --city Remote --skill Python`: `采集 8 条岗位，已保存到 data/python-remote-skilled.jobs.json` (exit 0)
+- `--title Python --exclude-keyword Senior`: `采集 8 条岗位，已保存到 data/python-junior-or-mid.jobs.json` (exit 0)
+- `--city London --city Remote`: `采集 15 条岗位，已保存到 data/london-or-remote.jobs.json` (exit 0)
+
+
+Config-filter update verification (2026-10-28)
+
+Changed branch/field:
+- Added `src/job_radar/config.py` and `--config` JSON loading.
+- Added `config/shenzhen.json` example.
+- CLI values override same-named config values; config values otherwise feed the existing filters.
+
+Four artifacts:
+- MODIFIED_FILE: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/verification/MODIFIED_FILE
+- DIFF_FILE: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/verification/DIFF_FILE
+- VERIFICATION.txt: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/verification/VERIFICATION.txt
+- executable ROLLBACK.sh: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/ROLLBACK.sh
+
+BASELINE exact command:
+cd /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar && ./CHECK.sh baseline
+BASELINE literal output/result: BASELINE: 1 failed, 2 passed (stale fixture assertion)
+BASELINE exit status: 1
+
+MODIFIED exact command:
+cd /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar && ./CHECK.sh modified
+MODIFIED literal output/result: MODIFIED: 39 passed
+MODIFIED exit status: 0
+
+ROLLBACK exact command:
+cd /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar && ./CHECK.sh rollback
+ROLLBACK literal output/result: ROLLBACK: 13 hashes restored; 2 jobs; baseline 1 failed, 2 passed
+ROLLBACK exit status: 0
+
+Config command exact result:
+cd /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar && PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src .venv/bin/python -m job_radar.cli sample_data/boss-home.html --site boss --config config/shenzhen.json --output data/boss-shenzhen-config.jobs.json
+采集 2 条岗位，已保存到 data/boss-shenzhen-config.jobs.json
+Exit status: 0
+
+
+SQLite storage update verification (2026-10-28)
+
+Changed branch/field:
+- Added `src/job_radar/storage.py` with SQLite schema, URL upsert, and city/keyword/limit queries.
+- Added CLI `--database`, `--query-city`, `--query-keyword`, and `--limit`.
+- Added `data/jobs.db` as the local SQLite database example.
+
+Four artifacts:
+- MODIFIED_FILE: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/verification/MODIFIED_FILE
+- DIFF_FILE: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/verification/DIFF_FILE
+- VERIFICATION.txt: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/verification/VERIFICATION.txt
+- executable ROLLBACK.sh: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/ROLLBACK.sh
+
+BASELINE exact command:
+cd /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar && ./CHECK.sh baseline
+BASELINE literal output/result: BASELINE: 1 failed, 2 passed (stale fixture assertion)
+BASELINE exit status: 1
+
+MODIFIED exact command:
+cd /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar && ./CHECK.sh modified
+MODIFIED literal output/result: MODIFIED: 39 passed
+MODIFIED exit status: 0
+
+ROLLBACK exact command:
+cd /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar && ./CHECK.sh rollback
+ROLLBACK literal output/result: ROLLBACK: 13 hashes restored; 2 jobs; baseline 1 failed, 2 passed
+ROLLBACK exit status: 0
+
+SQLite write/query exact commands and results:
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src .venv/bin/python -m job_radar.cli sample_data/boss-home.html --site boss --config config/shenzhen.json --database data/jobs.db --output data/boss-shenzhen-config.jobs.json` -> `采集 2 条岗位，已保存到 data/boss-shenzhen-config.jobs.json；SQLite 已写入/更新 2 条`, exit 0.
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src .venv/bin/python -m job_radar.cli --database data/jobs.db --query-city 深圳 --output data/query-shenzhen.jobs.json` -> `查询到 2 条岗位，已保存到 data/query-shenzhen.jobs.json`, exit 0.
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src .venv/bin/python -m job_radar.cli --database data/jobs.db --query-keyword Python --limit 5 --output data/query-python.jobs.json` -> `查询到 0 条岗位，已保存到 data/query-python.jobs.json`, exit 0.

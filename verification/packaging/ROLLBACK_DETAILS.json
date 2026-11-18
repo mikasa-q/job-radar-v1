@@ -1,0 +1,96 @@
+[
+  {
+    "command": [
+      "/Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/.venv/bin/python",
+      "-c",
+      "import job_radar; print(job_radar.__file__)"
+    ],
+    "cwd": "/Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar",
+    "stdout": "/Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/src/job_radar/__init__.py\n",
+    "stderr": "",
+    "exit_status": 0
+  },
+  {
+    "command": [
+      "/Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/.venv/bin/python",
+      "-m",
+      "venv",
+      "--without-pip",
+      "/var/folders/l_/hbqyvhzs2qn1s5l4y4q7bb8w0000gp/T/job-radar-packaging-rollback-5shoes5i/project/.venv"
+    ],
+    "cwd": "/Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar",
+    "stdout": "",
+    "stderr": "",
+    "exit_status": 0
+  },
+  {
+    "command": [
+      "/var/folders/l_/hbqyvhzs2qn1s5l4y4q7bb8w0000gp/T/job-radar-packaging-rollback-5shoes5i/project/.venv/bin/python",
+      "-m",
+      "pip",
+      "install",
+      "--no-deps",
+      "-e",
+      "."
+    ],
+    "cwd": "/var/folders/l_/hbqyvhzs2qn1s5l4y4q7bb8w0000gp/T/job-radar-packaging-rollback-5shoes5i/project",
+    "stdout": "Obtaining file:///private/var/folders/l_/hbqyvhzs2qn1s5l4y4q7bb8w0000gp/T/job-radar-packaging-rollback-5shoes5i/project\n  Installing build dependencies: started\n  Installing build dependencies: finished with status 'done'\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Getting requirements to build editable: started\n  Getting requirements to build editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nBuilding wheels for collected packages: job_radar\n  Building editable for job_radar (pyproject.toml): started\n  Building editable for job_radar (pyproject.toml): finished with status 'done'\n  Created wheel for job_radar: filename=job_radar-0.1.0-0.editable-py3-none-any.whl size=5097 sha256=a05e18ef2e1dab27ddcaa471123ef8cc5fd7d56ccf2f8f7be17367dee03b4351\n  Stored in directory: /private/var/folders/l_/hbqyvhzs2qn1s5l4y4q7bb8w0000gp/T/pip-ephem-wheel-cache-_mqikdtq/wheels/4d/ee/a2/89beed5cbea7e94dae135072f391ddaf43cfceb0564922aa90\nSuccessfully built job_radar\nInstalling collected packages: job_radar\nSuccessfully installed job_radar-0.1.0\n",
+    "stderr": "\n[notice] A new release of pip available: 22.2.1 -> 26.3\n[notice] To update, run: /private/var/folders/l_/hbqyvhzs2qn1s5l4y4q7bb8w0000gp/T/job-radar-packaging-rollback-5shoes5i/project/.venv/bin/python -m pip install --upgrade pip\n",
+    "exit_status": 0
+  },
+  {
+    "command": [
+      "/var/folders/l_/hbqyvhzs2qn1s5l4y4q7bb8w0000gp/T/job-radar-packaging-rollback-5shoes5i/project/.venv/bin/python",
+      "-c",
+      "import job_radar; print(job_radar.__file__)"
+    ],
+    "cwd": "/var/folders/l_/hbqyvhzs2qn1s5l4y4q7bb8w0000gp/T/job-radar-packaging-rollback-5shoes5i/project",
+    "stdout": "/private/var/folders/l_/hbqyvhzs2qn1s5l4y4q7bb8w0000gp/T/job-radar-packaging-rollback-5shoes5i/project/src/job_radar/__init__.py\n",
+    "stderr": "",
+    "exit_status": 0
+  },
+  {
+    "command": [
+      "/Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/verification/packaging/ROLLBACK.sh",
+      "/var/folders/l_/hbqyvhzs2qn1s5l4y4q7bb8w0000gp/T/job-radar-packaging-rollback-5shoes5i/project"
+    ],
+    "cwd": "/var/folders/l_/hbqyvhzs2qn1s5l4y4q7bb8w0000gp/T/job-radar-packaging-rollback-5shoes5i/project",
+    "stdout": "ROLLBACK: 5 packaging/document paths restored; matching editable install removed; source/tests/database untouched\n",
+    "stderr": "",
+    "exit_status": 0
+  },
+  {
+    "command": [
+      "/var/folders/l_/hbqyvhzs2qn1s5l4y4q7bb8w0000gp/T/job-radar-packaging-rollback-5shoes5i/project/.venv/bin/python",
+      "-c",
+      "import job_radar"
+    ],
+    "cwd": "/var/folders/l_/hbqyvhzs2qn1s5l4y4q7bb8w0000gp/T/job-radar-packaging-rollback-5shoes5i/project",
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\nModuleNotFoundError: No module named 'job_radar'\n",
+    "exit_status": 1
+  },
+  {
+    "command": [
+      "/var/folders/l_/hbqyvhzs2qn1s5l4y4q7bb8w0000gp/T/job-radar-packaging-rollback-5shoes5i/project/.venv/bin/python",
+      "-m",
+      "pytest",
+      "-q"
+    ],
+    "cwd": "/var/folders/l_/hbqyvhzs2qn1s5l4y4q7bb8w0000gp/T/job-radar-packaging-rollback-5shoes5i/project",
+    "stdout": "...................................................................      [100%]\n67 passed in 3.64s\n",
+    "stderr": "",
+    "exit_status": 0
+  },
+  {
+    "command": [
+      "/Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/.venv/bin/python",
+      "-c",
+      "import job_radar; print(job_radar.__file__)"
+    ],
+    "cwd": "/Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar",
+    "stdout": "/Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/src/job_radar/__init__.py\n",
+    "stderr": "",
+    "exit_status": 0
+  }
+]

@@ -1,0 +1,9 @@
+F..                                                                      [100%]
+=================================== FAILURES ===================================
+________________________ test_parse_and_extract_skills _________________________
+tests/test_parser.py:13: in test_parse_and_extract_skills
+    assert "Tool Calling" in jobs[1]["skills"]
+E   AssertionError: assert 'Tool Calling' in ['Python', 'FastAPI', 'MySQL', 'Docker']
+=========================== short test summary info ============================
+FAILED tests/test_parser.py::test_parse_and_extract_skills - AssertionError: ...
+1 failed, 2 passed in 0.08s

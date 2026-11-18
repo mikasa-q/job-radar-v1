@@ -1,0 +1,11 @@
+ROLLBACK RESTORED: 13 original file hashes match; real-source adapter removed
+F..                                                                      [100%]
+=================================== FAILURES ===================================
+________________________ test_parse_and_extract_skills _________________________
+tests/test_parser.py:13: in test_parse_and_extract_skills
+    assert "Tool Calling" in jobs[1]["skills"]
+E   AssertionError: assert 'Tool Calling' in ['Python', 'FastAPI', 'MySQL', 'Docker']
+=========================== short test summary info ============================
+FAILED tests/test_parser.py::test_parse_and_extract_skills - AssertionError: ...
+1 failed, 2 passed in 0.05s
+采集 2 条岗位，已保存到 /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/verification/rollback-copy/restored.jobs.json

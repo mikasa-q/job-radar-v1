@@ -1,0 +1,19 @@
+__pycache__/
+.pytest_cache/
+*.py[cod]
+.venv/
+data/*.json
+
+data/*.html
+data/*.db
+
+# Python packaging artifacts
+*.egg-info/
+build/
+dist/
+
+# Local / secrets (never commit)
+.DS_Store
+.env
+.env.*
+*.pem

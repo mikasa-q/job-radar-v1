@@ -1,0 +1,60 @@
+JobRadar stage-three verification — 2026-11-01
+
+Changed branch/field:
+- New HTTP query branch in src/job_radar/api.py: GET /health, /jobs, /jobs/stats, /jobs/{job_id}.
+- Request fields: city, keyword, skill, source, limit, offset. Response: total/limit/offset/items and typed JobResponse.
+- src/job_radar/storage.py: parameterized SQL, read-only per-request connections, snapshot-consistent count/page; existing writes now close connections explicitly.
+- Existing CLI/config/source parsing stays compatible; no web crawl in API requests.
+
+Four reopened artifacts:
+- MODIFIED_FILE: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/verification/stage3/MODIFIED_FILE (byte-for-byte copy of api.py, kept changed)
+- DIFF_FILE: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/verification/stage3/DIFF_FILE (applicable unified patch, 12 paths verified byte-for-byte)
+- VERIFICATION.txt: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/verification/stage3/VERIFICATION.txt
+- executable ROLLBACK.sh: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/verification/stage3/ROLLBACK.sh (mode 0755)
+
+Preserved baseline:
+- Stage-two snapshot: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/verification/stage3/baseline
+- Source before/after SHA-256 manifest: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/verification/stage3/changes.json
+- Original full 47-file manifest: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/work/stage3/baseline-hashes.json
+- storage.py original SHA-256: 7689ce18b21217e86be529628d61f28b33da3122da40610746a12ab649a00a24
+- MODIFIED_FILE SHA-256: c860656d823bcd68404dfe2f52716d07b530479c7fd09639ebc63ca116138b65
+- jobs.db original and current SHA-256: d85f815c6c4791abc938915a456cf3e7acfe796b618cd869674fa3e7894f2e7d
+
+All commands below use this exact working directory:
+/Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar
+
+BASELINE exact command: ./CHECK.sh baseline
+BASELINE input: preserved stage-two source/tests/sample HTML; 39 offline tests; no API module.
+BASELINE literal output/result:
+BASELINE: 39 passed; FastAPI module absent
+BASELINE exit status: 0
+
+MODIFIED exact command: ./CHECK.sh modified
+MODIFIED input: 67 offline tests (39 regressions + 28 API/storage cases); temporary SQLite DBs; invalid parameters, 404/422/503, schema, injection literals, read-only hash, parallel requests, dependency overrides, docs.
+MODIFIED literal output/result:
+MODIFIED: 67 passed; FastAPI query endpoints present
+MODIFIED exit status: 0
+
+ROLLBACK exact command: ./CHECK.sh rollback
+ROLLBACK input: separate current-project copy, 12 before/after hashes, saved baseline, existing database hash.
+ROLLBACK literal output/result:
+ROLLBACK: 39 passed; stage-two CLI restored; 2 Shenzhen jobs; DB hash unchanged; working API kept
+ROLLBACK exit status: 0
+Restored behavior/status: stage-two 39 tests pass; CLI --query-city 深圳 returns 2 jobs; new API/schema/test/docs paths absent in the restored copy; code hashes match baseline; DB bytes unchanged.
+Working behavior/status: API source and MODIFIED_FILE remain changed; database unchanged; no permanent server process left by verification.
+
+HTTP exact command: PYTHONDONTWRITEBYTECODE=1 .venv/bin/python verification/stage3/http_smoke.py
+HTTP input: current data/jobs.db (102 historical rows); free loopback port and real Uvicorn; 9 requests recorded in HTTP.json.
+HTTP literal output/result:
+HTTP: 9 checks passed; 102 jobs; Shenzhen=2; Python=14; 422/404 verified; DB hash unchanged; server stopped
+HTTP exit status: 0
+
+Dependency check exact command: .venv/bin/python -m pip check
+Dependency literal output: No broken requirements found.
+Dependency exit status: 0
+Python 3.10.6; FastAPI 0.162.0; Pydantic 2.14.2; Uvicorn 0.54.0; Starlette 1.7.0; httpx2 2.14.0. Full installed versions in requirements.lock.txt.
+
+Rollback restores only this stage’s code/docs; SQLite records, user data/config, and installed virtualenv dependencies are retained.
+The root ROLLBACK.sh belongs to an earlier update; use this directory’s ROLLBACK.sh to restore stage two.
+
+Research and tutorial: docs/STAGE3_FASTAPI.md. JD publication/status and community interview reliability are labeled separately; no hiring-rate or throughput claims inferred from the small sample.

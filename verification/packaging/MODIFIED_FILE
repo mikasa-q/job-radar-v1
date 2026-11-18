@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "job_radar"
+version = "0.1.0"
+description = "Job listing collection, filtering, SQLite storage, and FastAPI queries"
+readme = "README.md"
+requires-python = ">=3.10"
+dynamic = ["dependencies"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["job_radar*"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.lock.txt"]}

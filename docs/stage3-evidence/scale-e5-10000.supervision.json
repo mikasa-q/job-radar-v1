@@ -1,0 +1,25 @@
+{
+  "command": [
+    "/Users/thc/.codex/visualizations/2026/11/12/01a1d05b-33ee-7331-9a41-172588d232af/jobradar-stage3/runtime/venv/bin/python",
+    "-B",
+    "/Users/thc/.codex/visualizations/2026/11/12/01a1d05b-33ee-7331-9a41-172588d232af/jobradar-stage3/modified/examples/stage3_dense_scale.py",
+    "--model",
+    "intfloat/multilingual-e5-small",
+    "--revision",
+    "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+    "--snapshot",
+    "/Users/thc/.codex/visualizations/2026/11/12/01a1d05b-33ee-7331-9a41-172588d232af/jobradar-stage3/models/intfloat--multilingual-e5-small/614241f622f53c4eeff9890bdc4f31cfecc418b3",
+    "--runtime-sha",
+    "53af5bed5ce2c4f2aa3e92c2239103313e60edfdc34f6b0044fd6f1d40552692",
+    "--index",
+    "/Users/thc/.codex/visualizations/2026/11/12/01a1d05b-33ee-7331-9a41-172588d232af/jobradar-stage3/scale-index-e5-10000",
+    "--size",
+    "10000",
+    "--output",
+    "/Users/thc/.codex/visualizations/2026/11/12/01a1d05b-33ee-7331-9a41-172588d232af/jobradar-stage3/scale-e5-10000.json"
+  ],
+  "exit_status": -9,
+  "seconds": 180.20783950801706,
+  "process_tree_peak_rss_bytes": 955293696,
+  "stop_reason": "time_budget_180s"
+}

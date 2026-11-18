@@ -1,0 +1,15 @@
+{
+  ".gitignore": "aa14678e417e0ecdf14f93124fe99d48b0220c4031a8a6049d1891cd404255b6",
+  "README.md": "8eb721641d0a44e84c620312d99750649201f7e61a655646bda229344ee945c0",
+  "ROLLBACK.sh": "1ca2357e7d7e5a037dfb6d7716e6a2cdb505aef11a7effe7517c99fb5edd4733",
+  "data/jobs.json": "f8c36c4ea0c6ea15d36044d57b7921a21584be2d242c5604864effefaaf2dce9",
+  "requirements.txt": "d583584b1e6c4caf2a5cd1ad207c6f31214a770d6ba17a2d935a75f5a28142b8",
+  "sample_data/jobs.html": "ae8fd6bbe76b6819af55bfa8e9eccb7e28171f202f7eed6497fc81e8789983eb",
+  "src/job_radar/__init__.py": "42ac1ce75d24f05abea82dc3f398de755018e9d244b17782573fa9ef79af9914",
+  "src/job_radar/cli.py": "0b961801cea16d98a6c4b47bbcfc93771eb180eadbdf7090aec0f0ee97e0d32f",
+  "src/job_radar/crawler.py": "f471f8c9d1d54bf1baac433e026e31c14579092075f6cfe101ce4d618d7c2c4e",
+  "src/job_radar/parser.py": "586c35f22c19b2cf534625f9c4dd793aec33a77404f5df8d517cf1a806a1fa64",
+  "tests/test_parser.py": "e91af9106eeb5f4571a99e70982c3db6d361c9425ceaeffab868325c2dc3da5f",
+  "verify_baseline.py": "3662fd3fae4ce2a7d1d870cd28d7864f078163c04edd839e024fc16a6fa585b1",
+  "verify_modified.py": "546e61e5ffbc5ec3fd57e6b0212e53092786142cb177d1e30cbf7a83be3e632e"
+}

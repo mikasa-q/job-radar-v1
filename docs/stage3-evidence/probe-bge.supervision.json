@@ -1,0 +1,23 @@
+{
+  "command": [
+    "/Users/thc/.codex/visualizations/2026/11/12/01a1d05b-33ee-7331-9a41-172588d232af/jobradar-stage3/runtime/venv/bin/python",
+    "-B",
+    "/Users/thc/.codex/visualizations/2026/11/12/01a1d05b-33ee-7331-9a41-172588d232af/jobradar-stage3/modified/examples/stage3_real_probe.py",
+    "--model",
+    "BAAI/bge-small-zh-v1.5",
+    "--revision",
+    "7999e1d3359715c523056ef9478215996d62a620",
+    "--snapshot",
+    "/Users/thc/.codex/visualizations/2026/11/12/01a1d05b-33ee-7331-9a41-172588d232af/jobradar-stage3/models/BAAI--bge-small-zh-v1.5/7999e1d3359715c523056ef9478215996d62a620",
+    "--runtime-sha",
+    "53af5bed5ce2c4f2aa3e92c2239103313e60edfdc34f6b0044fd6f1d40552692",
+    "--index",
+    "/Users/thc/.codex/visualizations/2026/11/12/01a1d05b-33ee-7331-9a41-172588d232af/jobradar-stage3/probe-index-bge",
+    "--output",
+    "/Users/thc/.codex/visualizations/2026/11/12/01a1d05b-33ee-7331-9a41-172588d232af/jobradar-stage3/probe-bge.json"
+  ],
+  "exit_status": 0,
+  "seconds": 13.04714897699887,
+  "process_tree_peak_rss_bytes": 395370496,
+  "stop_reason": null
+}

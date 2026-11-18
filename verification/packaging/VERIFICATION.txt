@@ -1,0 +1,222 @@
+JobRadar packaging-only verification — 2026-11-03
+
+Changed branch/field:
+- Git branch: master (no branch switch, commit, or push).
+- pyproject.toml: project.name=job_radar; project.version=0.1.0; requires-python=>=3.10.
+- tool.setuptools.packages.find.where=["src"]; dependencies dynamically read requirements.lock.txt.
+- .gitignore: *.egg-info/, build/, dist/ added before packaging generation.
+- README.md, docs/STAGE3_FASTAPI.md, NOTES.md: editable-install instructions and verified status only.
+- Source, tests, pytest.ini, requirements files, CHECK.sh, database, and historical documentation untouched.
+
+Four artifacts:
+- MODIFIED_FILE: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/verification/packaging/MODIFIED_FILE
+- DIFF_FILE: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/verification/packaging/DIFF_FILE
+- VERIFICATION.txt: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/verification/packaging/VERIFICATION.txt
+- ROLLBACK.sh: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/verification/packaging/ROLLBACK.sh
+- ROLLBACK.sh is executable. MODIFIED_FILE is a byte-for-byte copy of the final pyproject.toml.
+
+Original SHA-256 and changed-path manifest:
+- .gitignore: before=dfabf298b3e91993aa4ce30fe27d7c464cd924fc3f27b87d26306a31fcd92afc; after=a529cc6a1e659bf01497e6a3128acca9de2f305b40e05453738d429dae0a5a98
+- pyproject.toml: before=None; after=b5851f73af456ee10bea5fd8ae502df1d2021fd7e32430b5a2cd3e627e38a9a8
+- README.md: before=028575199d23d8013cc057f8d5092c18137e780b551b3d1a9d8b7de9c48de929; after=b4715fda9022502b7da8cc609b17c2252dc86c09b99244235d1eeec42671266e
+- docs/STAGE3_FASTAPI.md: before=2125b4c809dac3d0ea0c995206ca7b48ab669d2750151a60b21b44532ba3ffac; after=09cee2d05fe7b5bbe975f7fe6466c85048c2a28dce550a33c89801505429dd16
+- NOTES.md: before=03a70483714a74471dfed732c03b5711da03fff39b09a6c60c9d6bc38436cb60; after=30903e87680d9b3b5937cf508d4771a0000563431df0e2ba6ae97577457f1f4e
+- Protected original hashes are retained in protected-hashes.json; final audit verified every hash.
+
+Execution evidence:
+
+BASELINE exact command:
+cd /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar && PYTHONPATH=src .venv/bin/python -m pytest -q
+BASELINE input: unchanged source and 67 offline tests
+BASELINE literal stdout:
+...................................................................      [100%]
+67 passed in 2.03s
+BASELINE literal stderr:
+(empty)
+BASELINE exit status: 0
+
+BASELINE_NO_PYTHONPATH exact command:
+cd /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar && env -u PYTHONPATH .venv/bin/python -c 'import job_radar'
+BASELINE_NO_PYTHONPATH input: import job_radar before editable installation
+BASELINE_NO_PYTHONPATH literal stdout:
+(empty)
+BASELINE_NO_PYTHONPATH literal stderr:
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'job_radar'
+BASELINE_NO_PYTHONPATH exit status: 1
+
+INSTALL exact command:
+cd /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar && env -u PYTHONPATH .venv/bin/python -m pip install -e .
+INSTALL input: pyproject.toml + unchanged requirements.lock.txt; existing .venv
+INSTALL literal stdout:
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Obtaining file:///Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'error'
+INSTALL literal stderr:
+  error: subprocess-exited-with-error
+  
+  × pip subprocess to install build dependencies did not run successfully.
+  │ exit code: 1
+  ╰─> [4 lines of output]
+      Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+      ERROR: Could not find a version that satisfies the requirement setuptools (from versions: none)
+      ERROR: No matching distribution found for setuptools
+      WARNING: There was an error checking the latest version of pip.
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+error: subprocess-exited-with-error
+
+× pip subprocess to install build dependencies did not run successfully.
+│ exit code: 1
+╰─> See above for output.
+
+note: This error originates from a subprocess, and is likely not a problem with pip.
+WARNING: There was an error checking the latest version of pip.
+INSTALL exit status: 1
+
+INSTALL_OFFICIAL_INDEX exact command:
+cd /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar && env -u PYTHONPATH PIP_INDEX_URL=https://pypi.org/simple .venv/bin/python -m pip install -e .
+INSTALL_OFFICIAL_INDEX input: same pyproject and unchanged lock; official index only for this process because configured mirror returned no setuptools
+INSTALL_OFFICIAL_INDEX literal stdout:
+Obtaining file:///Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Getting requirements to build editable: started
+  Getting requirements to build editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Requirement already satisfied: pluggy==1.7.0 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (1.7.0)
+Requirement already satisfied: requests==2.34.2 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (2.34.2)
+Requirement already satisfied: uvicorn==0.54.0 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (0.54.0)
+Requirement already satisfied: anyio==4.15.1 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (4.15.1)
+Requirement already satisfied: soupsieve==2.10 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (2.10)
+Requirement already satisfied: httpcore2==2.14.0 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (2.14.0)
+Requirement already satisfied: urllib3==2.8.0 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (2.8.0)
+Requirement already satisfied: typing_extensions==4.16.0 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (4.16.0)
+Requirement already satisfied: idna==3.20 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (3.20)
+Requirement already satisfied: starlette==1.7.0 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (1.7.0)
+Requirement already satisfied: httpx2==2.14.0 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (2.14.0)
+Requirement already satisfied: click==8.5.0 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (8.5.0)
+Requirement already satisfied: annotated-types==0.8.0 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (0.8.0)
+Requirement already satisfied: charset-normalizer==3.5.2 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (3.5.2)
+Requirement already satisfied: packaging==26.3 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (26.3)
+Requirement already satisfied: httpx==0.28.1 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (0.28.1)
+Requirement already satisfied: exceptiongroup==1.3.1 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (1.3.1)
+Requirement already satisfied: beautifulsoup4==4.15.0 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (4.15.0)
+Requirement already satisfied: pydantic==2.14.2 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (2.14.2)
+Requirement already satisfied: pydantic_core==2.50.2 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (2.50.2)
+Requirement already satisfied: pytest==9.1.1 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (9.1.1)
+Requirement already satisfied: h11==0.16.0 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (0.16.0)
+Requirement already satisfied: Pygments==2.21.0 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (2.21.0)
+Requirement already satisfied: iniconfig==2.3.1 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (2.3.1)
+Requirement already satisfied: opentelemetry-api==1.45.2 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (1.45.2)
+Requirement already satisfied: typing-inspection==0.4.4 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (0.4.4)
+Requirement already satisfied: certifi==2026.10.23 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (2026.10.23)
+Requirement already satisfied: tomli==2.5.0 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (2.5.0)
+Requirement already satisfied: fastapi==0.162.0 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (0.162.0)
+Requirement already satisfied: httpcore==1.0.9 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (1.0.9)
+Requirement already satisfied: truststore==0.10.5 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (0.10.5)
+Requirement already satisfied: annotated-doc==0.0.5 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (0.0.5)
+Building wheels for collected packages: job_radar
+  Building editable for job_radar (pyproject.toml): started
+  Building editable for job_radar (pyproject.toml): finished with status 'done'
+  Created wheel for job_radar: filename=job_radar-0.1.0-0.editable-py3-none-any.whl size=5082 sha256=5d0b15198eec140fd0251eb39e3d9a9141633b6bb7f9026d80ff5eb510cd19d7
+  Stored in directory: /private/var/folders/l_/hbqyvhzs2qn1s5l4y4q7bb8w0000gp/T/pip-ephem-wheel-cache-s6mhp4mu/wheels/1b/a1/fa/989149da72d2e88e9ae42e8f4cce1498c94c9f6995964ec2be
+Successfully built job_radar
+Installing collected packages: job_radar
+Successfully installed job_radar-0.1.0
+INSTALL_OFFICIAL_INDEX literal stderr:
+
+[notice] A new release of pip available: 22.2.1 -> 26.3
+[notice] To update, run: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/.venv/bin/python -m pip install --upgrade pip
+INSTALL_OFFICIAL_INDEX exit status: 0
+
+MODIFIED exact command:
+cd /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar && env -u PYTHONPATH .venv/bin/pytest -q
+MODIFIED input: unchanged 67 offline tests; installed job_radar; PYTHONPATH unset
+MODIFIED literal stdout:
+...................................................................      [100%]
+67 passed in 1.81s
+MODIFIED literal stderr:
+(empty)
+MODIFIED exit status: 0
+
+CHECK_MODIFIED exact command:
+cd /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar && env -u PYTHONPATH ./CHECK.sh modified
+CHECK_MODIFIED input: unchanged 67 offline tests; installed job_radar; PYTHONPATH unset
+CHECK_MODIFIED literal stdout:
+MODIFIED: 67 passed; FastAPI query endpoints present
+CHECK_MODIFIED literal stderr:
+(empty)
+CHECK_MODIFIED exit status: 0
+
+HTTP_HEALTH exact command:
+cd /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar && curl --fail --silent --show-error --write-out '
+HTTP %{http_code}
+' http://127.0.0.1:61317/health
+HTTP_HEALTH input: real loopback HTTP GET against unchanged database
+HTTP_HEALTH literal stdout:
+{"status":"ok"}
+HTTP 200
+HTTP_HEALTH literal stderr:
+(empty)
+HTTP_HEALTH exit status: 0
+
+HTTP_JOBS exact command:
+cd /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar && curl --fail --silent --show-error --write-out '
+HTTP %{http_code}
+' 'http://127.0.0.1:61317/jobs?limit=1'
+HTTP_JOBS input: real loopback HTTP GET against unchanged database
+HTTP_JOBS literal stdout:
+{"total":104,"limit":1,"offset":0,"items":[{"id":187,"source":"python.org","title":"Founding Principal Engineer","company":"Ferto Health GmbH","city":"Berlin, Berlin, Germany","url":"https://www.python.org/jobs/8189/","description":"Back end , Cloud , Database , Lead , Systems / Developer / Engineer","description_kind":"listing_summary","salary":"","experience":"","education":"","skills":[],"posted_at":"2026-10-27T12:46:52.198134+00:00","crawled_at":"2026-11-03T14:21:29.521673+00:00","first_seen_at":"2026-11-03T14:21:29.521673+00:00","last_seen_at":"2026-11-03T14:21:29.521673+00:00"}]}
+HTTP 200
+HTTP_JOBS literal stderr:
+(empty)
+HTTP_JOBS exit status: 0
+
+API_SERVER exact command:
+cd /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar && env -u PYTHONPATH -u JOBRADAR_DB .venv/bin/python -m uvicorn job_radar.api:app --host 127.0.0.1 --port 61317
+API_SERVER input: default project database; no PYTHONPATH, no --app-dir
+API_SERVER literal stdout:
+/health HTTP 200; /jobs?limit=1 HTTP 200; database SHA-256 unchanged; server stopped
+API_SERVER literal stderr:
+(empty)
+API_SERVER exit status: -15
+
+ROLLBACK exact command:
+cd /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar && env -u PYTHONPATH .venv/bin/python verification/packaging/verify_rollback.py
+ROLLBACK input: separate modified-project copy + isolated venv + saved hashes of the five original paths
+ROLLBACK literal stdout:
+ROLLBACK: 5 paths restored on isolated copy; 67 passed with PYTHONPATH; plain import returns ModuleNotFoundError; working install and database unchanged
+ROLLBACK literal stderr:
+(empty)
+ROLLBACK exit status: 0
+
+Install notes:
+- The configured Tsinghua mirror returned no setuptools; the first installation exited 1.
+- Retried the identical pip install -e . using PIP_INDEX_URL=https://pypi.org/simple for that process only; exit 0.
+- No global pip configuration or locked dependency version changed. job_radar is the only added distribution.
+- Installed metadata dependencies exactly match all 32 lock-file requirements.
+
+Existing CHECK.sh note:
+- ./CHECK.sh modified still sets PYTHONPATH internally. The separate direct pytest run above is the proof of editable-import behavior.
+- CHECK.sh and its code remain unchanged. Its generated phase-three log was preserved under this packaging directory, then its historical log was restored byte-for-byte.
+
+Rollback behavior/status:
+- Tested on another copy with a separate virtual environment and a separately installed editable package.
+- Restored the five original paths; removed that copy's editable registration without touching the working environment.
+- Plain import returned the baseline ModuleNotFoundError (exit 1); old PYTHONPATH=src pytest behavior remained 67 passed (exit 0).
+- Source, tests, and database stayed unchanged. Temporary rollback checkout was removed.
+- The working checkout retains pyproject.toml, all packaging/document edits, and the active editable install.
+- For a deliberate working-copy rollback: ./verification/packaging/ROLLBACK.sh; it checks hashes before changing tracked paths and removes only a matching editable installation.
+
+Post-verification:
+PACKAGING: job_radar 0.1.0; Python >=3.10; src discovery; 32 locked dependencies match; existing dependency versions unchanged; protected hashes unchanged; generated files ignored
+FINAL: patch reconstructs 5 files; original protected hashes unchanged; working editable job_radar 0.1.0 kept; database unchanged; git diff --check passed
+- Both curl requests returned HTTP 200. The temporary Uvicorn server exited 0 and is stopped.
+- Full rollback subprocess evidence: ROLLBACK_DETAILS.json. Original files: baseline/.

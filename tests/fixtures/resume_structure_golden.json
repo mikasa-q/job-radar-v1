@@ -1,0 +1,432 @@
+{
+  "fixture_kind": "entirely synthetic, manually scripted responses; not model evaluation",
+  "cases": [
+    {
+      "name": "full_education_course_internship",
+      "pages": [
+        [
+          "教育：合成大学；计算机专业；本科在读；2025.09 入学；预计 2029 年毕业。",
+          "课程项目：合成查询系统；角色：开发者；使用 Python 和 FastAPI 实现查询接口。"
+        ],
+        [
+          "合成公司；后端实习生；实习；2026.07 至今；维护 Redis 缓存。",
+          "自述：喜欢编写可复核的测试。",
+          "计划学习 Docker。"
+        ]
+      ],
+      "response": {
+        "education": [
+          {
+            "school": {
+              "value": "合成大学",
+              "evidence": [
+                {
+                  "page": 1,
+                  "block_id": "p001-b001",
+                  "quote": "教育：合成大学；计算机专业；本科在读；2025.09 入学；预计 2029 年毕业。"
+                }
+              ]
+            },
+            "major": {
+              "value": "计算机",
+              "evidence": [
+                {
+                  "page": 1,
+                  "block_id": "p001-b001",
+                  "quote": "教育：合成大学；计算机专业；本科在读；2025.09 入学；预计 2029 年毕业。"
+                }
+              ]
+            },
+            "degree": {
+              "value": "本科",
+              "evidence": [
+                {
+                  "page": 1,
+                  "block_id": "p001-b001",
+                  "quote": "教育：合成大学；计算机专业；本科在读；2025.09 入学；预计 2029 年毕业。"
+                }
+              ]
+            },
+            "status": {
+              "value": "在读",
+              "evidence": [
+                {
+                  "page": 1,
+                  "block_id": "p001-b001",
+                  "quote": "教育：合成大学；计算机专业；本科在读；2025.09 入学；预计 2029 年毕业。"
+                }
+              ]
+            },
+            "start_date": {
+              "value": "2025.09",
+              "evidence": [
+                {
+                  "page": 1,
+                  "block_id": "p001-b001",
+                  "quote": "教育：合成大学；计算机专业；本科在读；2025.09 入学；预计 2029 年毕业。"
+                }
+              ],
+              "normalized": "2025-09"
+            },
+            "end_date": {
+              "value": "预计 2029 年毕业",
+              "evidence": [
+                {
+                  "page": 1,
+                  "block_id": "p001-b001",
+                  "quote": "教育：合成大学；计算机专业；本科在读；2025.09 入学；预计 2029 年毕业。"
+                }
+              ],
+              "normalized": null
+            }
+          }
+        ],
+        "skills": [
+          {
+            "name": "Python",
+            "mention": {
+              "value": "Python",
+              "evidence": [
+                {
+                  "page": 1,
+                  "block_id": "p001-b002",
+                  "quote": "课程项目：合成查询系统；角色：开发者；使用 Python 和 FastAPI 实现查询接口。"
+                }
+              ]
+            },
+            "context": "course"
+          },
+          {
+            "name": "FastAPI",
+            "mention": {
+              "value": "FastAPI",
+              "evidence": [
+                {
+                  "page": 1,
+                  "block_id": "p001-b002",
+                  "quote": "课程项目：合成查询系统；角色：开发者；使用 Python 和 FastAPI 实现查询接口。"
+                }
+              ]
+            },
+            "context": "course"
+          },
+          {
+            "name": "Redis",
+            "mention": {
+              "value": "Redis",
+              "evidence": [
+                {
+                  "page": 2,
+                  "block_id": "p002-b001",
+                  "quote": "合成公司；后端实习生；实习；2026.07 至今；维护 Redis 缓存。"
+                }
+              ]
+            },
+            "context": "internship"
+          }
+        ],
+        "projects": [
+          {
+            "name": {
+              "value": "合成查询系统",
+              "evidence": [
+                {
+                  "page": 1,
+                  "block_id": "p001-b002",
+                  "quote": "课程项目：合成查询系统；角色：开发者；使用 Python 和 FastAPI 实现查询接口。"
+                }
+              ]
+            },
+            "nature": {
+              "value": "课程项目",
+              "evidence": [
+                {
+                  "page": 1,
+                  "block_id": "p001-b002",
+                  "quote": "课程项目：合成查询系统；角色：开发者；使用 Python 和 FastAPI 实现查询接口。"
+                }
+              ]
+            },
+            "role": {
+              "value": "开发者",
+              "evidence": [
+                {
+                  "page": 1,
+                  "block_id": "p001-b002",
+                  "quote": "课程项目：合成查询系统；角色：开发者；使用 Python 和 FastAPI 实现查询接口。"
+                }
+              ]
+            },
+            "description": [
+              {
+                "value": "使用 Python 和 FastAPI 实现查询接口",
+                "evidence": [
+                  {
+                    "page": 1,
+                    "block_id": "p001-b002",
+                    "quote": "课程项目：合成查询系统；角色：开发者；使用 Python 和 FastAPI 实现查询接口。"
+                  }
+                ]
+              }
+            ],
+            "technologies": [
+              {
+                "name": "Python",
+                "mention": {
+                  "value": "Python",
+                  "evidence": [
+                    {
+                      "page": 1,
+                      "block_id": "p001-b002",
+                      "quote": "课程项目：合成查询系统；角色：开发者；使用 Python 和 FastAPI 实现查询接口。"
+                    }
+                  ]
+                },
+                "context": "course"
+              },
+              {
+                "name": "FastAPI",
+                "mention": {
+                  "value": "FastAPI",
+                  "evidence": [
+                    {
+                      "page": 1,
+                      "block_id": "p001-b002",
+                      "quote": "课程项目：合成查询系统；角色：开发者；使用 Python 和 FastAPI 实现查询接口。"
+                    }
+                  ]
+                },
+                "context": "course"
+              }
+            ]
+          }
+        ],
+        "work_experience": [
+          {
+            "company": {
+              "value": "合成公司",
+              "evidence": [
+                {
+                  "page": 2,
+                  "block_id": "p002-b001",
+                  "quote": "合成公司；后端实习生；实习；2026.07 至今；维护 Redis 缓存。"
+                }
+              ]
+            },
+            "role": {
+              "value": "后端实习生",
+              "evidence": [
+                {
+                  "page": 2,
+                  "block_id": "p002-b001",
+                  "quote": "合成公司；后端实习生；实习；2026.07 至今；维护 Redis 缓存。"
+                }
+              ]
+            },
+            "employment_type": {
+              "value": "实习",
+              "evidence": [
+                {
+                  "page": 2,
+                  "block_id": "p002-b001",
+                  "quote": "合成公司；后端实习生；实习；2026.07 至今；维护 Redis 缓存。"
+                }
+              ]
+            },
+            "start_date": {
+              "value": "2026.07",
+              "evidence": [
+                {
+                  "page": 2,
+                  "block_id": "p002-b001",
+                  "quote": "合成公司；后端实习生；实习；2026.07 至今；维护 Redis 缓存。"
+                }
+              ],
+              "normalized": "2026-07"
+            },
+            "end_date": {
+              "value": "至今",
+              "evidence": [
+                {
+                  "page": 2,
+                  "block_id": "p002-b001",
+                  "quote": "合成公司；后端实习生；实习；2026.07 至今；维护 Redis 缓存。"
+                }
+              ],
+              "normalized": null
+            },
+            "description": [
+              {
+                "value": "维护 Redis 缓存",
+                "evidence": [
+                  {
+                    "page": 2,
+                    "block_id": "p002-b001",
+                    "quote": "合成公司；后端实习生；实习；2026.07 至今；维护 Redis 缓存。"
+                  }
+                ]
+              }
+            ],
+            "technologies": [
+              {
+                "name": "Redis",
+                "mention": {
+                  "value": "Redis",
+                  "evidence": [
+                    {
+                      "page": 2,
+                      "block_id": "p002-b001",
+                      "quote": "合成公司；后端实习生；实习；2026.07 至今；维护 Redis 缓存。"
+                    }
+                  ]
+                },
+                "context": "internship"
+              }
+            ]
+          }
+        ],
+        "summary": {
+          "value": "喜欢编写可复核的测试",
+          "evidence": [
+            {
+              "page": 2,
+              "block_id": "p002-b002",
+              "quote": "自述：喜欢编写可复核的测试。"
+            }
+          ]
+        },
+        "warnings": [
+          "expected_graduation_not_completed"
+        ]
+      },
+      "expected": {
+        "skills": [
+          "Python",
+          "FastAPI",
+          "Redis"
+        ],
+        "schools": [
+          "合成大学"
+        ],
+        "education_status": [
+          "在读"
+        ],
+        "project_nature": [
+          "课程项目"
+        ],
+        "employment_type": [
+          "实习"
+        ],
+        "summary": "喜欢编写可复核的测试",
+        "counts": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "unknown_scalars",
+      "pages": [
+        [
+          "项目：合成计算器；使用 Python 实现加法。"
+        ]
+      ],
+      "response": {
+        "education": [],
+        "skills": [
+          {
+            "name": "Python",
+            "mention": {
+              "value": "Python",
+              "evidence": [
+                {
+                  "page": 1,
+                  "block_id": "p001-b001",
+                  "quote": "项目：合成计算器；使用 Python 实现加法。"
+                }
+              ]
+            },
+            "context": "project"
+          }
+        ],
+        "projects": [
+          {
+            "name": {
+              "value": "合成计算器",
+              "evidence": [
+                {
+                  "page": 1,
+                  "block_id": "p001-b001",
+                  "quote": "项目：合成计算器；使用 Python 实现加法。"
+                }
+              ]
+            },
+            "description": [
+              {
+                "value": "使用 Python 实现加法",
+                "evidence": [
+                  {
+                    "page": 1,
+                    "block_id": "p001-b001",
+                    "quote": "项目：合成计算器；使用 Python 实现加法。"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "work_experience": [],
+        "summary": null,
+        "warnings": []
+      },
+      "expected": {
+        "skills": [
+          "Python"
+        ],
+        "schools": [],
+        "education_status": [],
+        "project_nature": [
+          null
+        ],
+        "employment_type": [],
+        "summary": null,
+        "counts": [
+          0,
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "name": "no_positive_evidence",
+      "pages": [
+        [
+          "计划学习 Docker。",
+          "暂未使用 Redis。"
+        ]
+      ],
+      "response": {
+        "education": [],
+        "skills": [],
+        "projects": [],
+        "work_experience": [],
+        "summary": null,
+        "warnings": []
+      },
+      "expected": {
+        "skills": [],
+        "schools": [],
+        "education_status": [],
+        "project_nature": [],
+        "employment_type": [],
+        "summary": null,
+        "counts": [
+          0,
+          0,
+          0
+        ]
+      }
+    }
+  ]
+}

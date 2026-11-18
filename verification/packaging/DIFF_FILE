@@ -1,0 +1,215 @@
+--- a/.gitignore
++++ b/.gitignore
+@@ -6,3 +6,8 @@
+ 
+ data/*.html
+ data/*.db
++
++# Python packaging artifacts
++*.egg-info/
++build/
++dist/
+--- /dev/null
++++ b/pyproject.toml
+@@ -0,0 +1,18 @@
++[build-system]
++requires = ["setuptools"]
++build-backend = "setuptools.build_meta"
++
++[project]
++name = "job_radar"
++version = "0.1.0"
++description = "Job listing collection, filtering, SQLite storage, and FastAPI queries"
++readme = "README.md"
++requires-python = ">=3.10"
++dynamic = ["dependencies"]
++
++[tool.setuptools.packages.find]
++where = ["src"]
++include = ["job_radar*"]
++
++[tool.setuptools.dynamic]
++dependencies = {file = ["requirements.lock.txt"]}
+--- a/README.md
++++ b/README.md
+@@ -13,16 +13,18 @@
+ git clone https://github.com/mikasa-q/job-radar.git
+ cd job-radar
+ python3 -m venv .venv
+-.venv/bin/python -m pip install -r requirements.txt
++.venv/bin/python -m pip install -e .
+ ```
+ 
+-Python 3.10 或以上。`requirements.lock.txt` 记录了已验证的精确依赖版本。
++Python 3.10 或以上。`pip install -e .` 将 `src/job_radar` 以可编辑方式安装到虚拟环境，
++并直接读取 `requirements.lock.txt` 的精确依赖；后续命令无需额外设置模块搜索路径。
++修改源码后无需重新安装；修改打包配置或锁文件后，重新执行安装命令。
+ 
+ ### 1. 用离线样本跑通全链路
+ 
+ ```bash
+ # 采集样本并写入数据库（不联网）
+-PYTHONPATH=src .venv/bin/python -m job_radar.cli \
++.venv/bin/python -m job_radar.cli \
+   sample_data/boss-home.html \
+   --site boss \
+   --database data/jobs.db \
+@@ -32,7 +34,7 @@
+ ### 2. 启动 API
+ 
+ ```bash
+-.venv/bin/python -m uvicorn job_radar.api:app --app-dir src --host 127.0.0.1 --port 8000
++.venv/bin/python -m uvicorn job_radar.api:app --host 127.0.0.1 --port 8000
+ ```
+ 
+ 打开 [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)，在 `GET /jobs` 点击 **Try it out**，
+@@ -70,7 +72,7 @@
+ 
+ ```bash
+ # 实时采集 Python.org 岗位并入库
+-PYTHONPATH=src .venv/bin/python -m job_radar.cli \
++.venv/bin/python -m job_radar.cli \
+   https://www.python.org/jobs/ \
+   --site python-org \
+   --database data/jobs.db \
+@@ -78,7 +80,7 @@
+   --save-html data/python-org.latest.html
+ 
+ # 查询库中地点含深圳的岗位
+-PYTHONPATH=src .venv/bin/python -m job_radar.cli \
++.venv/bin/python -m job_radar.cli \
+   --database data/jobs.db \
+   --query-city 深圳 \
+   --output data/query-shenzhen.jobs.json
+@@ -114,7 +116,7 @@
+ ```
+ 
+ ```bash
+-PYTHONPATH=src .venv/bin/python -m job_radar.cli \
++.venv/bin/python -m job_radar.cli \
+   sample_data/boss-home.html \
+   --site boss \
+   --config config/shenzhen.json \
+@@ -127,6 +129,7 @@
+ ## 项目结构
+ 
+ ```text
++pyproject.toml 项目元数据、src 包发现与锁文件依赖
+ src/job_radar/
+   cli.py       接收命令参数；成功后写 JSON；失败时报告原因
+   api.py       FastAPI 路由、参数校验和 HTTP 异常映射
+@@ -148,14 +151,18 @@
+ ## 测试与回滚
+ 
+ ```bash
+-PYTHONPATH=src .venv/bin/python -m pytest -q
++.venv/bin/python -m pytest -q
+ ./CHECK.sh baseline
+ ./CHECK.sh modified
+ ./CHECK.sh rollback
+ ```
+ 
+-`pytest.ini` 将默认测试目录固定为 tests，避免把归档基线重复收集。
++先完成快速开始中的可编辑安装。`pytest.ini` 仍是唯一的 pytest 配置入口，
++将默认测试目录固定为 tests，避免把归档基线重复收集。
+ `./CHECK.sh rollback` 在独立副本验证阶段二恢复，工作 API 和数据库保持原状。
++
++本次打包更新的验证与专用回滚见 `verification/packaging/VERIFICATION.txt` 和
++`verification/packaging/ROLLBACK.sh`；回滚后需按旧方式指定模块搜索路径。
+ 
+ ## 已知限制
+ 
+--- a/docs/STAGE3_FASTAPI.md
++++ b/docs/STAGE3_FASTAPI.md
+@@ -1,6 +1,6 @@
+ # JobRadar 第三阶段：从 SQLite 脚本到 FastAPI 查询服务
+ 
+-更新时间：2026-11-01。目标岗位：Python 后端实习，兼顾 AI/LLM 应用开发。目标技术：HTTP、FastAPI、Pydantic、SQLite 查询与接口测试。
++更新时间：2026-11-03（安装方式更新）。目标岗位：Python 后端实习，兼顾 AI/LLM 应用开发。目标技术：HTTP、FastAPI、Pydantic、SQLite 查询与接口测试。
+ 
+ ## 0. 你这次得到了什么
+ 
+@@ -37,10 +37,11 @@
+ 
+ ```bash
+ cd /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar
+-.venv/bin/python -m pip install -r requirements.txt
+-```
+-
+-本机依赖已安装。`requirements.lock.txt` 记录本次实际测试版本；在兼容的 Python/平台环境里可用 `pip install -r requirements.lock.txt` 复现。
++.venv/bin/python -m pip install -e .
++```
++
++新环境先运行 `python3 -m venv .venv`。上述可编辑安装直接读取 `requirements.lock.txt` 的精确依赖，
++并让虚拟环境中的 Python 找到 `src/job_radar`；后续 CLI、pytest、Uvicorn 命令均无需额外指定模块目录。
+ 
+ ### 第二步：确认数据库已有数据
+ 
+@@ -59,19 +60,19 @@
+ 若在新副本中没有数据库，先沿用第二阶段 CLI 入库，**不加筛选条件**，避免只存入筛后子集：
+ 
+ ```bash
+-PYTHONPATH=src .venv/bin/python -m job_radar.cli sample_data/boss-home.html --site boss --database data/jobs.db --output data/boss-import.jobs.json
+-PYTHONPATH=src .venv/bin/python -m job_radar.cli sample_data/python-org.html --site python-org --database data/jobs.db --output data/python-import.jobs.json
++.venv/bin/python -m job_radar.cli sample_data/boss-home.html --site boss --database data/jobs.db --output data/boss-import.jobs.json
++.venv/bin/python -m job_radar.cli sample_data/python-org.html --site python-org --database data/jobs.db --output data/python-import.jobs.json
+ ```
+ 
+ ### 第三步：启动服务
+ 
+ ```bash
+-.venv/bin/python -m uvicorn job_radar.api:app --app-dir src --host 127.0.0.1 --port 8000 --reload
++.venv/bin/python -m uvicorn job_radar.api:app --host 127.0.0.1 --port 8000 --reload
+ ```
+ 
+ 这条命令保持运行，终端不立即回到提示符是正常的。`Ctrl+C` 停止。
+ 
+-含义：Uvicorn 是负责监听 HTTP 的服务器；`job_radar.api` 是模块；冒号后的 `app` 是应用对象；`--app-dir src` 指定模块根目录；`--reload` 是开发时自动重载。
++含义：Uvicorn 是负责监听 HTTP 的服务器；`job_radar.api` 是模块；冒号后的 `app` 是应用对象；可编辑安装负责定位 `src` 下的包；`--reload` 是开发时自动重载。
+ 
+ 默认数据库通过项目文件位置确定，而不是靠当前终端目录猜测。更换数据库可在启动前指定环境变量 `JOBRADAR_DB`；不在每个 HTTP 请求里传文件路径。
+ 
+@@ -314,11 +315,13 @@
+ ## 7. 验证与回滚
+ 
+ ```bash
+-PYTHONPATH=src .venv/bin/python -m pytest -q
++.venv/bin/python -m pytest -q
+ ./CHECK.sh baseline
+ ./CHECK.sh modified
+ ./CHECK.sh rollback
+ ```
++
++运行前先完成第一步的可编辑安装；`pytest.ini` 保持为唯一测试配置。打包更新的验证与专用回滚记录见 `verification/packaging/VERIFICATION.txt`。
+ 
+ 本阶段基线指上一次 SQLite 阶段（39 通过），不是早期那个含过期断言的最初版本。回滚检查仅对副本运行，工作 API 保留。手动恢复阶段二的脚本是 `verification/stage3/ROLLBACK.sh`；根目录旧 `ROLLBACK.sh` 是更早版本的恢复工具，二者不要混淆。
+ 
+--- a/NOTES.md
++++ b/NOTES.md
+@@ -1,12 +1,25 @@
+ # JobRadar 当前状态
+ 
+-更新时间：2026-11-01（第三阶段 FastAPI 查询）
++更新时间：2026-11-03（可编辑安装与模块路径）
+ 
+ ## 当前版本
+ 
+ 工作目录：`/Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar`
+ 
+ 原始版本保留在 `/Users/thc/Documents/Codex/2026-09-27/niu/outputs/job-radar`，未覆盖。
++
++## 本次打包更新（2026-11-03）
++
++- 新增 `pyproject.toml`：包名 `job_radar`，版本 `0.1.0`，Python `>=3.10`，从 `src` 发现包。
++- 安装依赖直接读取现有 `requirements.lock.txt`，32 项精确依赖与安装元数据一致；锁文件和原有依赖版本不变。
++- `.gitignore` 先增加 `*.egg-info/`、`build/`、`dist/`，生成的打包文件已确认被忽略。
++- 现有 `.venv` 已执行 `pip install -e .`。本机配置的镜像未找到构建用 setuptools，仅该次安装临时使用官方索引；没有修改 pip 全局配置。
++- README 和第三阶段教程已改成安装后直接运行，不再要求设置模块搜索路径或 Uvicorn 的 `--app-dir`。历史文档 `docs/README-20261101.md` 保持不变。
++- `env -u PYTHONPATH .venv/bin/pytest -q`：67 项通过；`env -u PYTHONPATH ./CHECK.sh modified`：67 项通过。
++- 真实启动 Uvicorn（无 `PYTHONPATH`、无 `--app-dir`），curl `/health` 和 `/jobs?limit=1` 均 HTTP 200；测试服务已停止。
++- 在独立副本和独立虚拟环境测试回滚：恢复本次 5 个路径、移除副本的可编辑安装，旧方式运行仍为 67 项通过；工作目录的安装保留。
++- 源码、测试逻辑、`pytest.ini`、依赖文件和数据库 SHA-256 保持不变；未增加业务功能。
++- 验证记录：`verification/packaging/VERIFICATION.txt`；本次专用回滚：`verification/packaging/ROLLBACK.sh`。如需使用历史阶段回滚，先撤销本次打包更新。
+ 
+ ## 学习进度
+ 

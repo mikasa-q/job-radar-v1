@@ -1,0 +1,25 @@
+{
+  "command": [
+    "/Users/thc/.codex/visualizations/2026/11/12/01a1d05b-33ee-7331-9a41-172588d232af/jobradar-stage3/runtime/venv/bin/python",
+    "-B",
+    "/Users/thc/.codex/visualizations/2026/11/12/01a1d05b-33ee-7331-9a41-172588d232af/jobradar-stage3/modified/examples/stage3_real_ablation.py",
+    "--model",
+    "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "--revision",
+    "e8f8c211226b894fcb81acc59f3b34ba3efd5f42",
+    "--snapshot",
+    "/Users/thc/.codex/visualizations/2026/11/12/01a1d05b-33ee-7331-9a41-172588d232af/jobradar-stage3/models/sentence-transformers--paraphrase-multilingual-MiniLM-L12-v2/e8f8c211226b894fcb81acc59f3b34ba3efd5f42",
+    "--runtime-sha",
+    "53af5bed5ce2c4f2aa3e92c2239103313e60edfdc34f6b0044fd6f1d40552692",
+    "--model-sha",
+    "64e773622bea83b4a2addcdabfd15290def0f1b0635f66083b4fa9e4149d19eb",
+    "--index",
+    "/Users/thc/.codex/visualizations/2026/11/12/01a1d05b-33ee-7331-9a41-172588d232af/jobradar-stage3/ablation-index-mini",
+    "--output",
+    "/Users/thc/.codex/visualizations/2026/11/12/01a1d05b-33ee-7331-9a41-172588d232af/jobradar-stage3/ablation-mini.json"
+  ],
+  "exit_status": 0,
+  "seconds": 13.788999258016702,
+  "process_tree_peak_rss_bytes": 905535488,
+  "stop_reason": null
+}

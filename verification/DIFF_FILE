@@ -1,0 +1,6 @@
+SQLite storage update diff (working tree is not a Git checkout):
+- Added src/job_radar/storage.py
+- Updated src/job_radar/cli.py with SQLite write/query modes
+- Added tests/test_storage.py (2 tests)
+- Updated README.md, NOTES.md, and .gitignore for SQLite usage
+- Updated verification/rollback.py to remove storage artifacts from restored copies

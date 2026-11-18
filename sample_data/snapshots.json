@@ -1,0 +1,20 @@
+[
+  {
+    "file": "boss-home.html",
+    "source_url": "https://www.zhipin.com/",
+    "http_status": 200,
+    "captured_date": "2026-10-26",
+    "snapshot_kind": "public listing cards; nonessential attributes removed",
+    "raw_sha256": "1193774cade4510b769a215cb84d135ecd4d1512251a85b4d4da3d55c0ce8d6b",
+    "fixture_sha256": "ccdec8b37818eaab02a330b8888f72959549305a35ea36f9690ce90ad838e854"
+  },
+  {
+    "file": "python-org.html",
+    "source_url": "https://www.python.org/jobs/",
+    "http_status": 200,
+    "captured_date": "2026-10-26",
+    "snapshot_kind": "public listing cards; nonessential attributes removed",
+    "raw_sha256": "850c9ce33eb40f7dd6c699fd17412496fd7f099ff3f9130c3cf0e254909a91f2",
+    "fixture_sha256": "ef95d233c1c7d0ba0faeab187d10f9190839d1c19511f235cf98622bc9967016"
+  }
+]

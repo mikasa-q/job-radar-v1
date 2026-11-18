@@ -1,0 +1,164 @@
+{
+  "schema_version": "retrieval-eval-v1",
+  "data_version": "machine-synthetic-ranking-v1",
+  "queries": [
+    {
+      "query_id": "dev-python",
+      "text": "Python 后端接口开发",
+      "profile_group": "synthetic-python-profile",
+      "split": "dev",
+      "source": "synthetic"
+    },
+    {
+      "query_id": "dev-data",
+      "text": "SQL 数据分析",
+      "profile_group": "synthetic-data-profile",
+      "split": "dev",
+      "source": "synthetic"
+    },
+    {
+      "query_id": "test-mobile",
+      "text": "Swift iOS 界面开发",
+      "profile_group": "synthetic-mobile-profile",
+      "split": "test",
+      "source": "synthetic"
+    }
+  ],
+  "judgments": [
+    {
+      "query_id": "dev-python",
+      "key": {
+        "dataset_id": "synthetic-dev",
+        "job_id": 1
+      },
+      "job_group": "synthetic-dev-job-1",
+      "grade": 2,
+      "status": "synthetic_expected",
+      "evidence": [
+        "machine-authored:synthetic-dev/job-1:expected-relevance-only"
+      ],
+      "assessor": null,
+      "review_note": "Machine-authored synthetic metric fixture; not human annotation or model-quality evidence."
+    },
+    {
+      "query_id": "dev-python",
+      "key": {
+        "dataset_id": "synthetic-dev",
+        "job_id": 2
+      },
+      "job_group": "synthetic-dev-job-2",
+      "grade": 1,
+      "status": "synthetic_expected",
+      "evidence": [
+        "machine-authored:synthetic-dev/job-2:expected-relevance-only"
+      ],
+      "assessor": null,
+      "review_note": "Machine-authored synthetic metric fixture; not human annotation or model-quality evidence."
+    },
+    {
+      "query_id": "dev-python",
+      "key": {
+        "dataset_id": "synthetic-dev",
+        "job_id": 3
+      },
+      "job_group": "synthetic-dev-job-3",
+      "grade": 0,
+      "status": "synthetic_expected",
+      "evidence": [
+        "machine-authored:synthetic-dev/job-3:expected-relevance-only"
+      ],
+      "assessor": null,
+      "review_note": "Machine-authored synthetic metric fixture; not human annotation or model-quality evidence."
+    },
+    {
+      "query_id": "dev-data",
+      "key": {
+        "dataset_id": "synthetic-dev",
+        "job_id": 1
+      },
+      "job_group": "synthetic-dev-job-1",
+      "grade": 0,
+      "status": "synthetic_expected",
+      "evidence": [
+        "machine-authored:synthetic-dev/job-1:expected-relevance-only"
+      ],
+      "assessor": null,
+      "review_note": "Machine-authored synthetic metric fixture; not human annotation or model-quality evidence."
+    },
+    {
+      "query_id": "dev-data",
+      "key": {
+        "dataset_id": "synthetic-dev",
+        "job_id": 2
+      },
+      "job_group": "synthetic-dev-job-2",
+      "grade": 1,
+      "status": "synthetic_expected",
+      "evidence": [
+        "machine-authored:synthetic-dev/job-2:expected-relevance-only"
+      ],
+      "assessor": null,
+      "review_note": "Machine-authored synthetic metric fixture; not human annotation or model-quality evidence."
+    },
+    {
+      "query_id": "dev-data",
+      "key": {
+        "dataset_id": "synthetic-dev",
+        "job_id": 3
+      },
+      "job_group": "synthetic-dev-job-3",
+      "grade": 2,
+      "status": "synthetic_expected",
+      "evidence": [
+        "machine-authored:synthetic-dev/job-3:expected-relevance-only"
+      ],
+      "assessor": null,
+      "review_note": "Machine-authored synthetic metric fixture; not human annotation or model-quality evidence."
+    },
+    {
+      "query_id": "test-mobile",
+      "key": {
+        "dataset_id": "synthetic-test",
+        "job_id": 1
+      },
+      "job_group": "synthetic-test-job-1",
+      "grade": 2,
+      "status": "synthetic_expected",
+      "evidence": [
+        "machine-authored:synthetic-test/job-1:expected-relevance-only"
+      ],
+      "assessor": null,
+      "review_note": "Machine-authored synthetic metric fixture; not human annotation or model-quality evidence."
+    },
+    {
+      "query_id": "test-mobile",
+      "key": {
+        "dataset_id": "synthetic-test",
+        "job_id": 2
+      },
+      "job_group": "synthetic-test-job-2",
+      "grade": 0,
+      "status": "synthetic_expected",
+      "evidence": [
+        "machine-authored:synthetic-test/job-2:expected-relevance-only"
+      ],
+      "assessor": null,
+      "review_note": "Machine-authored synthetic metric fixture; not human annotation or model-quality evidence."
+    },
+    {
+      "query_id": "test-mobile",
+      "key": {
+        "dataset_id": "synthetic-test",
+        "job_id": 3
+      },
+      "job_group": "synthetic-test-job-3",
+      "grade": 1,
+      "status": "synthetic_expected",
+      "evidence": [
+        "machine-authored:synthetic-test/job-3:expected-relevance-only"
+      ],
+      "assessor": null,
+      "review_note": "Machine-authored synthetic metric fixture; not human annotation or model-quality evidence."
+    }
+  ]
+}

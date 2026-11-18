@@ -1,0 +1,1185 @@
+{
+  "schema_version": "retrieval-experiments-v1",
+  "split": "dev",
+  "dataset_sha256": "db055dab578c46988c13666799ef470e9a4884945228fe5da8c8a37445d2574f",
+  "automatic_selection": false,
+  "reports": [
+    {
+      "schema_version": "retrieval-eval-v1",
+      "data_version": "synthetic-bm25-demo-v1",
+      "dataset_sha256": "db055dab578c46988c13666799ef470e9a4884945228fe5da8c8a37445d2574f",
+      "split": "dev",
+      "policy": {
+        "relevance_threshold": 1,
+        "gain": "2**grade-1",
+        "discount": "log2(rank+1)",
+        "empty_relevant": "null_separate",
+        "unjudged": "report_not_negative",
+        "dedup": "first_job_occurrence",
+        "tie_order": "ranker_supplied_dataset_id_job_id",
+        "incomplete_judgments": "null_metrics"
+      },
+      "experiment": {
+        "experiment_id": "stage2-default",
+        "config_sha256": "ff538dbf886c705f37681675f467278475802efb857529e5144a2e2cb177301d",
+        "dataset_sha256": "db055dab578c46988c13666799ef470e9a4884945228fe5da8c8a37445d2574f",
+        "index_sha256": "373ba095cb5fb8490721d2329d0a63d3329df82941e816a58b338585dad7efed",
+        "model_sha256": null,
+        "variant": "stage2_default",
+        "frozen_on_dev": false
+      },
+      "candidate_universe": [
+        {
+          "dataset_id": "synthetic-stage3",
+          "job_id": 1
+        },
+        {
+          "dataset_id": "synthetic-stage3",
+          "job_id": 2
+        },
+        {
+          "dataset_id": "synthetic-stage3",
+          "job_id": 3
+        },
+        {
+          "dataset_id": "synthetic-stage3",
+          "job_id": 4
+        }
+      ],
+      "candidate_universe_basis": "judgment_union",
+      "candidate_universe_verified": false,
+      "query_count": 3,
+      "candidate_count": 4,
+      "judgment_coverage": 1.0,
+      "complete_judgments": true,
+      "human_labels_complete_for_declared_universe": false,
+      "human_quality_ready": false,
+      "human_quality_status": "human_judgments_pending",
+      "synthetic_correctness_ready": true,
+      "no_relevant_query_ids": [],
+      "incomplete_query_ids": [],
+      "macro": {
+        "Recall@1": 0.6666666666666666,
+        "Recall@5": 1.0,
+        "Recall@10": 1.0,
+        "MRR@10": 1.0,
+        "nDCG@10": 1.0
+      },
+      "metric_query_support": {
+        "Recall@1": 3,
+        "Recall@5": 3,
+        "Recall@10": 3,
+        "MRR@10": 3,
+        "nDCG@10": 3
+      },
+      "error_counts": {},
+      "per_query": [
+        {
+          "query_id": "backend",
+          "profile_group": "synth-backend",
+          "source": "synthetic",
+          "metrics": {
+            "Recall@1": 0.5,
+            "Recall@5": 1.0,
+            "Recall@10": 1.0,
+            "MRR@10": 1.0,
+            "nDCG@10": 1.0
+          },
+          "ranking": [
+            {
+              "dataset_id": "synthetic-stage3",
+              "job_id": 1
+            },
+            {
+              "dataset_id": "synthetic-stage3",
+              "job_id": 3
+            }
+          ],
+          "duplicates_removed": 0,
+          "complete_judgments": true,
+          "candidate_count": 4,
+          "judged_count": 4,
+          "human_judged_count": 0,
+          "synthetic_expected_count": 4,
+          "judgment_coverage": 1.0,
+          "known_relevant_count": 2,
+          "no_relevant_jobs": false,
+          "missing_judgments": [],
+          "unjudged_candidates": [],
+          "unjudged_returned": [],
+          "error_categories": [],
+          "judgments": [
+            {
+              "query_id": "backend",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 1
+              },
+              "job_group": "synthetic-job-1",
+              "grade": 2,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-1"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            },
+            {
+              "query_id": "backend",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 2
+              },
+              "job_group": "synthetic-job-2",
+              "grade": 0,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-2"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            },
+            {
+              "query_id": "backend",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 3
+              },
+              "job_group": "synthetic-job-3",
+              "grade": 1,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-3"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            },
+            {
+              "query_id": "backend",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 4
+              },
+              "job_group": "synthetic-job-4",
+              "grade": 0,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-4"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            }
+          ]
+        },
+        {
+          "query_id": "mobile",
+          "profile_group": "synth-mobile",
+          "source": "synthetic",
+          "metrics": {
+            "Recall@1": 1.0,
+            "Recall@5": 1.0,
+            "Recall@10": 1.0,
+            "MRR@10": 1.0,
+            "nDCG@10": 1.0
+          },
+          "ranking": [
+            {
+              "dataset_id": "synthetic-stage3",
+              "job_id": 2
+            }
+          ],
+          "duplicates_removed": 0,
+          "complete_judgments": true,
+          "candidate_count": 4,
+          "judged_count": 4,
+          "human_judged_count": 0,
+          "synthetic_expected_count": 4,
+          "judgment_coverage": 1.0,
+          "known_relevant_count": 1,
+          "no_relevant_jobs": false,
+          "missing_judgments": [],
+          "unjudged_candidates": [],
+          "unjudged_returned": [],
+          "error_categories": [],
+          "judgments": [
+            {
+              "query_id": "mobile",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 1
+              },
+              "job_group": "synthetic-job-1",
+              "grade": 0,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-1"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            },
+            {
+              "query_id": "mobile",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 2
+              },
+              "job_group": "synthetic-job-2",
+              "grade": 2,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-2"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            },
+            {
+              "query_id": "mobile",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 3
+              },
+              "job_group": "synthetic-job-3",
+              "grade": 0,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-3"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            },
+            {
+              "query_id": "mobile",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 4
+              },
+              "job_group": "synthetic-job-4",
+              "grade": 0,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-4"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            }
+          ]
+        },
+        {
+          "query_id": "data",
+          "profile_group": "synth-data",
+          "source": "synthetic",
+          "metrics": {
+            "Recall@1": 0.5,
+            "Recall@5": 1.0,
+            "Recall@10": 1.0,
+            "MRR@10": 1.0,
+            "nDCG@10": 1.0
+          },
+          "ranking": [
+            {
+              "dataset_id": "synthetic-stage3",
+              "job_id": 3
+            },
+            {
+              "dataset_id": "synthetic-stage3",
+              "job_id": 1
+            }
+          ],
+          "duplicates_removed": 0,
+          "complete_judgments": true,
+          "candidate_count": 4,
+          "judged_count": 4,
+          "human_judged_count": 0,
+          "synthetic_expected_count": 4,
+          "judgment_coverage": 1.0,
+          "known_relevant_count": 2,
+          "no_relevant_jobs": false,
+          "missing_judgments": [],
+          "unjudged_candidates": [],
+          "unjudged_returned": [],
+          "error_categories": [],
+          "judgments": [
+            {
+              "query_id": "data",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 1
+              },
+              "job_group": "synthetic-job-1",
+              "grade": 1,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-1"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            },
+            {
+              "query_id": "data",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 2
+              },
+              "job_group": "synthetic-job-2",
+              "grade": 0,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-2"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            },
+            {
+              "query_id": "data",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 3
+              },
+              "job_group": "synthetic-job-3",
+              "grade": 2,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-3"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            },
+            {
+              "query_id": "data",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 4
+              },
+              "job_group": "synthetic-job-4",
+              "grade": 0,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-4"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "schema_version": "retrieval-eval-v1",
+      "data_version": "synthetic-bm25-demo-v1",
+      "dataset_sha256": "db055dab578c46988c13666799ef470e9a4884945228fe5da8c8a37445d2574f",
+      "split": "dev",
+      "policy": {
+        "relevance_threshold": 1,
+        "gain": "2**grade-1",
+        "discount": "log2(rank+1)",
+        "empty_relevant": "null_separate",
+        "unjudged": "report_not_negative",
+        "dedup": "first_job_occurrence",
+        "tie_order": "ranker_supplied_dataset_id_job_id",
+        "incomplete_judgments": "null_metrics"
+      },
+      "experiment": {
+        "experiment_id": "bm25-title1",
+        "config_sha256": "271856e3c69d6a8324ca6f575edbcc6cc828e6e527d307b7be5992b43b375d19",
+        "dataset_sha256": "db055dab578c46988c13666799ef470e9a4884945228fe5da8c8a37445d2574f",
+        "index_sha256": "373ba095cb5fb8490721d2329d0a63d3329df82941e816a58b338585dad7efed",
+        "model_sha256": null,
+        "variant": "tuned_bm25",
+        "frozen_on_dev": false
+      },
+      "candidate_universe": [
+        {
+          "dataset_id": "synthetic-stage3",
+          "job_id": 1
+        },
+        {
+          "dataset_id": "synthetic-stage3",
+          "job_id": 2
+        },
+        {
+          "dataset_id": "synthetic-stage3",
+          "job_id": 3
+        },
+        {
+          "dataset_id": "synthetic-stage3",
+          "job_id": 4
+        }
+      ],
+      "candidate_universe_basis": "judgment_union",
+      "candidate_universe_verified": false,
+      "query_count": 3,
+      "candidate_count": 4,
+      "judgment_coverage": 1.0,
+      "complete_judgments": true,
+      "human_labels_complete_for_declared_universe": false,
+      "human_quality_ready": false,
+      "human_quality_status": "human_judgments_pending",
+      "synthetic_correctness_ready": true,
+      "no_relevant_query_ids": [],
+      "incomplete_query_ids": [],
+      "macro": {
+        "Recall@1": 0.6666666666666666,
+        "Recall@5": 1.0,
+        "Recall@10": 1.0,
+        "MRR@10": 1.0,
+        "nDCG@10": 1.0
+      },
+      "metric_query_support": {
+        "Recall@1": 3,
+        "Recall@5": 3,
+        "Recall@10": 3,
+        "MRR@10": 3,
+        "nDCG@10": 3
+      },
+      "error_counts": {},
+      "per_query": [
+        {
+          "query_id": "backend",
+          "profile_group": "synth-backend",
+          "source": "synthetic",
+          "metrics": {
+            "Recall@1": 0.5,
+            "Recall@5": 1.0,
+            "Recall@10": 1.0,
+            "MRR@10": 1.0,
+            "nDCG@10": 1.0
+          },
+          "ranking": [
+            {
+              "dataset_id": "synthetic-stage3",
+              "job_id": 1
+            },
+            {
+              "dataset_id": "synthetic-stage3",
+              "job_id": 3
+            }
+          ],
+          "duplicates_removed": 0,
+          "complete_judgments": true,
+          "candidate_count": 4,
+          "judged_count": 4,
+          "human_judged_count": 0,
+          "synthetic_expected_count": 4,
+          "judgment_coverage": 1.0,
+          "known_relevant_count": 2,
+          "no_relevant_jobs": false,
+          "missing_judgments": [],
+          "unjudged_candidates": [],
+          "unjudged_returned": [],
+          "error_categories": [],
+          "judgments": [
+            {
+              "query_id": "backend",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 1
+              },
+              "job_group": "synthetic-job-1",
+              "grade": 2,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-1"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            },
+            {
+              "query_id": "backend",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 2
+              },
+              "job_group": "synthetic-job-2",
+              "grade": 0,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-2"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            },
+            {
+              "query_id": "backend",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 3
+              },
+              "job_group": "synthetic-job-3",
+              "grade": 1,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-3"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            },
+            {
+              "query_id": "backend",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 4
+              },
+              "job_group": "synthetic-job-4",
+              "grade": 0,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-4"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            }
+          ]
+        },
+        {
+          "query_id": "mobile",
+          "profile_group": "synth-mobile",
+          "source": "synthetic",
+          "metrics": {
+            "Recall@1": 1.0,
+            "Recall@5": 1.0,
+            "Recall@10": 1.0,
+            "MRR@10": 1.0,
+            "nDCG@10": 1.0
+          },
+          "ranking": [
+            {
+              "dataset_id": "synthetic-stage3",
+              "job_id": 2
+            }
+          ],
+          "duplicates_removed": 0,
+          "complete_judgments": true,
+          "candidate_count": 4,
+          "judged_count": 4,
+          "human_judged_count": 0,
+          "synthetic_expected_count": 4,
+          "judgment_coverage": 1.0,
+          "known_relevant_count": 1,
+          "no_relevant_jobs": false,
+          "missing_judgments": [],
+          "unjudged_candidates": [],
+          "unjudged_returned": [],
+          "error_categories": [],
+          "judgments": [
+            {
+              "query_id": "mobile",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 1
+              },
+              "job_group": "synthetic-job-1",
+              "grade": 0,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-1"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            },
+            {
+              "query_id": "mobile",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 2
+              },
+              "job_group": "synthetic-job-2",
+              "grade": 2,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-2"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            },
+            {
+              "query_id": "mobile",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 3
+              },
+              "job_group": "synthetic-job-3",
+              "grade": 0,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-3"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            },
+            {
+              "query_id": "mobile",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 4
+              },
+              "job_group": "synthetic-job-4",
+              "grade": 0,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-4"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            }
+          ]
+        },
+        {
+          "query_id": "data",
+          "profile_group": "synth-data",
+          "source": "synthetic",
+          "metrics": {
+            "Recall@1": 0.5,
+            "Recall@5": 1.0,
+            "Recall@10": 1.0,
+            "MRR@10": 1.0,
+            "nDCG@10": 1.0
+          },
+          "ranking": [
+            {
+              "dataset_id": "synthetic-stage3",
+              "job_id": 3
+            },
+            {
+              "dataset_id": "synthetic-stage3",
+              "job_id": 1
+            }
+          ],
+          "duplicates_removed": 0,
+          "complete_judgments": true,
+          "candidate_count": 4,
+          "judged_count": 4,
+          "human_judged_count": 0,
+          "synthetic_expected_count": 4,
+          "judgment_coverage": 1.0,
+          "known_relevant_count": 2,
+          "no_relevant_jobs": false,
+          "missing_judgments": [],
+          "unjudged_candidates": [],
+          "unjudged_returned": [],
+          "error_categories": [],
+          "judgments": [
+            {
+              "query_id": "data",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 1
+              },
+              "job_group": "synthetic-job-1",
+              "grade": 1,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-1"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            },
+            {
+              "query_id": "data",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 2
+              },
+              "job_group": "synthetic-job-2",
+              "grade": 0,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-2"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            },
+            {
+              "query_id": "data",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 3
+              },
+              "job_group": "synthetic-job-3",
+              "grade": 2,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-3"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            },
+            {
+              "query_id": "data",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 4
+              },
+              "job_group": "synthetic-job-4",
+              "grade": 0,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-4"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "schema_version": "retrieval-eval-v1",
+      "data_version": "synthetic-bm25-demo-v1",
+      "dataset_sha256": "db055dab578c46988c13666799ef470e9a4884945228fe5da8c8a37445d2574f",
+      "split": "dev",
+      "policy": {
+        "relevance_threshold": 1,
+        "gain": "2**grade-1",
+        "discount": "log2(rank+1)",
+        "empty_relevant": "null_separate",
+        "unjudged": "report_not_negative",
+        "dedup": "first_job_occurrence",
+        "tie_order": "ranker_supplied_dataset_id_job_id",
+        "incomplete_judgments": "null_metrics"
+      },
+      "experiment": {
+        "experiment_id": "bm25-title0",
+        "config_sha256": "a3e749fc14aa11497c75a576d3863abbe552afaad8f819c28b8b17be248c5ee6",
+        "dataset_sha256": "db055dab578c46988c13666799ef470e9a4884945228fe5da8c8a37445d2574f",
+        "index_sha256": "373ba095cb5fb8490721d2329d0a63d3329df82941e816a58b338585dad7efed",
+        "model_sha256": null,
+        "variant": "tuned_bm25",
+        "frozen_on_dev": false
+      },
+      "candidate_universe": [
+        {
+          "dataset_id": "synthetic-stage3",
+          "job_id": 1
+        },
+        {
+          "dataset_id": "synthetic-stage3",
+          "job_id": 2
+        },
+        {
+          "dataset_id": "synthetic-stage3",
+          "job_id": 3
+        },
+        {
+          "dataset_id": "synthetic-stage3",
+          "job_id": 4
+        }
+      ],
+      "candidate_universe_basis": "judgment_union",
+      "candidate_universe_verified": false,
+      "query_count": 3,
+      "candidate_count": 4,
+      "judgment_coverage": 1.0,
+      "complete_judgments": true,
+      "human_labels_complete_for_declared_universe": false,
+      "human_quality_ready": false,
+      "human_quality_status": "human_judgments_pending",
+      "synthetic_correctness_ready": true,
+      "no_relevant_query_ids": [],
+      "incomplete_query_ids": [],
+      "macro": {
+        "Recall@1": 0.6666666666666666,
+        "Recall@5": 1.0,
+        "Recall@10": 1.0,
+        "MRR@10": 1.0,
+        "nDCG@10": 1.0
+      },
+      "metric_query_support": {
+        "Recall@1": 3,
+        "Recall@5": 3,
+        "Recall@10": 3,
+        "MRR@10": 3,
+        "nDCG@10": 3
+      },
+      "error_counts": {},
+      "per_query": [
+        {
+          "query_id": "backend",
+          "profile_group": "synth-backend",
+          "source": "synthetic",
+          "metrics": {
+            "Recall@1": 0.5,
+            "Recall@5": 1.0,
+            "Recall@10": 1.0,
+            "MRR@10": 1.0,
+            "nDCG@10": 1.0
+          },
+          "ranking": [
+            {
+              "dataset_id": "synthetic-stage3",
+              "job_id": 1
+            },
+            {
+              "dataset_id": "synthetic-stage3",
+              "job_id": 3
+            }
+          ],
+          "duplicates_removed": 0,
+          "complete_judgments": true,
+          "candidate_count": 4,
+          "judged_count": 4,
+          "human_judged_count": 0,
+          "synthetic_expected_count": 4,
+          "judgment_coverage": 1.0,
+          "known_relevant_count": 2,
+          "no_relevant_jobs": false,
+          "missing_judgments": [],
+          "unjudged_candidates": [],
+          "unjudged_returned": [],
+          "error_categories": [],
+          "judgments": [
+            {
+              "query_id": "backend",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 1
+              },
+              "job_group": "synthetic-job-1",
+              "grade": 2,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-1"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            },
+            {
+              "query_id": "backend",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 2
+              },
+              "job_group": "synthetic-job-2",
+              "grade": 0,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-2"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            },
+            {
+              "query_id": "backend",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 3
+              },
+              "job_group": "synthetic-job-3",
+              "grade": 1,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-3"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            },
+            {
+              "query_id": "backend",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 4
+              },
+              "job_group": "synthetic-job-4",
+              "grade": 0,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-4"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            }
+          ]
+        },
+        {
+          "query_id": "mobile",
+          "profile_group": "synth-mobile",
+          "source": "synthetic",
+          "metrics": {
+            "Recall@1": 1.0,
+            "Recall@5": 1.0,
+            "Recall@10": 1.0,
+            "MRR@10": 1.0,
+            "nDCG@10": 1.0
+          },
+          "ranking": [
+            {
+              "dataset_id": "synthetic-stage3",
+              "job_id": 2
+            }
+          ],
+          "duplicates_removed": 0,
+          "complete_judgments": true,
+          "candidate_count": 4,
+          "judged_count": 4,
+          "human_judged_count": 0,
+          "synthetic_expected_count": 4,
+          "judgment_coverage": 1.0,
+          "known_relevant_count": 1,
+          "no_relevant_jobs": false,
+          "missing_judgments": [],
+          "unjudged_candidates": [],
+          "unjudged_returned": [],
+          "error_categories": [],
+          "judgments": [
+            {
+              "query_id": "mobile",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 1
+              },
+              "job_group": "synthetic-job-1",
+              "grade": 0,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-1"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            },
+            {
+              "query_id": "mobile",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 2
+              },
+              "job_group": "synthetic-job-2",
+              "grade": 2,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-2"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            },
+            {
+              "query_id": "mobile",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 3
+              },
+              "job_group": "synthetic-job-3",
+              "grade": 0,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-3"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            },
+            {
+              "query_id": "mobile",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 4
+              },
+              "job_group": "synthetic-job-4",
+              "grade": 0,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-4"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            }
+          ]
+        },
+        {
+          "query_id": "data",
+          "profile_group": "synth-data",
+          "source": "synthetic",
+          "metrics": {
+            "Recall@1": 0.5,
+            "Recall@5": 1.0,
+            "Recall@10": 1.0,
+            "MRR@10": 1.0,
+            "nDCG@10": 1.0
+          },
+          "ranking": [
+            {
+              "dataset_id": "synthetic-stage3",
+              "job_id": 3
+            },
+            {
+              "dataset_id": "synthetic-stage3",
+              "job_id": 1
+            }
+          ],
+          "duplicates_removed": 0,
+          "complete_judgments": true,
+          "candidate_count": 4,
+          "judged_count": 4,
+          "human_judged_count": 0,
+          "synthetic_expected_count": 4,
+          "judgment_coverage": 1.0,
+          "known_relevant_count": 2,
+          "no_relevant_jobs": false,
+          "missing_judgments": [],
+          "unjudged_candidates": [],
+          "unjudged_returned": [],
+          "error_categories": [],
+          "judgments": [
+            {
+              "query_id": "data",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 1
+              },
+              "job_group": "synthetic-job-1",
+              "grade": 1,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-1"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            },
+            {
+              "query_id": "data",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 2
+              },
+              "job_group": "synthetic-job-2",
+              "grade": 0,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-2"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            },
+            {
+              "query_id": "data",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 3
+              },
+              "job_group": "synthetic-job-3",
+              "grade": 2,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-3"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            },
+            {
+              "query_id": "data",
+              "key": {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 4
+              },
+              "job_group": "synthetic-job-4",
+              "grade": 0,
+              "status": "synthetic_expected",
+              "evidence": [
+                "machine-authored:job-4"
+              ],
+              "assessor": null,
+              "review_note": "Not human annotation."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "deltas_vs_first": [
+    {
+      "baseline_experiment_id": "stage2-default",
+      "experiment_id": "bm25-title1",
+      "macro": {
+        "Recall@1": 0.0,
+        "Recall@5": 0.0,
+        "Recall@10": 0.0,
+        "MRR@10": 0.0,
+        "nDCG@10": 0.0
+      },
+      "per_query": [
+        {
+          "query_id": "backend",
+          "metrics": {
+            "Recall@1": 0.0,
+            "Recall@5": 0.0,
+            "Recall@10": 0.0,
+            "MRR@10": 0.0,
+            "nDCG@10": 0.0
+          },
+          "ranking_changed": false,
+          "error_categories": []
+        },
+        {
+          "query_id": "mobile",
+          "metrics": {
+            "Recall@1": 0.0,
+            "Recall@5": 0.0,
+            "Recall@10": 0.0,
+            "MRR@10": 0.0,
+            "nDCG@10": 0.0
+          },
+          "ranking_changed": false,
+          "error_categories": []
+        },
+        {
+          "query_id": "data",
+          "metrics": {
+            "Recall@1": 0.0,
+            "Recall@5": 0.0,
+            "Recall@10": 0.0,
+            "MRR@10": 0.0,
+            "nDCG@10": 0.0
+          },
+          "ranking_changed": false,
+          "error_categories": []
+        }
+      ]
+    },
+    {
+      "baseline_experiment_id": "stage2-default",
+      "experiment_id": "bm25-title0",
+      "macro": {
+        "Recall@1": 0.0,
+        "Recall@5": 0.0,
+        "Recall@10": 0.0,
+        "MRR@10": 0.0,
+        "nDCG@10": 0.0
+      },
+      "per_query": [
+        {
+          "query_id": "backend",
+          "metrics": {
+            "Recall@1": 0.0,
+            "Recall@5": 0.0,
+            "Recall@10": 0.0,
+            "MRR@10": 0.0,
+            "nDCG@10": 0.0
+          },
+          "ranking_changed": false,
+          "error_categories": []
+        },
+        {
+          "query_id": "mobile",
+          "metrics": {
+            "Recall@1": 0.0,
+            "Recall@5": 0.0,
+            "Recall@10": 0.0,
+            "MRR@10": 0.0,
+            "nDCG@10": 0.0
+          },
+          "ranking_changed": false,
+          "error_categories": []
+        },
+        {
+          "query_id": "data",
+          "metrics": {
+            "Recall@1": 0.0,
+            "Recall@5": 0.0,
+            "Recall@10": 0.0,
+            "MRR@10": 0.0,
+            "nDCG@10": 0.0
+          },
+          "ranking_changed": false,
+          "error_categories": []
+        }
+      ]
+    }
+  ]
+}

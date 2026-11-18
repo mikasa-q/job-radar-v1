@@ -1,0 +1,163 @@
+[
+  {
+    "label": "BASELINE",
+    "command": [
+      ".venv/bin/python",
+      "-m",
+      "pytest",
+      "-q"
+    ],
+    "input": "unchanged source and 67 offline tests",
+    "stdout": "...................................................................      [100%]\n67 passed in 2.03s\n",
+    "stderr": "",
+    "exit_status": 0
+  },
+  {
+    "label": "BASELINE_NO_PYTHONPATH",
+    "command": [
+      "env",
+      "-u",
+      "PYTHONPATH",
+      ".venv/bin/python",
+      "-c",
+      "import job_radar"
+    ],
+    "input": "import job_radar before editable installation",
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\nModuleNotFoundError: No module named 'job_radar'\n",
+    "exit_status": 1
+  },
+  {
+    "label": "INSTALL",
+    "command": [
+      "env",
+      "-u",
+      "PYTHONPATH",
+      ".venv/bin/python",
+      "-m",
+      "pip",
+      "install",
+      "-e",
+      "."
+    ],
+    "input": "pyproject.toml + unchanged requirements.lock.txt; existing .venv",
+    "stdout": "Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple\nObtaining file:///Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar\n  Installing build dependencies: started\n  Installing build dependencies: finished with status 'error'\n",
+    "stderr": "  error: subprocess-exited-with-error\n  \n  × pip subprocess to install build dependencies did not run successfully.\n  │ exit code: 1\n  ╰─> [4 lines of output]\n      Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple\n      ERROR: Could not find a version that satisfies the requirement setuptools (from versions: none)\n      ERROR: No matching distribution found for setuptools\n      WARNING: There was an error checking the latest version of pip.\n      [end of output]\n  \n  note: This error originates from a subprocess, and is likely not a problem with pip.\nerror: subprocess-exited-with-error\n\n× pip subprocess to install build dependencies did not run successfully.\n│ exit code: 1\n╰─> See above for output.\n\nnote: This error originates from a subprocess, and is likely not a problem with pip.\nWARNING: There was an error checking the latest version of pip.\n",
+    "exit_status": 1
+  },
+  {
+    "label": "INSTALL_OFFICIAL_INDEX",
+    "command": [
+      "env",
+      "-u",
+      "PYTHONPATH",
+      "PIP_INDEX_URL=https://pypi.org/simple",
+      ".venv/bin/python",
+      "-m",
+      "pip",
+      "install",
+      "-e",
+      "."
+    ],
+    "input": "same pyproject and unchanged lock; official index only for this process because configured mirror returned no setuptools",
+    "stdout": "Obtaining file:///Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar\n  Installing build dependencies: started\n  Installing build dependencies: finished with status 'done'\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Getting requirements to build editable: started\n  Getting requirements to build editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: pluggy==1.7.0 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (1.7.0)\nRequirement already satisfied: requests==2.34.2 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (2.34.2)\nRequirement already satisfied: uvicorn==0.54.0 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (0.54.0)\nRequirement already satisfied: anyio==4.15.1 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (4.15.1)\nRequirement already satisfied: soupsieve==2.10 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (2.10)\nRequirement already satisfied: httpcore2==2.14.0 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (2.14.0)\nRequirement already satisfied: urllib3==2.8.0 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (2.8.0)\nRequirement already satisfied: typing_extensions==4.16.0 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (4.16.0)\nRequirement already satisfied: idna==3.20 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (3.20)\nRequirement already satisfied: starlette==1.7.0 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (1.7.0)\nRequirement already satisfied: httpx2==2.14.0 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (2.14.0)\nRequirement already satisfied: click==8.5.0 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (8.5.0)\nRequirement already satisfied: annotated-types==0.8.0 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (0.8.0)\nRequirement already satisfied: charset-normalizer==3.5.2 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (3.5.2)\nRequirement already satisfied: packaging==26.3 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (26.3)\nRequirement already satisfied: httpx==0.28.1 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (0.28.1)\nRequirement already satisfied: exceptiongroup==1.3.1 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (1.3.1)\nRequirement already satisfied: beautifulsoup4==4.15.0 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (4.15.0)\nRequirement already satisfied: pydantic==2.14.2 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (2.14.2)\nRequirement already satisfied: pydantic_core==2.50.2 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (2.50.2)\nRequirement already satisfied: pytest==9.1.1 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (9.1.1)\nRequirement already satisfied: h11==0.16.0 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (0.16.0)\nRequirement already satisfied: Pygments==2.21.0 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (2.21.0)\nRequirement already satisfied: iniconfig==2.3.1 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (2.3.1)\nRequirement already satisfied: opentelemetry-api==1.45.2 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (1.45.2)\nRequirement already satisfied: typing-inspection==0.4.4 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (0.4.4)\nRequirement already satisfied: certifi==2026.10.23 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (2026.10.23)\nRequirement already satisfied: tomli==2.5.0 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (2.5.0)\nRequirement already satisfied: fastapi==0.162.0 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (0.162.0)\nRequirement already satisfied: httpcore==1.0.9 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (1.0.9)\nRequirement already satisfied: truststore==0.10.5 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (0.10.5)\nRequirement already satisfied: annotated-doc==0.0.5 in ./.venv/lib/python3.10/site-packages (from job_radar==0.1.0) (0.0.5)\nBuilding wheels for collected packages: job_radar\n  Building editable for job_radar (pyproject.toml): started\n  Building editable for job_radar (pyproject.toml): finished with status 'done'\n  Created wheel for job_radar: filename=job_radar-0.1.0-0.editable-py3-none-any.whl size=5082 sha256=5d0b15198eec140fd0251eb39e3d9a9141633b6bb7f9026d80ff5eb510cd19d7\n  Stored in directory: /private/var/folders/l_/hbqyvhzs2qn1s5l4y4q7bb8w0000gp/T/pip-ephem-wheel-cache-s6mhp4mu/wheels/1b/a1/fa/989149da72d2e88e9ae42e8f4cce1498c94c9f6995964ec2be\nSuccessfully built job_radar\nInstalling collected packages: job_radar\nSuccessfully installed job_radar-0.1.0\n",
+    "stderr": "\n[notice] A new release of pip available: 22.2.1 -> 26.3\n[notice] To update, run: /Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/.venv/bin/python -m pip install --upgrade pip\n",
+    "exit_status": 0
+  },
+  {
+    "label": "MODIFIED",
+    "command": [
+      "env",
+      "-u",
+      "PYTHONPATH",
+      ".venv/bin/pytest",
+      "-q"
+    ],
+    "input": "unchanged 67 offline tests; installed job_radar; PYTHONPATH unset",
+    "stdout": "...................................................................      [100%]\n67 passed in 1.81s\n",
+    "stderr": "",
+    "exit_status": 0
+  },
+  {
+    "label": "CHECK_MODIFIED",
+    "command": [
+      "env",
+      "-u",
+      "PYTHONPATH",
+      "./CHECK.sh",
+      "modified"
+    ],
+    "input": "unchanged 67 offline tests; installed job_radar; PYTHONPATH unset",
+    "stdout": "MODIFIED: 67 passed; FastAPI query endpoints present\n",
+    "stderr": "",
+    "exit_status": 0
+  },
+  {
+    "label": "HTTP_HEALTH",
+    "command": [
+      "curl",
+      "--fail",
+      "--silent",
+      "--show-error",
+      "--write-out",
+      "\nHTTP %{http_code}\n",
+      "http://127.0.0.1:61317/health"
+    ],
+    "input": "real loopback HTTP GET against unchanged database",
+    "stdout": "{\"status\":\"ok\"}\nHTTP 200\n",
+    "stderr": "",
+    "exit_status": 0
+  },
+  {
+    "label": "HTTP_JOBS",
+    "command": [
+      "curl",
+      "--fail",
+      "--silent",
+      "--show-error",
+      "--write-out",
+      "\nHTTP %{http_code}\n",
+      "http://127.0.0.1:61317/jobs?limit=1"
+    ],
+    "input": "real loopback HTTP GET against unchanged database",
+    "stdout": "{\"total\":104,\"limit\":1,\"offset\":0,\"items\":[{\"id\":187,\"source\":\"python.org\",\"title\":\"Founding Principal Engineer\",\"company\":\"Ferto Health GmbH\",\"city\":\"Berlin, Berlin, Germany\",\"url\":\"https://www.python.org/jobs/8189/\",\"description\":\"Back end , Cloud , Database , Lead , Systems / Developer / Engineer\",\"description_kind\":\"listing_summary\",\"salary\":\"\",\"experience\":\"\",\"education\":\"\",\"skills\":[],\"posted_at\":\"2026-10-27T12:46:52.198134+00:00\",\"crawled_at\":\"2026-11-03T14:21:29.521673+00:00\",\"first_seen_at\":\"2026-11-03T14:21:29.521673+00:00\",\"last_seen_at\":\"2026-11-03T14:21:29.521673+00:00\"}]}\nHTTP 200\n",
+    "stderr": "",
+    "exit_status": 0
+  },
+  {
+    "label": "API_SERVER",
+    "command": [
+      "env",
+      "-u",
+      "PYTHONPATH",
+      "-u",
+      "JOBRADAR_DB",
+      ".venv/bin/python",
+      "-m",
+      "uvicorn",
+      "job_radar.api:app",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "61317"
+    ],
+    "input": "default project database; no PYTHONPATH, no --app-dir",
+    "stdout": "/health HTTP 200; /jobs?limit=1 HTTP 200; database SHA-256 unchanged; server stopped\n",
+    "stderr": "",
+    "exit_status": -15
+  },
+  {
+    "label": "ROLLBACK",
+    "command": [
+      "env",
+      "-u",
+      "PYTHONPATH",
+      ".venv/bin/python",
+      "verification/packaging/verify_rollback.py"
+    ],
+    "input": "separate modified-project copy + isolated venv + saved hashes of the five original paths",
+    "stdout": "ROLLBACK: 5 paths restored on isolated copy; 67 passed with PYTHONPATH; plain import returns ModuleNotFoundError; working install and database unchanged\n",
+    "stderr": "",
+    "exit_status": 0
+  }
+]

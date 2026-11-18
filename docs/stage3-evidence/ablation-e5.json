@@ -1,0 +1,2550 @@
+{
+  "synthetic": true,
+  "human_quality_ready": false,
+  "model_id": "intfloat/multilingual-e5-small",
+  "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+  "note": "Short 4-job corpus: no-chunk and chunk-best are a wiring ablation, not evidence of long-JD gain.",
+  "reports": {
+    "schema_version": "retrieval-experiments-v1",
+    "split": "dev",
+    "dataset_sha256": "20300e35d340d47d2fe680ccb3af9eac52d929c889e0b5ca2013f73ac28c02ba",
+    "automatic_selection": false,
+    "reports": [
+      {
+        "schema_version": "retrieval-eval-v1",
+        "data_version": "real-vector-synthetic-ablation-v1",
+        "dataset_sha256": "20300e35d340d47d2fe680ccb3af9eac52d929c889e0b5ca2013f73ac28c02ba",
+        "split": "dev",
+        "policy": {
+          "relevance_threshold": 1,
+          "gain": "2**grade-1",
+          "discount": "log2(rank+1)",
+          "empty_relevant": "null_separate",
+          "unjudged": "report_not_negative",
+          "dedup": "first_job_occurrence",
+          "tie_order": "ranker_supplied_dataset_id_job_id",
+          "incomplete_judgments": "null_metrics"
+        },
+        "experiment": {
+          "experiment_id": "stage2_default",
+          "config_sha256": "ff538dbf886c705f37681675f467278475802efb857529e5144a2e2cb177301d",
+          "dataset_sha256": "20300e35d340d47d2fe680ccb3af9eac52d929c889e0b5ca2013f73ac28c02ba",
+          "index_sha256": "06bd9be4ed226775347e442622a48561f14b8588d79ccc2bfe2280c15d98ad5e",
+          "model_sha256": null,
+          "variant": "stage2_default",
+          "frozen_on_dev": false
+        },
+        "candidate_universe": [
+          {
+            "dataset_id": "synthetic-stage3",
+            "job_id": 1
+          },
+          {
+            "dataset_id": "synthetic-stage3",
+            "job_id": 2
+          },
+          {
+            "dataset_id": "synthetic-stage3",
+            "job_id": 3
+          },
+          {
+            "dataset_id": "synthetic-stage3",
+            "job_id": 4
+          }
+        ],
+        "candidate_universe_basis": "judgment_union",
+        "candidate_universe_verified": false,
+        "candidate_universe_sha256": "b91e950e12f814c8d995d956ed6b3ccdbd179310ed8bc3106765628e04a92998",
+        "query_count": 3,
+        "candidate_count": 4,
+        "judgment_coverage": 1.0,
+        "complete_judgments": true,
+        "human_labels_complete_for_declared_universe": false,
+        "human_quality_ready": false,
+        "human_quality_status": "human_judgments_pending",
+        "synthetic_correctness_ready": true,
+        "no_relevant_query_ids": [],
+        "incomplete_query_ids": [],
+        "macro": {
+          "Recall@1": 0.6666666666666666,
+          "Recall@5": 1.0,
+          "Recall@10": 1.0,
+          "MRR@10": 1.0,
+          "nDCG@10": 1.0
+        },
+        "metric_query_support": {
+          "Recall@1": 3,
+          "Recall@5": 3,
+          "Recall@10": 3,
+          "MRR@10": 3,
+          "nDCG@10": 3
+        },
+        "error_counts": {},
+        "per_query": [
+          {
+            "query_id": "backend",
+            "profile_group": "synth-backend",
+            "source": "synthetic",
+            "metrics": {
+              "Recall@1": 0.5,
+              "Recall@5": 1.0,
+              "Recall@10": 1.0,
+              "MRR@10": 1.0,
+              "nDCG@10": 1.0
+            },
+            "ranking": [
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 1
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 3
+              }
+            ],
+            "duplicates_removed": 0,
+            "complete_judgments": true,
+            "candidate_count": 4,
+            "judged_count": 4,
+            "human_judged_count": 0,
+            "synthetic_expected_count": 4,
+            "judgment_coverage": 1.0,
+            "known_relevant_count": 2,
+            "no_relevant_jobs": false,
+            "missing_judgments": [],
+            "unjudged_candidates": [],
+            "unjudged_returned": [],
+            "error_categories": [],
+            "judgments": [
+              {
+                "query_id": "backend",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 1
+                },
+                "job_group": "synth-job-0",
+                "grade": 2,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "backend",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 2
+                },
+                "job_group": "synth-job-1",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "backend",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 3
+                },
+                "job_group": "synth-job-2",
+                "grade": 1,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "backend",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 4
+                },
+                "job_group": "synth-job-3",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              }
+            ]
+          },
+          {
+            "query_id": "mobile",
+            "profile_group": "synth-mobile",
+            "source": "synthetic",
+            "metrics": {
+              "Recall@1": 1.0,
+              "Recall@5": 1.0,
+              "Recall@10": 1.0,
+              "MRR@10": 1.0,
+              "nDCG@10": 1.0
+            },
+            "ranking": [
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 2
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 4
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 1
+              }
+            ],
+            "duplicates_removed": 0,
+            "complete_judgments": true,
+            "candidate_count": 4,
+            "judged_count": 4,
+            "human_judged_count": 0,
+            "synthetic_expected_count": 4,
+            "judgment_coverage": 1.0,
+            "known_relevant_count": 1,
+            "no_relevant_jobs": false,
+            "missing_judgments": [],
+            "unjudged_candidates": [],
+            "unjudged_returned": [],
+            "error_categories": [],
+            "judgments": [
+              {
+                "query_id": "mobile",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 1
+                },
+                "job_group": "synth-job-0",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "mobile",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 2
+                },
+                "job_group": "synth-job-1",
+                "grade": 2,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "mobile",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 3
+                },
+                "job_group": "synth-job-2",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "mobile",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 4
+                },
+                "job_group": "synth-job-3",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              }
+            ]
+          },
+          {
+            "query_id": "data",
+            "profile_group": "synth-data",
+            "source": "synthetic",
+            "metrics": {
+              "Recall@1": 0.5,
+              "Recall@5": 1.0,
+              "Recall@10": 1.0,
+              "MRR@10": 1.0,
+              "nDCG@10": 1.0
+            },
+            "ranking": [
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 3
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 1
+              }
+            ],
+            "duplicates_removed": 0,
+            "complete_judgments": true,
+            "candidate_count": 4,
+            "judged_count": 4,
+            "human_judged_count": 0,
+            "synthetic_expected_count": 4,
+            "judgment_coverage": 1.0,
+            "known_relevant_count": 2,
+            "no_relevant_jobs": false,
+            "missing_judgments": [],
+            "unjudged_candidates": [],
+            "unjudged_returned": [],
+            "error_categories": [],
+            "judgments": [
+              {
+                "query_id": "data",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 1
+                },
+                "job_group": "synth-job-0",
+                "grade": 1,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "data",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 2
+                },
+                "job_group": "synth-job-1",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "data",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 3
+                },
+                "job_group": "synth-job-2",
+                "grade": 2,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "data",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 4
+                },
+                "job_group": "synth-job-3",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "schema_version": "retrieval-eval-v1",
+        "data_version": "real-vector-synthetic-ablation-v1",
+        "dataset_sha256": "20300e35d340d47d2fe680ccb3af9eac52d929c889e0b5ca2013f73ac28c02ba",
+        "split": "dev",
+        "policy": {
+          "relevance_threshold": 1,
+          "gain": "2**grade-1",
+          "discount": "log2(rank+1)",
+          "empty_relevant": "null_separate",
+          "unjudged": "report_not_negative",
+          "dedup": "first_job_occurrence",
+          "tie_order": "ranker_supplied_dataset_id_job_id",
+          "incomplete_judgments": "null_metrics"
+        },
+        "experiment": {
+          "experiment_id": "tuned_bm25",
+          "config_sha256": "1276e6122d40af43180753520ed17afe786322ec44234ddf4a3a5b4c8f8f75de",
+          "dataset_sha256": "20300e35d340d47d2fe680ccb3af9eac52d929c889e0b5ca2013f73ac28c02ba",
+          "index_sha256": "06bd9be4ed226775347e442622a48561f14b8588d79ccc2bfe2280c15d98ad5e",
+          "model_sha256": null,
+          "variant": "tuned_bm25",
+          "frozen_on_dev": false
+        },
+        "candidate_universe": [
+          {
+            "dataset_id": "synthetic-stage3",
+            "job_id": 1
+          },
+          {
+            "dataset_id": "synthetic-stage3",
+            "job_id": 2
+          },
+          {
+            "dataset_id": "synthetic-stage3",
+            "job_id": 3
+          },
+          {
+            "dataset_id": "synthetic-stage3",
+            "job_id": 4
+          }
+        ],
+        "candidate_universe_basis": "judgment_union",
+        "candidate_universe_verified": false,
+        "candidate_universe_sha256": "b91e950e12f814c8d995d956ed6b3ccdbd179310ed8bc3106765628e04a92998",
+        "query_count": 3,
+        "candidate_count": 4,
+        "judgment_coverage": 1.0,
+        "complete_judgments": true,
+        "human_labels_complete_for_declared_universe": false,
+        "human_quality_ready": false,
+        "human_quality_status": "human_judgments_pending",
+        "synthetic_correctness_ready": true,
+        "no_relevant_query_ids": [],
+        "incomplete_query_ids": [],
+        "macro": {
+          "Recall@1": 0.6666666666666666,
+          "Recall@5": 1.0,
+          "Recall@10": 1.0,
+          "MRR@10": 1.0,
+          "nDCG@10": 1.0
+        },
+        "metric_query_support": {
+          "Recall@1": 3,
+          "Recall@5": 3,
+          "Recall@10": 3,
+          "MRR@10": 3,
+          "nDCG@10": 3
+        },
+        "error_counts": {},
+        "per_query": [
+          {
+            "query_id": "backend",
+            "profile_group": "synth-backend",
+            "source": "synthetic",
+            "metrics": {
+              "Recall@1": 0.5,
+              "Recall@5": 1.0,
+              "Recall@10": 1.0,
+              "MRR@10": 1.0,
+              "nDCG@10": 1.0
+            },
+            "ranking": [
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 1
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 3
+              }
+            ],
+            "duplicates_removed": 0,
+            "complete_judgments": true,
+            "candidate_count": 4,
+            "judged_count": 4,
+            "human_judged_count": 0,
+            "synthetic_expected_count": 4,
+            "judgment_coverage": 1.0,
+            "known_relevant_count": 2,
+            "no_relevant_jobs": false,
+            "missing_judgments": [],
+            "unjudged_candidates": [],
+            "unjudged_returned": [],
+            "error_categories": [],
+            "judgments": [
+              {
+                "query_id": "backend",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 1
+                },
+                "job_group": "synth-job-0",
+                "grade": 2,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "backend",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 2
+                },
+                "job_group": "synth-job-1",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "backend",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 3
+                },
+                "job_group": "synth-job-2",
+                "grade": 1,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "backend",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 4
+                },
+                "job_group": "synth-job-3",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              }
+            ]
+          },
+          {
+            "query_id": "mobile",
+            "profile_group": "synth-mobile",
+            "source": "synthetic",
+            "metrics": {
+              "Recall@1": 1.0,
+              "Recall@5": 1.0,
+              "Recall@10": 1.0,
+              "MRR@10": 1.0,
+              "nDCG@10": 1.0
+            },
+            "ranking": [
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 2
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 4
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 1
+              }
+            ],
+            "duplicates_removed": 0,
+            "complete_judgments": true,
+            "candidate_count": 4,
+            "judged_count": 4,
+            "human_judged_count": 0,
+            "synthetic_expected_count": 4,
+            "judgment_coverage": 1.0,
+            "known_relevant_count": 1,
+            "no_relevant_jobs": false,
+            "missing_judgments": [],
+            "unjudged_candidates": [],
+            "unjudged_returned": [],
+            "error_categories": [],
+            "judgments": [
+              {
+                "query_id": "mobile",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 1
+                },
+                "job_group": "synth-job-0",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "mobile",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 2
+                },
+                "job_group": "synth-job-1",
+                "grade": 2,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "mobile",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 3
+                },
+                "job_group": "synth-job-2",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "mobile",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 4
+                },
+                "job_group": "synth-job-3",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              }
+            ]
+          },
+          {
+            "query_id": "data",
+            "profile_group": "synth-data",
+            "source": "synthetic",
+            "metrics": {
+              "Recall@1": 0.5,
+              "Recall@5": 1.0,
+              "Recall@10": 1.0,
+              "MRR@10": 1.0,
+              "nDCG@10": 1.0
+            },
+            "ranking": [
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 3
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 1
+              }
+            ],
+            "duplicates_removed": 0,
+            "complete_judgments": true,
+            "candidate_count": 4,
+            "judged_count": 4,
+            "human_judged_count": 0,
+            "synthetic_expected_count": 4,
+            "judgment_coverage": 1.0,
+            "known_relevant_count": 2,
+            "no_relevant_jobs": false,
+            "missing_judgments": [],
+            "unjudged_candidates": [],
+            "unjudged_returned": [],
+            "error_categories": [],
+            "judgments": [
+              {
+                "query_id": "data",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 1
+                },
+                "job_group": "synth-job-0",
+                "grade": 1,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "data",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 2
+                },
+                "job_group": "synth-job-1",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "data",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 3
+                },
+                "job_group": "synth-job-2",
+                "grade": 2,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "data",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 4
+                },
+                "job_group": "synth-job-3",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "schema_version": "retrieval-eval-v1",
+        "data_version": "real-vector-synthetic-ablation-v1",
+        "dataset_sha256": "20300e35d340d47d2fe680ccb3af9eac52d929c889e0b5ca2013f73ac28c02ba",
+        "split": "dev",
+        "policy": {
+          "relevance_threshold": 1,
+          "gain": "2**grade-1",
+          "discount": "log2(rank+1)",
+          "empty_relevant": "null_separate",
+          "unjudged": "report_not_negative",
+          "dedup": "first_job_occurrence",
+          "tie_order": "ranker_supplied_dataset_id_job_id",
+          "incomplete_judgments": "null_metrics"
+        },
+        "experiment": {
+          "experiment_id": "dense",
+          "config_sha256": "ff538dbf886c705f37681675f467278475802efb857529e5144a2e2cb177301d",
+          "dataset_sha256": "20300e35d340d47d2fe680ccb3af9eac52d929c889e0b5ca2013f73ac28c02ba",
+          "index_sha256": "06bd9be4ed226775347e442622a48561f14b8588d79ccc2bfe2280c15d98ad5e",
+          "model_sha256": "7bbba28842af981ee5725356fa0c489f72adb91c5045877064bd7718b2dc2ce4",
+          "variant": "dense",
+          "frozen_on_dev": false
+        },
+        "candidate_universe": [
+          {
+            "dataset_id": "synthetic-stage3",
+            "job_id": 1
+          },
+          {
+            "dataset_id": "synthetic-stage3",
+            "job_id": 2
+          },
+          {
+            "dataset_id": "synthetic-stage3",
+            "job_id": 3
+          },
+          {
+            "dataset_id": "synthetic-stage3",
+            "job_id": 4
+          }
+        ],
+        "candidate_universe_basis": "judgment_union",
+        "candidate_universe_verified": false,
+        "candidate_universe_sha256": "b91e950e12f814c8d995d956ed6b3ccdbd179310ed8bc3106765628e04a92998",
+        "query_count": 3,
+        "candidate_count": 4,
+        "judgment_coverage": 1.0,
+        "complete_judgments": true,
+        "human_labels_complete_for_declared_universe": false,
+        "human_quality_ready": false,
+        "human_quality_status": "human_judgments_pending",
+        "synthetic_correctness_ready": true,
+        "no_relevant_query_ids": [],
+        "incomplete_query_ids": [],
+        "macro": {
+          "Recall@1": 0.6666666666666666,
+          "Recall@5": 1.0,
+          "Recall@10": 1.0,
+          "MRR@10": 1.0,
+          "nDCG@10": 1.0
+        },
+        "metric_query_support": {
+          "Recall@1": 3,
+          "Recall@5": 3,
+          "Recall@10": 3,
+          "MRR@10": 3,
+          "nDCG@10": 3
+        },
+        "error_counts": {},
+        "per_query": [
+          {
+            "query_id": "backend",
+            "profile_group": "synth-backend",
+            "source": "synthetic",
+            "metrics": {
+              "Recall@1": 0.5,
+              "Recall@5": 1.0,
+              "Recall@10": 1.0,
+              "MRR@10": 1.0,
+              "nDCG@10": 1.0
+            },
+            "ranking": [
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 1
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 3
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 4
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 2
+              }
+            ],
+            "duplicates_removed": 0,
+            "complete_judgments": true,
+            "candidate_count": 4,
+            "judged_count": 4,
+            "human_judged_count": 0,
+            "synthetic_expected_count": 4,
+            "judgment_coverage": 1.0,
+            "known_relevant_count": 2,
+            "no_relevant_jobs": false,
+            "missing_judgments": [],
+            "unjudged_candidates": [],
+            "unjudged_returned": [],
+            "error_categories": [],
+            "judgments": [
+              {
+                "query_id": "backend",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 1
+                },
+                "job_group": "synth-job-0",
+                "grade": 2,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "backend",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 2
+                },
+                "job_group": "synth-job-1",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "backend",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 3
+                },
+                "job_group": "synth-job-2",
+                "grade": 1,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "backend",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 4
+                },
+                "job_group": "synth-job-3",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              }
+            ]
+          },
+          {
+            "query_id": "mobile",
+            "profile_group": "synth-mobile",
+            "source": "synthetic",
+            "metrics": {
+              "Recall@1": 1.0,
+              "Recall@5": 1.0,
+              "Recall@10": 1.0,
+              "MRR@10": 1.0,
+              "nDCG@10": 1.0
+            },
+            "ranking": [
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 2
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 4
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 1
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 3
+              }
+            ],
+            "duplicates_removed": 0,
+            "complete_judgments": true,
+            "candidate_count": 4,
+            "judged_count": 4,
+            "human_judged_count": 0,
+            "synthetic_expected_count": 4,
+            "judgment_coverage": 1.0,
+            "known_relevant_count": 1,
+            "no_relevant_jobs": false,
+            "missing_judgments": [],
+            "unjudged_candidates": [],
+            "unjudged_returned": [],
+            "error_categories": [],
+            "judgments": [
+              {
+                "query_id": "mobile",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 1
+                },
+                "job_group": "synth-job-0",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "mobile",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 2
+                },
+                "job_group": "synth-job-1",
+                "grade": 2,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "mobile",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 3
+                },
+                "job_group": "synth-job-2",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "mobile",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 4
+                },
+                "job_group": "synth-job-3",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              }
+            ]
+          },
+          {
+            "query_id": "data",
+            "profile_group": "synth-data",
+            "source": "synthetic",
+            "metrics": {
+              "Recall@1": 0.5,
+              "Recall@5": 1.0,
+              "Recall@10": 1.0,
+              "MRR@10": 1.0,
+              "nDCG@10": 1.0
+            },
+            "ranking": [
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 3
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 1
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 2
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 4
+              }
+            ],
+            "duplicates_removed": 0,
+            "complete_judgments": true,
+            "candidate_count": 4,
+            "judged_count": 4,
+            "human_judged_count": 0,
+            "synthetic_expected_count": 4,
+            "judgment_coverage": 1.0,
+            "known_relevant_count": 2,
+            "no_relevant_jobs": false,
+            "missing_judgments": [],
+            "unjudged_candidates": [],
+            "unjudged_returned": [],
+            "error_categories": [],
+            "judgments": [
+              {
+                "query_id": "data",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 1
+                },
+                "job_group": "synth-job-0",
+                "grade": 1,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "data",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 2
+                },
+                "job_group": "synth-job-1",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "data",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 3
+                },
+                "job_group": "synth-job-2",
+                "grade": 2,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "data",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 4
+                },
+                "job_group": "synth-job-3",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "schema_version": "retrieval-eval-v1",
+        "data_version": "real-vector-synthetic-ablation-v1",
+        "dataset_sha256": "20300e35d340d47d2fe680ccb3af9eac52d929c889e0b5ca2013f73ac28c02ba",
+        "split": "dev",
+        "policy": {
+          "relevance_threshold": 1,
+          "gain": "2**grade-1",
+          "discount": "log2(rank+1)",
+          "empty_relevant": "null_separate",
+          "unjudged": "report_not_negative",
+          "dedup": "first_job_occurrence",
+          "tie_order": "ranker_supplied_dataset_id_job_id",
+          "incomplete_judgments": "null_metrics"
+        },
+        "experiment": {
+          "experiment_id": "hybrid",
+          "config_sha256": "ff538dbf886c705f37681675f467278475802efb857529e5144a2e2cb177301d",
+          "dataset_sha256": "20300e35d340d47d2fe680ccb3af9eac52d929c889e0b5ca2013f73ac28c02ba",
+          "index_sha256": "06bd9be4ed226775347e442622a48561f14b8588d79ccc2bfe2280c15d98ad5e",
+          "model_sha256": "7bbba28842af981ee5725356fa0c489f72adb91c5045877064bd7718b2dc2ce4",
+          "variant": "hybrid",
+          "frozen_on_dev": false
+        },
+        "candidate_universe": [
+          {
+            "dataset_id": "synthetic-stage3",
+            "job_id": 1
+          },
+          {
+            "dataset_id": "synthetic-stage3",
+            "job_id": 2
+          },
+          {
+            "dataset_id": "synthetic-stage3",
+            "job_id": 3
+          },
+          {
+            "dataset_id": "synthetic-stage3",
+            "job_id": 4
+          }
+        ],
+        "candidate_universe_basis": "judgment_union",
+        "candidate_universe_verified": false,
+        "candidate_universe_sha256": "b91e950e12f814c8d995d956ed6b3ccdbd179310ed8bc3106765628e04a92998",
+        "query_count": 3,
+        "candidate_count": 4,
+        "judgment_coverage": 1.0,
+        "complete_judgments": true,
+        "human_labels_complete_for_declared_universe": false,
+        "human_quality_ready": false,
+        "human_quality_status": "human_judgments_pending",
+        "synthetic_correctness_ready": true,
+        "no_relevant_query_ids": [],
+        "incomplete_query_ids": [],
+        "macro": {
+          "Recall@1": 0.6666666666666666,
+          "Recall@5": 1.0,
+          "Recall@10": 1.0,
+          "MRR@10": 1.0,
+          "nDCG@10": 1.0
+        },
+        "metric_query_support": {
+          "Recall@1": 3,
+          "Recall@5": 3,
+          "Recall@10": 3,
+          "MRR@10": 3,
+          "nDCG@10": 3
+        },
+        "error_counts": {},
+        "per_query": [
+          {
+            "query_id": "backend",
+            "profile_group": "synth-backend",
+            "source": "synthetic",
+            "metrics": {
+              "Recall@1": 0.5,
+              "Recall@5": 1.0,
+              "Recall@10": 1.0,
+              "MRR@10": 1.0,
+              "nDCG@10": 1.0
+            },
+            "ranking": [
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 1
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 3
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 4
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 2
+              }
+            ],
+            "duplicates_removed": 0,
+            "complete_judgments": true,
+            "candidate_count": 4,
+            "judged_count": 4,
+            "human_judged_count": 0,
+            "synthetic_expected_count": 4,
+            "judgment_coverage": 1.0,
+            "known_relevant_count": 2,
+            "no_relevant_jobs": false,
+            "missing_judgments": [],
+            "unjudged_candidates": [],
+            "unjudged_returned": [],
+            "error_categories": [],
+            "judgments": [
+              {
+                "query_id": "backend",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 1
+                },
+                "job_group": "synth-job-0",
+                "grade": 2,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "backend",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 2
+                },
+                "job_group": "synth-job-1",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "backend",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 3
+                },
+                "job_group": "synth-job-2",
+                "grade": 1,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "backend",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 4
+                },
+                "job_group": "synth-job-3",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              }
+            ]
+          },
+          {
+            "query_id": "mobile",
+            "profile_group": "synth-mobile",
+            "source": "synthetic",
+            "metrics": {
+              "Recall@1": 1.0,
+              "Recall@5": 1.0,
+              "Recall@10": 1.0,
+              "MRR@10": 1.0,
+              "nDCG@10": 1.0
+            },
+            "ranking": [
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 2
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 4
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 1
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 3
+              }
+            ],
+            "duplicates_removed": 0,
+            "complete_judgments": true,
+            "candidate_count": 4,
+            "judged_count": 4,
+            "human_judged_count": 0,
+            "synthetic_expected_count": 4,
+            "judgment_coverage": 1.0,
+            "known_relevant_count": 1,
+            "no_relevant_jobs": false,
+            "missing_judgments": [],
+            "unjudged_candidates": [],
+            "unjudged_returned": [],
+            "error_categories": [],
+            "judgments": [
+              {
+                "query_id": "mobile",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 1
+                },
+                "job_group": "synth-job-0",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "mobile",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 2
+                },
+                "job_group": "synth-job-1",
+                "grade": 2,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "mobile",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 3
+                },
+                "job_group": "synth-job-2",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "mobile",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 4
+                },
+                "job_group": "synth-job-3",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              }
+            ]
+          },
+          {
+            "query_id": "data",
+            "profile_group": "synth-data",
+            "source": "synthetic",
+            "metrics": {
+              "Recall@1": 0.5,
+              "Recall@5": 1.0,
+              "Recall@10": 1.0,
+              "MRR@10": 1.0,
+              "nDCG@10": 1.0
+            },
+            "ranking": [
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 3
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 1
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 2
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 4
+              }
+            ],
+            "duplicates_removed": 0,
+            "complete_judgments": true,
+            "candidate_count": 4,
+            "judged_count": 4,
+            "human_judged_count": 0,
+            "synthetic_expected_count": 4,
+            "judgment_coverage": 1.0,
+            "known_relevant_count": 2,
+            "no_relevant_jobs": false,
+            "missing_judgments": [],
+            "unjudged_candidates": [],
+            "unjudged_returned": [],
+            "error_categories": [],
+            "judgments": [
+              {
+                "query_id": "data",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 1
+                },
+                "job_group": "synth-job-0",
+                "grade": 1,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "data",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 2
+                },
+                "job_group": "synth-job-1",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "data",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 3
+                },
+                "job_group": "synth-job-2",
+                "grade": 2,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "data",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 4
+                },
+                "job_group": "synth-job-3",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "schema_version": "retrieval-eval-v1",
+        "data_version": "real-vector-synthetic-ablation-v1",
+        "dataset_sha256": "20300e35d340d47d2fe680ccb3af9eac52d929c889e0b5ca2013f73ac28c02ba",
+        "split": "dev",
+        "policy": {
+          "relevance_threshold": 1,
+          "gain": "2**grade-1",
+          "discount": "log2(rank+1)",
+          "empty_relevant": "null_separate",
+          "unjudged": "report_not_negative",
+          "dedup": "first_job_occurrence",
+          "tie_order": "ranker_supplied_dataset_id_job_id",
+          "incomplete_judgments": "null_metrics"
+        },
+        "experiment": {
+          "experiment_id": "no_chunk",
+          "config_sha256": "ff538dbf886c705f37681675f467278475802efb857529e5144a2e2cb177301d",
+          "dataset_sha256": "20300e35d340d47d2fe680ccb3af9eac52d929c889e0b5ca2013f73ac28c02ba",
+          "index_sha256": "06bd9be4ed226775347e442622a48561f14b8588d79ccc2bfe2280c15d98ad5e",
+          "model_sha256": "7bbba28842af981ee5725356fa0c489f72adb91c5045877064bd7718b2dc2ce4",
+          "variant": "no_chunk",
+          "frozen_on_dev": false
+        },
+        "candidate_universe": [
+          {
+            "dataset_id": "synthetic-stage3",
+            "job_id": 1
+          },
+          {
+            "dataset_id": "synthetic-stage3",
+            "job_id": 2
+          },
+          {
+            "dataset_id": "synthetic-stage3",
+            "job_id": 3
+          },
+          {
+            "dataset_id": "synthetic-stage3",
+            "job_id": 4
+          }
+        ],
+        "candidate_universe_basis": "judgment_union",
+        "candidate_universe_verified": false,
+        "candidate_universe_sha256": "b91e950e12f814c8d995d956ed6b3ccdbd179310ed8bc3106765628e04a92998",
+        "query_count": 3,
+        "candidate_count": 4,
+        "judgment_coverage": 1.0,
+        "complete_judgments": true,
+        "human_labels_complete_for_declared_universe": false,
+        "human_quality_ready": false,
+        "human_quality_status": "human_judgments_pending",
+        "synthetic_correctness_ready": true,
+        "no_relevant_query_ids": [],
+        "incomplete_query_ids": [],
+        "macro": {
+          "Recall@1": 0.6666666666666666,
+          "Recall@5": 1.0,
+          "Recall@10": 1.0,
+          "MRR@10": 1.0,
+          "nDCG@10": 1.0
+        },
+        "metric_query_support": {
+          "Recall@1": 3,
+          "Recall@5": 3,
+          "Recall@10": 3,
+          "MRR@10": 3,
+          "nDCG@10": 3
+        },
+        "error_counts": {},
+        "per_query": [
+          {
+            "query_id": "backend",
+            "profile_group": "synth-backend",
+            "source": "synthetic",
+            "metrics": {
+              "Recall@1": 0.5,
+              "Recall@5": 1.0,
+              "Recall@10": 1.0,
+              "MRR@10": 1.0,
+              "nDCG@10": 1.0
+            },
+            "ranking": [
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 1
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 3
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 4
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 2
+              }
+            ],
+            "duplicates_removed": 0,
+            "complete_judgments": true,
+            "candidate_count": 4,
+            "judged_count": 4,
+            "human_judged_count": 0,
+            "synthetic_expected_count": 4,
+            "judgment_coverage": 1.0,
+            "known_relevant_count": 2,
+            "no_relevant_jobs": false,
+            "missing_judgments": [],
+            "unjudged_candidates": [],
+            "unjudged_returned": [],
+            "error_categories": [],
+            "judgments": [
+              {
+                "query_id": "backend",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 1
+                },
+                "job_group": "synth-job-0",
+                "grade": 2,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "backend",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 2
+                },
+                "job_group": "synth-job-1",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "backend",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 3
+                },
+                "job_group": "synth-job-2",
+                "grade": 1,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "backend",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 4
+                },
+                "job_group": "synth-job-3",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              }
+            ]
+          },
+          {
+            "query_id": "mobile",
+            "profile_group": "synth-mobile",
+            "source": "synthetic",
+            "metrics": {
+              "Recall@1": 1.0,
+              "Recall@5": 1.0,
+              "Recall@10": 1.0,
+              "MRR@10": 1.0,
+              "nDCG@10": 1.0
+            },
+            "ranking": [
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 2
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 4
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 1
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 3
+              }
+            ],
+            "duplicates_removed": 0,
+            "complete_judgments": true,
+            "candidate_count": 4,
+            "judged_count": 4,
+            "human_judged_count": 0,
+            "synthetic_expected_count": 4,
+            "judgment_coverage": 1.0,
+            "known_relevant_count": 1,
+            "no_relevant_jobs": false,
+            "missing_judgments": [],
+            "unjudged_candidates": [],
+            "unjudged_returned": [],
+            "error_categories": [],
+            "judgments": [
+              {
+                "query_id": "mobile",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 1
+                },
+                "job_group": "synth-job-0",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "mobile",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 2
+                },
+                "job_group": "synth-job-1",
+                "grade": 2,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "mobile",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 3
+                },
+                "job_group": "synth-job-2",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "mobile",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 4
+                },
+                "job_group": "synth-job-3",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              }
+            ]
+          },
+          {
+            "query_id": "data",
+            "profile_group": "synth-data",
+            "source": "synthetic",
+            "metrics": {
+              "Recall@1": 0.5,
+              "Recall@5": 1.0,
+              "Recall@10": 1.0,
+              "MRR@10": 1.0,
+              "nDCG@10": 1.0
+            },
+            "ranking": [
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 3
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 1
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 2
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 4
+              }
+            ],
+            "duplicates_removed": 0,
+            "complete_judgments": true,
+            "candidate_count": 4,
+            "judged_count": 4,
+            "human_judged_count": 0,
+            "synthetic_expected_count": 4,
+            "judgment_coverage": 1.0,
+            "known_relevant_count": 2,
+            "no_relevant_jobs": false,
+            "missing_judgments": [],
+            "unjudged_candidates": [],
+            "unjudged_returned": [],
+            "error_categories": [],
+            "judgments": [
+              {
+                "query_id": "data",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 1
+                },
+                "job_group": "synth-job-0",
+                "grade": 1,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "data",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 2
+                },
+                "job_group": "synth-job-1",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "data",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 3
+                },
+                "job_group": "synth-job-2",
+                "grade": 2,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "data",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 4
+                },
+                "job_group": "synth-job-3",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "schema_version": "retrieval-eval-v1",
+        "data_version": "real-vector-synthetic-ablation-v1",
+        "dataset_sha256": "20300e35d340d47d2fe680ccb3af9eac52d929c889e0b5ca2013f73ac28c02ba",
+        "split": "dev",
+        "policy": {
+          "relevance_threshold": 1,
+          "gain": "2**grade-1",
+          "discount": "log2(rank+1)",
+          "empty_relevant": "null_separate",
+          "unjudged": "report_not_negative",
+          "dedup": "first_job_occurrence",
+          "tie_order": "ranker_supplied_dataset_id_job_id",
+          "incomplete_judgments": "null_metrics"
+        },
+        "experiment": {
+          "experiment_id": "chunk_best",
+          "config_sha256": "ff538dbf886c705f37681675f467278475802efb857529e5144a2e2cb177301d",
+          "dataset_sha256": "20300e35d340d47d2fe680ccb3af9eac52d929c889e0b5ca2013f73ac28c02ba",
+          "index_sha256": "06bd9be4ed226775347e442622a48561f14b8588d79ccc2bfe2280c15d98ad5e",
+          "model_sha256": "7bbba28842af981ee5725356fa0c489f72adb91c5045877064bd7718b2dc2ce4",
+          "variant": "chunk_best",
+          "frozen_on_dev": false
+        },
+        "candidate_universe": [
+          {
+            "dataset_id": "synthetic-stage3",
+            "job_id": 1
+          },
+          {
+            "dataset_id": "synthetic-stage3",
+            "job_id": 2
+          },
+          {
+            "dataset_id": "synthetic-stage3",
+            "job_id": 3
+          },
+          {
+            "dataset_id": "synthetic-stage3",
+            "job_id": 4
+          }
+        ],
+        "candidate_universe_basis": "judgment_union",
+        "candidate_universe_verified": false,
+        "candidate_universe_sha256": "b91e950e12f814c8d995d956ed6b3ccdbd179310ed8bc3106765628e04a92998",
+        "query_count": 3,
+        "candidate_count": 4,
+        "judgment_coverage": 1.0,
+        "complete_judgments": true,
+        "human_labels_complete_for_declared_universe": false,
+        "human_quality_ready": false,
+        "human_quality_status": "human_judgments_pending",
+        "synthetic_correctness_ready": true,
+        "no_relevant_query_ids": [],
+        "incomplete_query_ids": [],
+        "macro": {
+          "Recall@1": 0.6666666666666666,
+          "Recall@5": 1.0,
+          "Recall@10": 1.0,
+          "MRR@10": 1.0,
+          "nDCG@10": 1.0
+        },
+        "metric_query_support": {
+          "Recall@1": 3,
+          "Recall@5": 3,
+          "Recall@10": 3,
+          "MRR@10": 3,
+          "nDCG@10": 3
+        },
+        "error_counts": {},
+        "per_query": [
+          {
+            "query_id": "backend",
+            "profile_group": "synth-backend",
+            "source": "synthetic",
+            "metrics": {
+              "Recall@1": 0.5,
+              "Recall@5": 1.0,
+              "Recall@10": 1.0,
+              "MRR@10": 1.0,
+              "nDCG@10": 1.0
+            },
+            "ranking": [
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 1
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 3
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 4
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 2
+              }
+            ],
+            "duplicates_removed": 0,
+            "complete_judgments": true,
+            "candidate_count": 4,
+            "judged_count": 4,
+            "human_judged_count": 0,
+            "synthetic_expected_count": 4,
+            "judgment_coverage": 1.0,
+            "known_relevant_count": 2,
+            "no_relevant_jobs": false,
+            "missing_judgments": [],
+            "unjudged_candidates": [],
+            "unjudged_returned": [],
+            "error_categories": [],
+            "judgments": [
+              {
+                "query_id": "backend",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 1
+                },
+                "job_group": "synth-job-0",
+                "grade": 2,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "backend",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 2
+                },
+                "job_group": "synth-job-1",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "backend",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 3
+                },
+                "job_group": "synth-job-2",
+                "grade": 1,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "backend",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 4
+                },
+                "job_group": "synth-job-3",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              }
+            ]
+          },
+          {
+            "query_id": "mobile",
+            "profile_group": "synth-mobile",
+            "source": "synthetic",
+            "metrics": {
+              "Recall@1": 1.0,
+              "Recall@5": 1.0,
+              "Recall@10": 1.0,
+              "MRR@10": 1.0,
+              "nDCG@10": 1.0
+            },
+            "ranking": [
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 2
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 4
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 1
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 3
+              }
+            ],
+            "duplicates_removed": 0,
+            "complete_judgments": true,
+            "candidate_count": 4,
+            "judged_count": 4,
+            "human_judged_count": 0,
+            "synthetic_expected_count": 4,
+            "judgment_coverage": 1.0,
+            "known_relevant_count": 1,
+            "no_relevant_jobs": false,
+            "missing_judgments": [],
+            "unjudged_candidates": [],
+            "unjudged_returned": [],
+            "error_categories": [],
+            "judgments": [
+              {
+                "query_id": "mobile",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 1
+                },
+                "job_group": "synth-job-0",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "mobile",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 2
+                },
+                "job_group": "synth-job-1",
+                "grade": 2,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "mobile",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 3
+                },
+                "job_group": "synth-job-2",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "mobile",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 4
+                },
+                "job_group": "synth-job-3",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              }
+            ]
+          },
+          {
+            "query_id": "data",
+            "profile_group": "synth-data",
+            "source": "synthetic",
+            "metrics": {
+              "Recall@1": 0.5,
+              "Recall@5": 1.0,
+              "Recall@10": 1.0,
+              "MRR@10": 1.0,
+              "nDCG@10": 1.0
+            },
+            "ranking": [
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 3
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 1
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 2
+              },
+              {
+                "dataset_id": "synthetic-stage3",
+                "job_id": 4
+              }
+            ],
+            "duplicates_removed": 0,
+            "complete_judgments": true,
+            "candidate_count": 4,
+            "judged_count": 4,
+            "human_judged_count": 0,
+            "synthetic_expected_count": 4,
+            "judgment_coverage": 1.0,
+            "known_relevant_count": 2,
+            "no_relevant_jobs": false,
+            "missing_judgments": [],
+            "unjudged_candidates": [],
+            "unjudged_returned": [],
+            "error_categories": [],
+            "judgments": [
+              {
+                "query_id": "data",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 1
+                },
+                "job_group": "synth-job-0",
+                "grade": 1,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "data",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 2
+                },
+                "job_group": "synth-job-1",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "data",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 3
+                },
+                "job_group": "synth-job-2",
+                "grade": 2,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              },
+              {
+                "query_id": "data",
+                "key": {
+                  "dataset_id": "synthetic-stage3",
+                  "job_id": 4
+                },
+                "job_group": "synth-job-3",
+                "grade": 0,
+                "status": "synthetic_expected",
+                "evidence": [
+                  "machine-authored synthetic intent expectation"
+                ],
+                "assessor": null,
+                "review_note": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "deltas_vs_first": [
+      {
+        "baseline_experiment_id": "stage2_default",
+        "experiment_id": "tuned_bm25",
+        "macro": {
+          "Recall@1": 0.0,
+          "Recall@5": 0.0,
+          "Recall@10": 0.0,
+          "MRR@10": 0.0,
+          "nDCG@10": 0.0
+        },
+        "per_query": [
+          {
+            "query_id": "backend",
+            "metrics": {
+              "Recall@1": 0.0,
+              "Recall@5": 0.0,
+              "Recall@10": 0.0,
+              "MRR@10": 0.0,
+              "nDCG@10": 0.0
+            },
+            "ranking_changed": false,
+            "error_categories": []
+          },
+          {
+            "query_id": "mobile",
+            "metrics": {
+              "Recall@1": 0.0,
+              "Recall@5": 0.0,
+              "Recall@10": 0.0,
+              "MRR@10": 0.0,
+              "nDCG@10": 0.0
+            },
+            "ranking_changed": false,
+            "error_categories": []
+          },
+          {
+            "query_id": "data",
+            "metrics": {
+              "Recall@1": 0.0,
+              "Recall@5": 0.0,
+              "Recall@10": 0.0,
+              "MRR@10": 0.0,
+              "nDCG@10": 0.0
+            },
+            "ranking_changed": false,
+            "error_categories": []
+          }
+        ]
+      },
+      {
+        "baseline_experiment_id": "stage2_default",
+        "experiment_id": "dense",
+        "macro": {
+          "Recall@1": 0.0,
+          "Recall@5": 0.0,
+          "Recall@10": 0.0,
+          "MRR@10": 0.0,
+          "nDCG@10": 0.0
+        },
+        "per_query": [
+          {
+            "query_id": "backend",
+            "metrics": {
+              "Recall@1": 0.0,
+              "Recall@5": 0.0,
+              "Recall@10": 0.0,
+              "MRR@10": 0.0,
+              "nDCG@10": 0.0
+            },
+            "ranking_changed": true,
+            "error_categories": []
+          },
+          {
+            "query_id": "mobile",
+            "metrics": {
+              "Recall@1": 0.0,
+              "Recall@5": 0.0,
+              "Recall@10": 0.0,
+              "MRR@10": 0.0,
+              "nDCG@10": 0.0
+            },
+            "ranking_changed": true,
+            "error_categories": []
+          },
+          {
+            "query_id": "data",
+            "metrics": {
+              "Recall@1": 0.0,
+              "Recall@5": 0.0,
+              "Recall@10": 0.0,
+              "MRR@10": 0.0,
+              "nDCG@10": 0.0
+            },
+            "ranking_changed": true,
+            "error_categories": []
+          }
+        ]
+      },
+      {
+        "baseline_experiment_id": "stage2_default",
+        "experiment_id": "hybrid",
+        "macro": {
+          "Recall@1": 0.0,
+          "Recall@5": 0.0,
+          "Recall@10": 0.0,
+          "MRR@10": 0.0,
+          "nDCG@10": 0.0
+        },
+        "per_query": [
+          {
+            "query_id": "backend",
+            "metrics": {
+              "Recall@1": 0.0,
+              "Recall@5": 0.0,
+              "Recall@10": 0.0,
+              "MRR@10": 0.0,
+              "nDCG@10": 0.0
+            },
+            "ranking_changed": true,
+            "error_categories": []
+          },
+          {
+            "query_id": "mobile",
+            "metrics": {
+              "Recall@1": 0.0,
+              "Recall@5": 0.0,
+              "Recall@10": 0.0,
+              "MRR@10": 0.0,
+              "nDCG@10": 0.0
+            },
+            "ranking_changed": true,
+            "error_categories": []
+          },
+          {
+            "query_id": "data",
+            "metrics": {
+              "Recall@1": 0.0,
+              "Recall@5": 0.0,
+              "Recall@10": 0.0,
+              "MRR@10": 0.0,
+              "nDCG@10": 0.0
+            },
+            "ranking_changed": true,
+            "error_categories": []
+          }
+        ]
+      },
+      {
+        "baseline_experiment_id": "stage2_default",
+        "experiment_id": "no_chunk",
+        "macro": {
+          "Recall@1": 0.0,
+          "Recall@5": 0.0,
+          "Recall@10": 0.0,
+          "MRR@10": 0.0,
+          "nDCG@10": 0.0
+        },
+        "per_query": [
+          {
+            "query_id": "backend",
+            "metrics": {
+              "Recall@1": 0.0,
+              "Recall@5": 0.0,
+              "Recall@10": 0.0,
+              "MRR@10": 0.0,
+              "nDCG@10": 0.0
+            },
+            "ranking_changed": true,
+            "error_categories": []
+          },
+          {
+            "query_id": "mobile",
+            "metrics": {
+              "Recall@1": 0.0,
+              "Recall@5": 0.0,
+              "Recall@10": 0.0,
+              "MRR@10": 0.0,
+              "nDCG@10": 0.0
+            },
+            "ranking_changed": true,
+            "error_categories": []
+          },
+          {
+            "query_id": "data",
+            "metrics": {
+              "Recall@1": 0.0,
+              "Recall@5": 0.0,
+              "Recall@10": 0.0,
+              "MRR@10": 0.0,
+              "nDCG@10": 0.0
+            },
+            "ranking_changed": true,
+            "error_categories": []
+          }
+        ]
+      },
+      {
+        "baseline_experiment_id": "stage2_default",
+        "experiment_id": "chunk_best",
+        "macro": {
+          "Recall@1": 0.0,
+          "Recall@5": 0.0,
+          "Recall@10": 0.0,
+          "MRR@10": 0.0,
+          "nDCG@10": 0.0
+        },
+        "per_query": [
+          {
+            "query_id": "backend",
+            "metrics": {
+              "Recall@1": 0.0,
+              "Recall@5": 0.0,
+              "Recall@10": 0.0,
+              "MRR@10": 0.0,
+              "nDCG@10": 0.0
+            },
+            "ranking_changed": true,
+            "error_categories": []
+          },
+          {
+            "query_id": "mobile",
+            "metrics": {
+              "Recall@1": 0.0,
+              "Recall@5": 0.0,
+              "Recall@10": 0.0,
+              "MRR@10": 0.0,
+              "nDCG@10": 0.0
+            },
+            "ranking_changed": true,
+            "error_categories": []
+          },
+          {
+            "query_id": "data",
+            "metrics": {
+              "Recall@1": 0.0,
+              "Recall@5": 0.0,
+              "Recall@10": 0.0,
+              "MRR@10": 0.0,
+              "nDCG@10": 0.0
+            },
+            "ranking_changed": true,
+            "error_categories": []
+          }
+        ]
+      }
+    ]
+  }
+}

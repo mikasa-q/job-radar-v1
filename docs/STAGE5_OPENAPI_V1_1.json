@@ -1,0 +1,5724 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "JobRadar V1 整合 API（真实适配：离线验收）",
+    "description": "查询已入库的岗位；请求不会触发网页采集。",
+    "version": "1.1.0"
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": [
+          "服务"
+        ],
+        "summary": "Health",
+        "description": "Liveness only: a healthy process need not have an initialized DB.",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/jobs": {
+      "get": {
+        "tags": [
+          "岗位"
+        ],
+        "summary": "Read Jobs",
+        "operationId": "read_jobs_jobs_get",
+        "parameters": [
+          {
+            "name": "city",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "City"
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Keyword"
+            }
+          },
+          {
+            "name": "skill",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Skill"
+            }
+          },
+          {
+            "name": "source",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Source"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 20,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/job_radar__schemas__JobsPage"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/jobs/stats": {
+      "get": {
+        "tags": [
+          "岗位"
+        ],
+        "summary": "Read Stats",
+        "operationId": "read_stats_jobs_stats_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobsStats"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/jobs/{job_id}": {
+      "get": {
+        "tags": [
+          "岗位"
+        ],
+        "summary": "Read Job",
+        "operationId": "read_job_jobs__job_id__get",
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/ready": {
+      "get": {
+        "summary": "Ready",
+        "operationId": "ready_v1_ready_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_Ready_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method Not Allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad Gateway",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Gateway Timeout",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Request Entity Too Large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/resumes": {
+      "post": {
+        "summary": "Upload",
+        "operationId": "upload_v1_resumes_post",
+        "parameters": [
+          {
+            "name": "idempotency-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_Resource_ResumeDocument__"
+                }
+              }
+            }
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "405": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Method Not Allowed"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          },
+          "504": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Gateway Timeout"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Request Entity Too Large"
+          },
+          "415": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Unsupported Media Type"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "file"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/resumes/{resume_id}": {
+      "get": {
+        "summary": "Get Resume",
+        "operationId": "get_resume_v1_resumes__resume_id__get",
+        "parameters": [
+          {
+            "name": "resume_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Resume Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_Resource_ResumeDocument__"
+                }
+              }
+            }
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "405": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Method Not Allowed"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          },
+          "504": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Gateway Timeout"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Request Entity Too Large"
+          },
+          "415": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Unsupported Media Type"
+          }
+        }
+      }
+    },
+    "/v1/resumes/{resume_id}/profiles": {
+      "post": {
+        "summary": "Profile",
+        "operationId": "profile_v1_resumes__resume_id__profiles_post",
+        "parameters": [
+          {
+            "name": "resume_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Resume Id"
+            }
+          },
+          {
+            "name": "idempotency-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfileCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_Accepted_"
+                }
+              }
+            }
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "405": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Method Not Allowed"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          },
+          "504": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Gateway Timeout"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Request Entity Too Large"
+          },
+          "415": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Unsupported Media Type"
+          }
+        }
+      }
+    },
+    "/v1/profiles/{profile_id}": {
+      "get": {
+        "summary": "Get Profile",
+        "operationId": "get_profile_v1_profiles__profile_id__get",
+        "parameters": [
+          {
+            "name": "profile_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Profile Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_Resource_ProfilePayload__"
+                }
+              }
+            }
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "405": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Method Not Allowed"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          },
+          "504": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Gateway Timeout"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Request Entity Too Large"
+          },
+          "415": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Unsupported Media Type"
+          }
+        }
+      }
+    },
+    "/v1/jobs": {
+      "get": {
+        "summary": "Jobs",
+        "operationId": "jobs_v1_jobs_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 20,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_JobsPage_"
+                }
+              }
+            }
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "405": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Method Not Allowed"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          },
+          "504": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Gateway Timeout"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Request Entity Too Large"
+          },
+          "415": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Unsupported Media Type"
+          }
+        }
+      }
+    },
+    "/v1/jobs/{dataset_id}/{job_id}": {
+      "get": {
+        "summary": "Job",
+        "operationId": "job_v1_jobs__dataset_id___job_id__get",
+        "parameters": [
+          {
+            "name": "dataset_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Dataset Id"
+            }
+          },
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_JobCandidate_"
+                }
+              }
+            }
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "405": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Method Not Allowed"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          },
+          "504": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Gateway Timeout"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Request Entity Too Large"
+          },
+          "415": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Unsupported Media Type"
+          }
+        }
+      }
+    },
+    "/v1/matches": {
+      "post": {
+        "summary": "Match",
+        "operationId": "match_v1_matches_post",
+        "parameters": [
+          {
+            "name": "idempotency-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MatchCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_Accepted_"
+                }
+              }
+            }
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "405": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Method Not Allowed"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          },
+          "504": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Gateway Timeout"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Request Entity Too Large"
+          },
+          "415": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Unsupported Media Type"
+          }
+        }
+      }
+    },
+    "/v1/matches/{match_id}": {
+      "get": {
+        "summary": "Get Match",
+        "operationId": "get_match_v1_matches__match_id__get",
+        "parameters": [
+          {
+            "name": "match_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Match Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_Resource_MatchPayload__"
+                }
+              }
+            }
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "405": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Method Not Allowed"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          },
+          "504": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Gateway Timeout"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Request Entity Too Large"
+          },
+          "415": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Unsupported Media Type"
+          }
+        }
+      }
+    },
+    "/v1/reports": {
+      "post": {
+        "summary": "Report",
+        "operationId": "report_v1_reports_post",
+        "parameters": [
+          {
+            "name": "idempotency-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_Accepted_"
+                }
+              }
+            }
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "405": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Method Not Allowed"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          },
+          "504": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Gateway Timeout"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Request Entity Too Large"
+          },
+          "415": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Unsupported Media Type"
+          }
+        }
+      }
+    },
+    "/v1/reports/{report_id}": {
+      "get": {
+        "summary": "Get Report",
+        "operationId": "get_report_v1_reports__report_id__get",
+        "parameters": [
+          {
+            "name": "report_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Report Id"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "json",
+                "markdown"
+              ],
+              "type": "string",
+              "default": "json",
+              "title": "Format"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_Resource_ReportPayload__"
+                }
+              }
+            }
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "405": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Method Not Allowed"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          },
+          "504": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Gateway Timeout"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Request Entity Too Large"
+          },
+          "415": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_dict_"
+                }
+              }
+            },
+            "description": "Unsupported Media Type"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Accepted": {
+        "properties": {
+          "resource_id": {
+            "type": "string",
+            "pattern": "^(?:rsm|prf|mtc|rpt)_[0-9a-f]{32}$",
+            "title": "Resource Id"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "running",
+              "succeeded",
+              "failed",
+              "interrupted"
+            ],
+            "title": "State"
+          },
+          "status_url": {
+            "type": "string",
+            "title": "Status Url"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "resource_id",
+          "state",
+          "status_url"
+        ],
+        "title": "Accepted"
+      },
+      "AnalysisClaim": {
+        "properties": {
+          "claim_id": {
+            "type": "string",
+            "pattern": "^c[1-9][0-9]{0,3}$",
+            "title": "Claim Id"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "match_interpretation",
+              "strength",
+              "skill_gap",
+              "unknown",
+              "recommendation"
+            ],
+            "title": "Kind"
+          },
+          "subject": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Subject"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "supported",
+              "explicit_gap",
+              "unknown",
+              "advisory"
+            ],
+            "title": "Status"
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 1600,
+            "minLength": 1,
+            "title": "Text"
+          },
+          "requirement_kind": {
+            "type": "string",
+            "enum": [
+              "required",
+              "bonus",
+              "mention",
+              "unknown"
+            ],
+            "title": "Requirement Kind",
+            "default": "unknown"
+          },
+          "evidence_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 24,
+            "minItems": 1,
+            "title": "Evidence Ids"
+          },
+          "related_claim_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 24,
+            "title": "Related Claim Ids"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "claim_id",
+          "kind",
+          "subject",
+          "status",
+          "text",
+          "evidence_ids"
+        ],
+        "title": "AnalysisClaim"
+      },
+      "ApiError": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message",
+            "default": "请求未完成；请根据错误码检查输入或服务状态。"
+          },
+          "fields": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Fields"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "code"
+        ],
+        "title": "ApiError"
+      },
+      "CallAudit": {
+        "properties": {
+          "provider": {
+            "type": "string",
+            "title": "Provider"
+          },
+          "model": {
+            "type": "string",
+            "title": "Model"
+          },
+          "attempts": {
+            "type": "integer",
+            "maximum": 20.0,
+            "minimum": 0.0,
+            "title": "Attempts"
+          },
+          "input_tokens": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Input Tokens"
+          },
+          "output_tokens": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Output Tokens"
+          },
+          "total_tokens": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total Tokens"
+          },
+          "reserved_units": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reserved Units"
+          },
+          "billing_unit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Billing Unit"
+          },
+          "elapsed_seconds": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Elapsed Seconds",
+            "default": 0.0
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "provider",
+          "model",
+          "attempts"
+        ],
+        "title": "CallAudit"
+      },
+      "ChannelStatus": {
+        "properties": {
+          "channel": {
+            "type": "string",
+            "enum": [
+              "bm25",
+              "dense"
+            ],
+            "title": "Channel"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ok",
+              "disabled",
+              "degraded"
+            ],
+            "title": "Status"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "model_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model Id"
+          },
+          "revision": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Revision"
+          },
+          "dimension": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dimension"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "channel",
+          "status"
+        ],
+        "title": "ChannelStatus"
+      },
+      "ChunkConfig": {
+        "properties": {
+          "version": {
+            "type": "string",
+            "const": "evidence-chunks-v1",
+            "title": "Version",
+            "default": "evidence-chunks-v1"
+          },
+          "max_tokens": {
+            "type": "integer",
+            "maximum": 8192.0,
+            "minimum": 8.0,
+            "title": "Max Tokens",
+            "default": 512
+          },
+          "overlap_tokens": {
+            "type": "integer",
+            "maximum": 1024.0,
+            "minimum": 0.0,
+            "title": "Overlap Tokens",
+            "default": 32
+          },
+          "max_chunks_per_job": {
+            "type": "integer",
+            "maximum": 10000.0,
+            "minimum": 1.0,
+            "title": "Max Chunks Per Job",
+            "default": 2048
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "ChunkConfig"
+      },
+      "ChunkHit": {
+        "properties": {
+          "chunk": {
+            "$ref": "#/components/schemas/EvidenceChunk"
+          },
+          "score": {
+            "type": "number",
+            "title": "Score"
+          },
+          "rank": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Rank"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "chunk",
+          "score",
+          "rank"
+        ],
+        "title": "ChunkHit"
+      },
+      "ConstraintCheck": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "satisfied",
+              "not_satisfied",
+              "unknown"
+            ],
+            "title": "Status"
+          },
+          "hard": {
+            "type": "boolean",
+            "title": "Hard",
+            "default": false
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          },
+          "resume_paths": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Resume Paths"
+          },
+          "resume_evidence": {
+            "items": {
+              "$ref": "#/components/schemas/EvidenceRef"
+            },
+            "type": "array",
+            "title": "Resume Evidence"
+          },
+          "job_evidence": {
+            "items": {
+              "$ref": "#/components/schemas/JobSpan"
+            },
+            "type": "array",
+            "title": "Job Evidence"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "name",
+          "status",
+          "reason"
+        ],
+        "title": "ConstraintCheck"
+      },
+      "DateFact": {
+        "properties": {
+          "value": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Value"
+          },
+          "evidence": {
+            "items": {
+              "$ref": "#/components/schemas/EvidenceRef"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Evidence"
+          },
+          "normalized": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9]{4}(?:-(?:0[1-9]|1[0-2]))?$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Normalized"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "value",
+          "evidence"
+        ],
+        "title": "DateFact",
+        "description": "Raw date plus optional explicit year/month normalization; no date guessing."
+      },
+      "DenseSpec": {
+        "properties": {
+          "model_id": {
+            "type": "string",
+            "title": "Model Id"
+          },
+          "revision": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{40}$",
+            "title": "Revision"
+          },
+          "dimension": {
+            "type": "integer",
+            "maximum": 65536.0,
+            "minimum": 1.0,
+            "title": "Dimension"
+          },
+          "tokenizer_id": {
+            "type": "string",
+            "title": "Tokenizer Id"
+          },
+          "tokenizer_revision": {
+            "type": "string",
+            "title": "Tokenizer Revision"
+          },
+          "pooling": {
+            "type": "string",
+            "enum": [
+              "mean",
+              "cls"
+            ],
+            "title": "Pooling"
+          },
+          "normalize": {
+            "type": "boolean",
+            "const": true,
+            "title": "Normalize",
+            "default": true
+          },
+          "query_prefix": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Query Prefix"
+          },
+          "passage_prefix": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Passage Prefix"
+          },
+          "runtime_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Runtime Sha256"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "model_id",
+          "revision",
+          "dimension",
+          "tokenizer_id",
+          "tokenizer_revision",
+          "pooling",
+          "runtime_sha256"
+        ],
+        "title": "DenseSpec"
+      },
+      "Education": {
+        "properties": {
+          "start_date": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DateFact"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "end_date": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DateFact"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "school": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TextFact"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "major": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TextFact"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "degree": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TextFact"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "status": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TextFact"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "Education"
+      },
+      "EngineConfig": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "engine-config-v1",
+            "title": "Schema Version",
+            "default": "engine-config-v1"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "bm25_rules",
+              "hybrid"
+            ],
+            "title": "Mode",
+            "default": "bm25_rules"
+          },
+          "allow_dense_fallback": {
+            "type": "boolean",
+            "title": "Allow Dense Fallback",
+            "default": false
+          },
+          "top_k": {
+            "type": "integer",
+            "maximum": 1000.0,
+            "minimum": 1.0,
+            "title": "Top K",
+            "default": 10
+          },
+          "recall_k": {
+            "type": "integer",
+            "maximum": 1000.0,
+            "minimum": 1.0,
+            "title": "Recall K",
+            "default": 50
+          },
+          "k1": {
+            "type": "number",
+            "maximum": 10.0,
+            "exclusiveMinimum": 0.0,
+            "title": "K1",
+            "default": 1.5
+          },
+          "b": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "B",
+            "default": 0.75
+          },
+          "title_weight": {
+            "type": "number",
+            "maximum": 10.0,
+            "minimum": 0.0,
+            "title": "Title Weight",
+            "default": 2.0
+          },
+          "rrf_k": {
+            "type": "integer",
+            "maximum": 1000.0,
+            "minimum": 1.0,
+            "title": "Rrf K",
+            "default": 60
+          },
+          "hard_constraints": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "city",
+                "attendance",
+                "duration"
+              ]
+            },
+            "type": "array",
+            "title": "Hard Constraints"
+          },
+          "max_text_chars": {
+            "type": "integer",
+            "maximum": 128000.0,
+            "minimum": 1.0,
+            "title": "Max Text Chars",
+            "default": 16000
+          },
+          "max_jobs": {
+            "type": "integer",
+            "maximum": 10000.0,
+            "minimum": 1.0,
+            "title": "Max Jobs",
+            "default": 1000
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "EngineConfig"
+      },
+      "Envelope_Accepted_": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "jobradar-api-v1",
+            "title": "Schema Version",
+            "default": "jobradar-api-v1"
+          },
+          "request_id": {
+            "type": "string",
+            "pattern": "^req_[0-9a-f]{32}$",
+            "title": "Request Id"
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Accepted"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ApiError"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "request_id"
+        ],
+        "title": "Envelope[Accepted]"
+      },
+      "Envelope_JobCandidate_": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "jobradar-api-v1",
+            "title": "Schema Version",
+            "default": "jobradar-api-v1"
+          },
+          "request_id": {
+            "type": "string",
+            "pattern": "^req_[0-9a-f]{32}$",
+            "title": "Request Id"
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/JobCandidate"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ApiError"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "request_id"
+        ],
+        "title": "Envelope[JobCandidate]"
+      },
+      "Envelope_JobsPage_": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "jobradar-api-v1",
+            "title": "Schema Version",
+            "default": "jobradar-api-v1"
+          },
+          "request_id": {
+            "type": "string",
+            "pattern": "^req_[0-9a-f]{32}$",
+            "title": "Request Id"
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/job_radar__api_v1_models__JobsPage"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ApiError"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "request_id"
+        ],
+        "title": "Envelope[JobsPage]"
+      },
+      "Envelope_Ready_": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "jobradar-api-v1",
+            "title": "Schema Version",
+            "default": "jobradar-api-v1"
+          },
+          "request_id": {
+            "type": "string",
+            "pattern": "^req_[0-9a-f]{32}$",
+            "title": "Request Id"
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Ready"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ApiError"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "request_id"
+        ],
+        "title": "Envelope[Ready]"
+      },
+      "Envelope_Resource_MatchPayload__": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "jobradar-api-v1",
+            "title": "Schema Version",
+            "default": "jobradar-api-v1"
+          },
+          "request_id": {
+            "type": "string",
+            "pattern": "^req_[0-9a-f]{32}$",
+            "title": "Request Id"
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Resource_MatchPayload_"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ApiError"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "request_id"
+        ],
+        "title": "Envelope[Resource[MatchPayload]]"
+      },
+      "Envelope_Resource_ProfilePayload__": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "jobradar-api-v1",
+            "title": "Schema Version",
+            "default": "jobradar-api-v1"
+          },
+          "request_id": {
+            "type": "string",
+            "pattern": "^req_[0-9a-f]{32}$",
+            "title": "Request Id"
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Resource_ProfilePayload_"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ApiError"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "request_id"
+        ],
+        "title": "Envelope[Resource[ProfilePayload]]"
+      },
+      "Envelope_Resource_ReportPayload__": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "jobradar-api-v1",
+            "title": "Schema Version",
+            "default": "jobradar-api-v1"
+          },
+          "request_id": {
+            "type": "string",
+            "pattern": "^req_[0-9a-f]{32}$",
+            "title": "Request Id"
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Resource_ReportPayload_"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ApiError"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "request_id"
+        ],
+        "title": "Envelope[Resource[ReportPayload]]"
+      },
+      "Envelope_Resource_ResumeDocument__": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "jobradar-api-v1",
+            "title": "Schema Version",
+            "default": "jobradar-api-v1"
+          },
+          "request_id": {
+            "type": "string",
+            "pattern": "^req_[0-9a-f]{32}$",
+            "title": "Request Id"
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Resource_ResumeDocument_"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ApiError"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "request_id"
+        ],
+        "title": "Envelope[Resource[ResumeDocument]]"
+      },
+      "Envelope_dict_": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "jobradar-api-v1",
+            "title": "Schema Version",
+            "default": "jobradar-api-v1"
+          },
+          "request_id": {
+            "type": "string",
+            "pattern": "^req_[0-9a-f]{32}$",
+            "title": "Request Id"
+          },
+          "data": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ApiError"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "request_id"
+        ],
+        "title": "Envelope[dict]"
+      },
+      "EvidenceChunk": {
+        "properties": {
+          "version": {
+            "type": "string",
+            "const": "evidence-chunks-v1",
+            "title": "Version",
+            "default": "evidence-chunks-v1"
+          },
+          "key": {
+            "$ref": "#/components/schemas/JobKey"
+          },
+          "jd_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Jd Sha256"
+          },
+          "ordinal": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Ordinal"
+          },
+          "span": {
+            "$ref": "#/components/schemas/JobSpan"
+          },
+          "encoding_text": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Encoding Text"
+          },
+          "encoding_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Encoding Sha256"
+          },
+          "token_count": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Token Count"
+          },
+          "mapping": {
+            "items": {
+              "$ref": "#/components/schemas/TextMap"
+            },
+            "type": "array",
+            "title": "Mapping"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "key",
+          "jd_sha256",
+          "ordinal",
+          "span",
+          "encoding_text",
+          "encoding_sha256",
+          "token_count"
+        ],
+        "title": "EvidenceChunk"
+      },
+      "EvidencePacket": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "match-evidence-v1",
+            "title": "Schema Version",
+            "default": "match-evidence-v1"
+          },
+          "request_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Request Sha256"
+          },
+          "document_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Document Sha256"
+          },
+          "profile_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Profile Sha256"
+          },
+          "retrieval_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Retrieval Sha256"
+          },
+          "retrieval": {
+            "$ref": "#/components/schemas/IndexedMatchingResult"
+          },
+          "selected_keys": {
+            "items": {
+              "$ref": "#/components/schemas/JobKey"
+            },
+            "type": "array",
+            "maxItems": 20,
+            "title": "Selected Keys"
+          },
+          "evidence": {
+            "items": {
+              "$ref": "#/components/schemas/EvidenceRecord"
+            },
+            "type": "array",
+            "maxItems": 10000,
+            "title": "Evidence"
+          },
+          "limitations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Limitations"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "request_sha256",
+          "document_sha256",
+          "profile_sha256",
+          "retrieval_sha256",
+          "retrieval"
+        ],
+        "title": "EvidencePacket"
+      },
+      "EvidenceRecord": {
+        "properties": {
+          "evidence_id": {
+            "type": "string",
+            "pattern": "^e[0-9a-f]{24}$",
+            "title": "Evidence Id"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "resume",
+              "job",
+              "rule",
+              "retrieval",
+              "preference",
+              "scope"
+            ],
+            "title": "Kind"
+          },
+          "path": {
+            "type": "string",
+            "maxLength": 1024,
+            "minLength": 1,
+            "title": "Path"
+          },
+          "key": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/JobKey"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "source_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Source Sha256"
+          },
+          "quote": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Quote"
+          },
+          "resume_ref": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EvidenceRef"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "job_span": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/JobSpan"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "value_json": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Value Json"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "evidence_id",
+          "kind",
+          "path",
+          "source_sha256",
+          "value_json"
+        ],
+        "title": "EvidenceRecord"
+      },
+      "EvidenceRef": {
+        "properties": {
+          "page": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page"
+          },
+          "block_id": {
+            "type": "string",
+            "pattern": "^p[0-9]{3,}-b[0-9]{3,}$",
+            "title": "Block Id"
+          },
+          "quote": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Quote"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "page",
+          "block_id",
+          "quote"
+        ],
+        "title": "EvidenceRef"
+      },
+      "ExcludedJob": {
+        "properties": {
+          "key": {
+            "$ref": "#/components/schemas/JobKey"
+          },
+          "rules": {
+            "$ref": "#/components/schemas/RuleResult"
+          },
+          "reason": {
+            "type": "string",
+            "const": "hard_constraint_conflict",
+            "title": "Reason",
+            "default": "hard_constraint_conflict"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "key",
+          "rules"
+        ],
+        "title": "ExcludedJob"
+      },
+      "GroupCount": {
+        "properties": {
+          "value": {
+            "type": "string",
+            "title": "Value"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "value",
+          "count"
+        ],
+        "title": "GroupCount"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HealthResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "HealthResponse"
+      },
+      "ImportedJob": {
+        "properties": {
+          "source": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Source",
+            "default": "boss"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Title"
+          },
+          "url": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Url"
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Description"
+          },
+          "description_kind": {
+            "type": "string",
+            "const": "full_jd",
+            "title": "Description Kind",
+            "default": "full_jd"
+          },
+          "company": {
+            "type": "string",
+            "title": "Company",
+            "default": ""
+          },
+          "city": {
+            "type": "string",
+            "title": "City",
+            "default": ""
+          },
+          "salary": {
+            "type": "string",
+            "title": "Salary",
+            "default": ""
+          },
+          "education": {
+            "type": "string",
+            "title": "Education",
+            "default": ""
+          },
+          "experience": {
+            "type": "string",
+            "title": "Experience",
+            "default": ""
+          },
+          "attendance": {
+            "type": "string",
+            "title": "Attendance",
+            "default": ""
+          },
+          "posted_at": {
+            "type": "string",
+            "title": "Posted At",
+            "default": ""
+          },
+          "source_tags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Source Tags"
+          },
+          "skills": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Skills"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "title",
+          "url",
+          "description"
+        ],
+        "title": "ImportedJob",
+        "description": "One detail document, before file provenance or database persistence."
+      },
+      "IndexManifest": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "derived-index-v1",
+            "title": "Schema Version",
+            "default": "derived-index-v1"
+          },
+          "generation": {
+            "type": "string",
+            "title": "Generation"
+          },
+          "snapshot_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Snapshot Sha256"
+          },
+          "projection_version": {
+            "type": "string",
+            "title": "Projection Version",
+            "default": "retrieval-text-v1"
+          },
+          "lexical_version": {
+            "type": "string",
+            "title": "Lexical Version",
+            "default": "char-bigram-alias-v1"
+          },
+          "chunk_config": {
+            "$ref": "#/components/schemas/ChunkConfig"
+          },
+          "dense": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DenseSpec"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "build_version": {
+            "type": "string",
+            "title": "Build Version",
+            "default": "rag-v1"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "generation",
+          "snapshot_sha256"
+        ],
+        "title": "IndexManifest"
+      },
+      "IndexedMatchingResult": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "indexed-matching-v1",
+            "title": "Schema Version",
+            "default": "indexed-matching-v1"
+          },
+          "matching": {
+            "$ref": "#/components/schemas/MatchingResult"
+          },
+          "manifest": {
+            "$ref": "#/components/schemas/IndexManifest"
+          },
+          "chunk_hits": {
+            "items": {
+              "$ref": "#/components/schemas/ChunkHit"
+            },
+            "type": "array",
+            "title": "Chunk Hits"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "matching",
+          "manifest"
+        ],
+        "title": "IndexedMatchingResult"
+      },
+      "JobAnalysis": {
+        "properties": {
+          "key": {
+            "$ref": "#/components/schemas/JobKey"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "not_analyzed",
+              "completed",
+              "failed"
+            ],
+            "title": "Status"
+          },
+          "draft": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MatchAnalysisDraft"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error_code": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_]{0,79}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error Code"
+          },
+          "audit": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CallAudit"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "key",
+          "status"
+        ],
+        "title": "JobAnalysis"
+      },
+      "JobCandidate": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "job-candidate-v1",
+            "title": "Schema Version",
+            "default": "job-candidate-v1"
+          },
+          "dataset_id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Dataset Id"
+          },
+          "job_id": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Job Id"
+          },
+          "job": {
+            "$ref": "#/components/schemas/ImportedJob"
+          },
+          "jd_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Jd Sha256"
+          },
+          "fact_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Fact Sha256"
+          },
+          "provenance": {
+            "items": {
+              "$ref": "#/components/schemas/JobProvenance"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Provenance"
+          },
+          "review_status": {
+            "type": "string",
+            "enum": [
+              "unconfirmed",
+              "confirmed",
+              "rejected"
+            ],
+            "title": "Review Status"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "dataset_id",
+          "job_id",
+          "job",
+          "jd_sha256",
+          "fact_sha256",
+          "provenance",
+          "review_status"
+        ],
+        "title": "JobCandidate",
+        "description": "Imported facts plus caller-supplied storage identity and source versions.\n\nThe future read adapter must verify the dataset and row associations. This\npure model neither opens that dataset nor checks source files on disk."
+      },
+      "JobKey": {
+        "properties": {
+          "dataset_id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Dataset Id"
+          },
+          "job_id": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Job Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "dataset_id",
+          "job_id"
+        ],
+        "title": "JobKey"
+      },
+      "JobProvenance": {
+        "properties": {
+          "provenance_id": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Provenance Id"
+          },
+          "source_file_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Source File Sha256"
+          },
+          "input_format": {
+            "type": "string",
+            "enum": [
+              "html",
+              "txt"
+            ],
+            "title": "Input Format"
+          },
+          "parser_version": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Parser Version"
+          },
+          "imported_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Imported At"
+          },
+          "import_run_id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Import Run Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "provenance_id",
+          "source_file_sha256",
+          "input_format",
+          "parser_version",
+          "imported_at",
+          "import_run_id"
+        ],
+        "title": "JobProvenance",
+        "description": "One stored source version; absolute local source paths stay outside."
+      },
+      "JobResponse": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "source": {
+            "type": "string",
+            "title": "Source"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "company": {
+            "type": "string",
+            "title": "Company",
+            "default": ""
+          },
+          "city": {
+            "type": "string",
+            "title": "City",
+            "default": ""
+          },
+          "url": {
+            "type": "string",
+            "title": "Url"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description",
+            "default": ""
+          },
+          "description_kind": {
+            "type": "string",
+            "title": "Description Kind",
+            "default": ""
+          },
+          "salary": {
+            "type": "string",
+            "title": "Salary",
+            "default": ""
+          },
+          "experience": {
+            "type": "string",
+            "title": "Experience",
+            "default": ""
+          },
+          "education": {
+            "type": "string",
+            "title": "Education",
+            "default": ""
+          },
+          "skills": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Skills"
+          },
+          "posted_at": {
+            "type": "string",
+            "title": "Posted At",
+            "default": ""
+          },
+          "crawled_at": {
+            "type": "string",
+            "title": "Crawled At",
+            "default": ""
+          },
+          "first_seen_at": {
+            "type": "string",
+            "title": "First Seen At",
+            "default": ""
+          },
+          "last_seen_at": {
+            "type": "string",
+            "title": "Last Seen At",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "source",
+          "title",
+          "url"
+        ],
+        "title": "JobResponse"
+      },
+      "JobSpan": {
+        "properties": {
+          "field": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Field"
+          },
+          "start": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Start"
+          },
+          "end": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "End"
+          },
+          "quote": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Quote"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "field",
+          "start",
+          "end",
+          "quote"
+        ],
+        "title": "JobSpan"
+      },
+      "JobsStats": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "by_city": {
+            "items": {
+              "$ref": "#/components/schemas/GroupCount"
+            },
+            "type": "array",
+            "title": "By City"
+          },
+          "by_source": {
+            "items": {
+              "$ref": "#/components/schemas/GroupCount"
+            },
+            "type": "array",
+            "title": "By Source"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "by_city",
+          "by_source"
+        ],
+        "title": "JobsStats"
+      },
+      "MatchAnalysisDraft": {
+        "properties": {
+          "key": {
+            "$ref": "#/components/schemas/JobKey"
+          },
+          "claims": {
+            "items": {
+              "$ref": "#/components/schemas/AnalysisClaim"
+            },
+            "type": "array",
+            "maxItems": 24,
+            "minItems": 1,
+            "title": "Claims"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "key",
+          "claims"
+        ],
+        "title": "MatchAnalysisDraft"
+      },
+      "MatchCreate": {
+        "properties": {
+          "profile_id": {
+            "type": "string",
+            "pattern": "^prf_[0-9a-f]{32}$",
+            "title": "Profile Id"
+          },
+          "purpose": {
+            "type": "string",
+            "enum": [
+              "debug",
+              "formal"
+            ],
+            "title": "Purpose",
+            "default": "debug"
+          },
+          "preferences": {
+            "$ref": "#/components/schemas/SearchPreferences"
+          },
+          "candidate_keys": {
+            "items": {
+              "$ref": "#/components/schemas/JobKey"
+            },
+            "type": "array",
+            "maxItems": 1000,
+            "title": "Candidate Keys"
+          },
+          "retrieval": {
+            "$ref": "#/components/schemas/EngineConfig"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "profile_id",
+          "candidate_keys"
+        ],
+        "title": "MatchCreate"
+      },
+      "MatchPayload": {
+        "properties": {
+          "document": {
+            "$ref": "#/components/schemas/ResumeDocument"
+          },
+          "request": {
+            "$ref": "#/components/schemas/MatchingRequest"
+          },
+          "index_manifest": {
+            "$ref": "#/components/schemas/IndexManifest"
+          },
+          "engine_config": {
+            "$ref": "#/components/schemas/EngineConfig"
+          },
+          "retrieval": {
+            "$ref": "#/components/schemas/IndexedMatchingResult"
+          },
+          "snapshot_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Snapshot Sha256"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "document",
+          "request",
+          "index_manifest",
+          "engine_config",
+          "retrieval",
+          "snapshot_sha256"
+        ],
+        "title": "MatchPayload"
+      },
+      "MatchReport": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "match-report-v1",
+            "title": "Schema Version",
+            "default": "match-report-v1"
+          },
+          "prompt_version": {
+            "type": "string",
+            "enum": [
+              "match-analysis-prompt-v1",
+              "match-analysis-prompt-v2",
+              "match-analysis-prompt-v3"
+            ],
+            "title": "Prompt Version",
+            "default": "match-analysis-prompt-v3"
+          },
+          "report_id": {
+            "type": "string",
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Report Id"
+          },
+          "generated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Generated At"
+          },
+          "packet": {
+            "$ref": "#/components/schemas/EvidencePacket"
+          },
+          "packet_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Packet Sha256"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "not_run",
+              "completed",
+              "partial",
+              "failed"
+            ],
+            "title": "Status"
+          },
+          "analyses": {
+            "items": {
+              "$ref": "#/components/schemas/JobAnalysis"
+            },
+            "type": "array",
+            "title": "Analyses"
+          },
+          "review_status": {
+            "type": "string",
+            "const": "unconfirmed",
+            "title": "Review Status",
+            "default": "unconfirmed"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "report_id",
+          "generated_at",
+          "packet",
+          "packet_sha256",
+          "status"
+        ],
+        "title": "MatchReport"
+      },
+      "MatchingInput": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "matching-input-v1",
+            "title": "Schema Version",
+            "default": "matching-input-v1"
+          },
+          "profile_schema_version": {
+            "type": "string",
+            "const": "resume-profile-v1",
+            "title": "Profile Schema Version",
+            "default": "resume-profile-v1"
+          },
+          "profile_id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Profile Id"
+          },
+          "profile_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Profile Version"
+          },
+          "builder_version": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Builder Version"
+          },
+          "source": {
+            "$ref": "#/components/schemas/ProfileSource"
+          },
+          "skills": {
+            "items": {
+              "$ref": "#/components/schemas/SkillEvidence"
+            },
+            "type": "array",
+            "title": "Skills"
+          },
+          "education": {
+            "items": {
+              "$ref": "#/components/schemas/Education"
+            },
+            "type": "array",
+            "title": "Education"
+          },
+          "projects": {
+            "items": {
+              "$ref": "#/components/schemas/ProjectExperience"
+            },
+            "type": "array",
+            "title": "Projects"
+          },
+          "work_experience": {
+            "items": {
+              "$ref": "#/components/schemas/WorkExperience"
+            },
+            "type": "array",
+            "title": "Work Experience"
+          },
+          "summary": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TextFact"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "preferences": {
+            "$ref": "#/components/schemas/SearchPreferences"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          },
+          "review_status": {
+            "type": "string",
+            "enum": [
+              "unconfirmed",
+              "confirmed",
+              "rejected"
+            ],
+            "title": "Review Status"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "profile_id",
+          "profile_version",
+          "builder_version",
+          "source",
+          "preferences",
+          "review_status"
+        ],
+        "title": "MatchingInput",
+        "description": "Lossless projection of matching facts, not an evidence-check certificate."
+      },
+      "MatchingRequest": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "matching-request-v1",
+            "title": "Schema Version",
+            "default": "matching-request-v1"
+          },
+          "purpose": {
+            "type": "string",
+            "enum": [
+              "debug",
+              "formal"
+            ],
+            "title": "Purpose"
+          },
+          "profile": {
+            "$ref": "#/components/schemas/MatchingInput"
+          },
+          "jobs": {
+            "items": {
+              "$ref": "#/components/schemas/JobCandidate"
+            },
+            "type": "array",
+            "title": "Jobs"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "purpose",
+          "profile"
+        ],
+        "title": "MatchingRequest",
+        "description": "An unranked handoff. 'formal' is a review gate, not a match result."
+      },
+      "MatchingResult": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "matching-result-v1",
+            "title": "Schema Version",
+            "default": "matching-result-v1"
+          },
+          "engine_version": {
+            "type": "string",
+            "title": "Engine Version",
+            "default": "matching-engine-v1"
+          },
+          "profile_id": {
+            "type": "string",
+            "title": "Profile Id"
+          },
+          "profile_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Profile Version"
+          },
+          "source": {
+            "$ref": "#/components/schemas/ProfileSource"
+          },
+          "profile_review_status": {
+            "type": "string",
+            "enum": [
+              "unconfirmed",
+              "confirmed",
+              "rejected"
+            ],
+            "title": "Profile Review Status"
+          },
+          "purpose": {
+            "type": "string",
+            "enum": [
+              "debug",
+              "formal"
+            ],
+            "title": "Purpose"
+          },
+          "requested_mode": {
+            "type": "string",
+            "enum": [
+              "bm25_rules",
+              "hybrid"
+            ],
+            "title": "Requested Mode"
+          },
+          "actual_mode": {
+            "type": "string",
+            "enum": [
+              "bm25_rules",
+              "hybrid"
+            ],
+            "title": "Actual Mode"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ok",
+              "degraded",
+              "no_query",
+              "no_candidates",
+              "no_hits"
+            ],
+            "title": "Status"
+          },
+          "config": {
+            "$ref": "#/components/schemas/EngineConfig"
+          },
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/RankedJob"
+            },
+            "type": "array",
+            "title": "Results"
+          },
+          "excluded": {
+            "items": {
+              "$ref": "#/components/schemas/ExcludedJob"
+            },
+            "type": "array",
+            "title": "Excluded"
+          },
+          "channels": {
+            "items": {
+              "$ref": "#/components/schemas/ChannelStatus"
+            },
+            "type": "array",
+            "title": "Channels"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "profile_id",
+          "profile_version",
+          "source",
+          "profile_review_status",
+          "purpose",
+          "requested_mode",
+          "actual_mode",
+          "status",
+          "config"
+        ],
+        "title": "MatchingResult"
+      },
+      "ProfileCreate": {
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": [
+              "rules",
+              "llm"
+            ],
+            "title": "Mode",
+            "default": "rules"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "ProfileCreate"
+      },
+      "ProfilePayload": {
+        "properties": {
+          "resume_id": {
+            "type": "string",
+            "pattern": "^rsm_[0-9a-f]{32}$",
+            "title": "Resume Id"
+          },
+          "document": {
+            "$ref": "#/components/schemas/ResumeDocument"
+          },
+          "profile": {
+            "$ref": "#/components/schemas/ResumeProfile"
+          },
+          "comparison": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SkillComparison"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "resume_id",
+          "document",
+          "profile"
+        ],
+        "title": "ProfilePayload"
+      },
+      "ProfileSource": {
+        "properties": {
+          "document_schema_version": {
+            "type": "string",
+            "const": "resume-document-v1",
+            "title": "Document Schema Version",
+            "default": "resume-document-v1"
+          },
+          "source_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Source Sha256"
+          },
+          "parser_version": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Parser Version"
+          },
+          "extractor_version": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Extractor Version"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "source_sha256",
+          "parser_version",
+          "extractor_version"
+        ],
+        "title": "ProfileSource"
+      },
+      "ProjectExperience": {
+        "properties": {
+          "start_date": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DateFact"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "end_date": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DateFact"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "name": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TextFact"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "role": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TextFact"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "nature": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TextFact"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "description": {
+            "items": {
+              "$ref": "#/components/schemas/TextFact"
+            },
+            "type": "array",
+            "title": "Description"
+          },
+          "technologies": {
+            "items": {
+              "$ref": "#/components/schemas/SkillEvidence"
+            },
+            "type": "array",
+            "title": "Technologies"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "ProjectExperience"
+      },
+      "RankedJob": {
+        "properties": {
+          "key": {
+            "$ref": "#/components/schemas/JobKey"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url"
+          },
+          "fact_sha256": {
+            "type": "string",
+            "title": "Fact Sha256"
+          },
+          "jd_sha256": {
+            "type": "string",
+            "title": "Jd Sha256"
+          },
+          "review_status": {
+            "type": "string",
+            "enum": [
+              "unconfirmed",
+              "confirmed",
+              "rejected"
+            ],
+            "title": "Review Status"
+          },
+          "provenance": {
+            "items": {
+              "$ref": "#/components/schemas/JobProvenance"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Provenance"
+          },
+          "rank": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Rank"
+          },
+          "bm25": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RetrievalHit"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "dense": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RetrievalHit"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "fusion_score": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Fusion Score"
+          },
+          "rules": {
+            "$ref": "#/components/schemas/RuleResult"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "key",
+          "url",
+          "fact_sha256",
+          "jd_sha256",
+          "review_status",
+          "provenance",
+          "rank",
+          "fusion_score",
+          "rules"
+        ],
+        "title": "RankedJob"
+      },
+      "Ready": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "ready",
+              "not_ready"
+            ],
+            "title": "Status"
+          },
+          "evidence": {
+            "type": "boolean",
+            "title": "Evidence"
+          },
+          "index": {
+            "type": "boolean",
+            "title": "Index"
+          },
+          "real_llm": {
+            "type": "boolean",
+            "title": "Real Llm",
+            "default": false
+          },
+          "hybrid": {
+            "type": "boolean",
+            "const": false,
+            "title": "Hybrid",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status",
+          "evidence",
+          "index"
+        ],
+        "title": "Ready"
+      },
+      "ReportCreate": {
+        "properties": {
+          "match_id": {
+            "type": "string",
+            "pattern": "^mtc_[0-9a-f]{32}$",
+            "title": "Match Id"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "offline",
+              "llm"
+            ],
+            "title": "Mode",
+            "default": "offline"
+          },
+          "top_n": {
+            "type": "integer",
+            "maximum": 20.0,
+            "minimum": 1.0,
+            "title": "Top N",
+            "default": 3
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "match_id"
+        ],
+        "title": "ReportCreate"
+      },
+      "ReportPayload": {
+        "properties": {
+          "match_id": {
+            "type": "string",
+            "pattern": "^mtc_[0-9a-f]{32}$",
+            "title": "Match Id"
+          },
+          "snapshot_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Snapshot Sha256"
+          },
+          "report": {
+            "$ref": "#/components/schemas/MatchReport"
+          },
+          "markdown": {
+            "type": "string",
+            "title": "Markdown"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "match_id",
+          "snapshot_sha256",
+          "report",
+          "markdown"
+        ],
+        "title": "ReportPayload"
+      },
+      "Resource_MatchPayload_": {
+        "properties": {
+          "resource_id": {
+            "type": "string",
+            "pattern": "^(?:rsm|prf|mtc|rpt)_[0-9a-f]{32}$",
+            "title": "Resource Id"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "resume",
+              "profile",
+              "match",
+              "report"
+            ],
+            "title": "Kind"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "running",
+              "succeeded",
+              "failed",
+              "interrupted"
+            ],
+            "title": "State"
+          },
+          "execution_mode": {
+            "type": "string",
+            "enum": [
+              "pdf",
+              "rules",
+              "bm25_rules",
+              "offline",
+              "llm"
+            ],
+            "title": "Execution Mode"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "input_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Input Sha256"
+          },
+          "payload_sha256": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Payload Sha256"
+          },
+          "payload": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MatchPayload"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ApiError"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "resource_id",
+          "kind",
+          "state",
+          "execution_mode",
+          "created_at",
+          "updated_at",
+          "input_sha256"
+        ],
+        "title": "Resource[MatchPayload]"
+      },
+      "Resource_ProfilePayload_": {
+        "properties": {
+          "resource_id": {
+            "type": "string",
+            "pattern": "^(?:rsm|prf|mtc|rpt)_[0-9a-f]{32}$",
+            "title": "Resource Id"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "resume",
+              "profile",
+              "match",
+              "report"
+            ],
+            "title": "Kind"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "running",
+              "succeeded",
+              "failed",
+              "interrupted"
+            ],
+            "title": "State"
+          },
+          "execution_mode": {
+            "type": "string",
+            "enum": [
+              "pdf",
+              "rules",
+              "bm25_rules",
+              "offline",
+              "llm"
+            ],
+            "title": "Execution Mode"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "input_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Input Sha256"
+          },
+          "payload_sha256": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Payload Sha256"
+          },
+          "payload": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ProfilePayload"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ApiError"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "resource_id",
+          "kind",
+          "state",
+          "execution_mode",
+          "created_at",
+          "updated_at",
+          "input_sha256"
+        ],
+        "title": "Resource[ProfilePayload]"
+      },
+      "Resource_ReportPayload_": {
+        "properties": {
+          "resource_id": {
+            "type": "string",
+            "pattern": "^(?:rsm|prf|mtc|rpt)_[0-9a-f]{32}$",
+            "title": "Resource Id"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "resume",
+              "profile",
+              "match",
+              "report"
+            ],
+            "title": "Kind"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "running",
+              "succeeded",
+              "failed",
+              "interrupted"
+            ],
+            "title": "State"
+          },
+          "execution_mode": {
+            "type": "string",
+            "enum": [
+              "pdf",
+              "rules",
+              "bm25_rules",
+              "offline",
+              "llm"
+            ],
+            "title": "Execution Mode"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "input_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Input Sha256"
+          },
+          "payload_sha256": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Payload Sha256"
+          },
+          "payload": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReportPayload"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ApiError"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "resource_id",
+          "kind",
+          "state",
+          "execution_mode",
+          "created_at",
+          "updated_at",
+          "input_sha256"
+        ],
+        "title": "Resource[ReportPayload]"
+      },
+      "Resource_ResumeDocument_": {
+        "properties": {
+          "resource_id": {
+            "type": "string",
+            "pattern": "^(?:rsm|prf|mtc|rpt)_[0-9a-f]{32}$",
+            "title": "Resource Id"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "resume",
+              "profile",
+              "match",
+              "report"
+            ],
+            "title": "Kind"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "running",
+              "succeeded",
+              "failed",
+              "interrupted"
+            ],
+            "title": "State"
+          },
+          "execution_mode": {
+            "type": "string",
+            "enum": [
+              "pdf",
+              "rules",
+              "bm25_rules",
+              "offline",
+              "llm"
+            ],
+            "title": "Execution Mode"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "input_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Input Sha256"
+          },
+          "payload_sha256": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Payload Sha256"
+          },
+          "payload": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ResumeDocument"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ApiError"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "resource_id",
+          "kind",
+          "state",
+          "execution_mode",
+          "created_at",
+          "updated_at",
+          "input_sha256"
+        ],
+        "title": "Resource[ResumeDocument]"
+      },
+      "ResumeBlock": {
+        "properties": {
+          "block_id": {
+            "type": "string",
+            "pattern": "^p[0-9]{3,}-b[0-9]{3,}$",
+            "title": "Block Id"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Text"
+          },
+          "bbox": {
+            "prefixItems": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "type": "array",
+            "maxItems": 4,
+            "minItems": 4,
+            "title": "Bbox"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "block_id",
+          "text",
+          "bbox"
+        ],
+        "title": "ResumeBlock",
+        "description": "One text block returned by the PDF engine, with page-local coordinates."
+      },
+      "ResumeDocument": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "resume-document-v1",
+            "title": "Schema Version",
+            "default": "resume-document-v1"
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/ResumeProvenance"
+          },
+          "pages": {
+            "items": {
+              "$ref": "#/components/schemas/ResumePage"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Pages"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "provenance",
+          "pages"
+        ],
+        "title": "ResumeDocument",
+        "description": "Structured PDF evidence, before ResumeProfile semantic extraction."
+      },
+      "ResumePage": {
+        "properties": {
+          "page_number": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page Number"
+          },
+          "width": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Width"
+          },
+          "height": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Height"
+          },
+          "rotation": {
+            "type": "integer",
+            "enum": [
+              0,
+              90,
+              180,
+              270
+            ],
+            "title": "Rotation",
+            "default": 0
+          },
+          "text": {
+            "type": "string",
+            "title": "Text",
+            "default": ""
+          },
+          "blocks": {
+            "items": {
+              "$ref": "#/components/schemas/ResumeBlock"
+            },
+            "type": "array",
+            "title": "Blocks"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "page_number",
+          "width",
+          "height"
+        ],
+        "title": "ResumePage",
+        "description": "Page dimensions/bboxes share PyMuPDF's unrotated coordinate space."
+      },
+      "ResumeProfile": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "resume-profile-v1",
+            "title": "Schema Version",
+            "default": "resume-profile-v1"
+          },
+          "resume_id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Resume Id"
+          },
+          "profile_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Profile Version",
+            "default": 1
+          },
+          "builder_version": {
+            "type": "string",
+            "title": "Builder Version",
+            "default": "resume-profile-contract-v1"
+          },
+          "source": {
+            "$ref": "#/components/schemas/ProfileSource"
+          },
+          "education": {
+            "items": {
+              "$ref": "#/components/schemas/Education"
+            },
+            "type": "array",
+            "title": "Education"
+          },
+          "skills": {
+            "items": {
+              "$ref": "#/components/schemas/SkillEvidence"
+            },
+            "type": "array",
+            "title": "Skills"
+          },
+          "projects": {
+            "items": {
+              "$ref": "#/components/schemas/ProjectExperience"
+            },
+            "type": "array",
+            "title": "Projects"
+          },
+          "work_experience": {
+            "items": {
+              "$ref": "#/components/schemas/WorkExperience"
+            },
+            "type": "array",
+            "title": "Work Experience"
+          },
+          "summary": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TextFact"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          },
+          "review_status": {
+            "type": "string",
+            "enum": [
+              "unconfirmed",
+              "confirmed",
+              "rejected"
+            ],
+            "title": "Review Status",
+            "default": "unconfirmed"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "resume_id",
+          "source"
+        ],
+        "title": "ResumeProfile"
+      },
+      "ResumeProvenance": {
+        "properties": {
+          "source_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Source Sha256"
+          },
+          "parser_version": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Parser Version"
+          },
+          "extractor_version": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Extractor Version"
+          },
+          "processed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Processed At"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "source_sha256",
+          "parser_version",
+          "extractor_version"
+        ],
+        "title": "ResumeProvenance",
+        "description": "Timestamp is supplied by the file layer, never invented by the adapter."
+      },
+      "RetrievalHit": {
+        "properties": {
+          "key": {
+            "$ref": "#/components/schemas/JobKey"
+          },
+          "channel": {
+            "type": "string",
+            "enum": [
+              "bm25",
+              "dense"
+            ],
+            "title": "Channel"
+          },
+          "score": {
+            "type": "number",
+            "title": "Score"
+          },
+          "rank": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Rank"
+          },
+          "matched_terms": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Matched Terms"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "key",
+          "channel",
+          "score",
+          "rank"
+        ],
+        "title": "RetrievalHit"
+      },
+      "RuleResult": {
+        "properties": {
+          "version": {
+            "type": "string",
+            "const": "matching-rules-v1",
+            "title": "Version",
+            "default": "matching-rules-v1"
+          },
+          "constraints": {
+            "items": {
+              "$ref": "#/components/schemas/ConstraintCheck"
+            },
+            "type": "array",
+            "title": "Constraints"
+          },
+          "skills": {
+            "items": {
+              "$ref": "#/components/schemas/SkillCheck"
+            },
+            "type": "array",
+            "title": "Skills"
+          },
+          "covered_required": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Covered Required",
+            "default": 0
+          },
+          "total_required": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total Required",
+            "default": 0
+          },
+          "coverage": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Coverage"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "RuleResult"
+      },
+      "SearchPreferences": {
+        "properties": {
+          "cities": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array",
+                "minItems": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cities"
+          },
+          "target_roles": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array",
+                "minItems": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Roles"
+          },
+          "available_days_per_week": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 7.0,
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Available Days Per Week"
+          },
+          "available_duration_months": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Available Duration Months"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "SearchPreferences",
+        "description": "Explicit user choices, not facts inferred from a resume or JD.\n\nNone means unspecified. Nonempty city/role lists express alternatives; no\nfiltering or hard-constraint evaluation is performed at this stage."
+      },
+      "SkillCheck": {
+        "properties": {
+          "alternatives": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Alternatives"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "required",
+              "bonus",
+              "mention"
+            ],
+            "title": "Kind"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "evidence_found",
+              "not_found"
+            ],
+            "title": "Status"
+          },
+          "matched": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Matched"
+          },
+          "resume_paths": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Resume Paths"
+          },
+          "resume_evidence": {
+            "items": {
+              "$ref": "#/components/schemas/EvidenceRef"
+            },
+            "type": "array",
+            "title": "Resume Evidence"
+          },
+          "job_evidence": {
+            "items": {
+              "$ref": "#/components/schemas/JobSpan"
+            },
+            "type": "array",
+            "title": "Job Evidence"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "alternatives",
+          "kind",
+          "status"
+        ],
+        "title": "SkillCheck"
+      },
+      "SkillComparison": {
+        "properties": {
+          "rule_only_skills": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Rule Only Skills"
+          },
+          "model_only_skills": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Model Only Skills"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "SkillComparison"
+      },
+      "SkillEvidence": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Name"
+          },
+          "mention": {
+            "$ref": "#/components/schemas/TextFact"
+          },
+          "context": {
+            "type": "string",
+            "enum": [
+              "project",
+              "course",
+              "work",
+              "internship",
+              "skill_list",
+              "unspecified"
+            ],
+            "title": "Context",
+            "default": "unspecified"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "name",
+          "mention"
+        ],
+        "title": "SkillEvidence",
+        "description": "A positive mention, not proof of proficiency or years of experience."
+      },
+      "TextFact": {
+        "properties": {
+          "value": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Value"
+          },
+          "evidence": {
+            "items": {
+              "$ref": "#/components/schemas/EvidenceRef"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Evidence"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "value",
+          "evidence"
+        ],
+        "title": "TextFact",
+        "description": "Value is extracted text, not a generated paraphrase or a capability score."
+      },
+      "TextMap": {
+        "properties": {
+          "field": {
+            "type": "string",
+            "enum": [
+              "title",
+              "description"
+            ],
+            "title": "Field"
+          },
+          "source_start": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Source Start"
+          },
+          "source_end": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Source End"
+          },
+          "encoded_start": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Encoded Start"
+          },
+          "encoded_end": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Encoded End"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "field",
+          "source_start",
+          "source_end",
+          "encoded_start",
+          "encoded_end"
+        ],
+        "title": "TextMap"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "WorkExperience": {
+        "properties": {
+          "start_date": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DateFact"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "end_date": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DateFact"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "company": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TextFact"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "role": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TextFact"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "employment_type": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TextFact"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "description": {
+            "items": {
+              "$ref": "#/components/schemas/TextFact"
+            },
+            "type": "array",
+            "title": "Description"
+          },
+          "technologies": {
+            "items": {
+              "$ref": "#/components/schemas/SkillEvidence"
+            },
+            "type": "array",
+            "title": "Technologies"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "WorkExperience"
+      },
+      "job_radar__api_v1_models__JobsPage": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
+          },
+          "limit": {
+            "type": "integer",
+            "maximum": 100.0,
+            "minimum": 1.0,
+            "title": "Limit"
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Offset"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/JobCandidate"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "total",
+          "limit",
+          "offset",
+          "items"
+        ],
+        "title": "JobsPage"
+      },
+      "job_radar__schemas__JobsPage": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "limit": {
+            "type": "integer",
+            "title": "Limit"
+          },
+          "offset": {
+            "type": "integer",
+            "title": "Offset"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/JobResponse"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "limit",
+          "offset",
+          "items"
+        ],
+        "title": "JobsPage"
+      }
+    }
+  }
+}

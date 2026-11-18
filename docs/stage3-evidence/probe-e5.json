@@ -1,0 +1,81 @@
+{
+  "status": "passed",
+  "synthetic": true,
+  "human_quality_ready": false,
+  "model_id": "intfloat/multilingual-e5-small",
+  "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+  "dimension": 384,
+  "native_max_tokens": 512,
+  "pooling": "mean",
+  "tokenizer_load_seconds": 3.0927443589898758,
+  "model_load_seconds": 4.838960151013453,
+  "query_encode_seconds": 2.0871971920132637,
+  "two_passages_encode_seconds": 0.0803082810016349,
+  "synthetic_cosines": [
+    0.9145079182866112,
+    0.8666330714378071
+  ],
+  "common_budget_tokens": 128,
+  "common_chunks": 12,
+  "native_chunks": 3,
+  "chunk_total": 7,
+  "build_seconds": 1.6234006310114637,
+  "index_update": {
+    "generation": "synthetic-g1",
+    "added": 5,
+    "changed": 0,
+    "deleted": 0,
+    "metadata_only": 0,
+    "unchanged": 0,
+    "encoded_chunks": 7,
+    "rebuilt": true
+  },
+  "metadata_update": {
+    "generation": "metadata",
+    "added": 0,
+    "changed": 0,
+    "deleted": 0,
+    "metadata_only": 1,
+    "unchanged": 4,
+    "encoded_chunks": 0,
+    "rebuilt": false
+  },
+  "noop": {
+    "generation": "metadata",
+    "added": 0,
+    "changed": 0,
+    "deleted": 0,
+    "metadata_only": 0,
+    "unchanged": 5,
+    "encoded_chunks": 0,
+    "rebuilt": false
+  },
+  "cold_query_seconds": 0.10109528701286763,
+  "cached_query_p50_seconds": 0.07045358000323176,
+  "cached_query_p95_seconds": 0.08293778204824775,
+  "ranking": [
+    {
+      "dataset_id": "synthetic-stage3",
+      "job_id": 1
+    },
+    {
+      "dataset_id": "synthetic-stage3",
+      "job_id": 5
+    },
+    {
+      "dataset_id": "synthetic-stage3",
+      "job_id": 3
+    },
+    {
+      "dataset_id": "synthetic-stage3",
+      "job_id": 2
+    },
+    {
+      "dataset_id": "synthetic-stage3",
+      "job_id": 4
+    }
+  ],
+  "index_disk_bytes": 217341,
+  "actual_mode": "hybrid",
+  "real_length_degradation": "dense_input_too_long"
+}
