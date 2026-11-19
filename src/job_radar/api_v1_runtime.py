@@ -82,11 +82,17 @@ class OfflineService(ResumeInterface, MatchingInterface, ReportInterface):
             except Exception:self.slots.release();raise
 
     def _execute(self,rid,snapshot,execute, *, context=None):
+        released = False
         try:
             self.store.transition(rid,'running')
             if context is None:
                 payload=execute(snapshot)
-                self.store.transition(rid,'succeeded',payload=payload)
+                # Publish completion and free the slot before a polling PDF
+                # workflow can start its next stage in a one-slot service.
+                with self.store.mutex:
+                    self.store.transition(rid,'succeeded',payload=payload)
+                    self.slots.release()
+                    released = True
             else:
                 from .api_v1_billing import BillingJournal
                 ledger=BillingJournal(self.store)
@@ -108,7 +114,8 @@ class OfflineService(ResumeInterface, MatchingInterface, ReportInterface):
         except OSError:self._fail_task(rid,'store_unavailable')
         except ValueError:self._fail_task(rid,'core_rejected')
         except Exception:self._fail_task(rid,'internal_error')
-        finally:self.slots.release()
+        finally:
+            if not released:self.slots.release()
 
     def _fail_task(self,rid,code):
         try:

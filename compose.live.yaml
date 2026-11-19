@@ -1,0 +1,37 @@
+services:
+  api:
+    command:
+      - --host
+      - 0.0.0.0
+      - --store-root
+      - "${JOBRADAR_LIVE_STORE:?set JOBRADAR_LIVE_STORE}"
+      - --evidence-db
+      - /evidence.sqlite3
+      - --index-root
+      - /derived
+      - --dataset-id
+      - "${JOBRADAR_DATASET_ID:?set JOBRADAR_DATASET_ID}"
+    volumes: !override
+      - type: bind
+        source: "${JOBRADAR_EVIDENCE_DB:?set JOBRADAR_EVIDENCE_DB}"
+        target: /evidence.sqlite3
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: "${JOBRADAR_LIVE_STORE:?set JOBRADAR_LIVE_STORE}"
+        target: "${JOBRADAR_LIVE_STORE:?set JOBRADAR_LIVE_STORE}"
+        bind:
+          create_host_path: false
+      - type: bind
+        source: "${JOBRADAR_INDEX_ROOT:?set JOBRADAR_INDEX_ROOT}"
+        target: /derived
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: "${HOME}/.claude-mem/.env"
+        target: /home/jobradar/.claude-mem/.env
+        read_only: true
+        bind:
+          create_host_path: false

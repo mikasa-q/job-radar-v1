@@ -12,10 +12,9 @@ import threading
 
 import httpx2
 
+from .api_v1_billing import PREVIOUS_SERVICE_SCOPE as DEFAULT_SCOPE
 from .api_v1_provider import BillingClient, SYNTHETIC_API_KEY
 from .api_v1_store import ServiceError
-
-DEFAULT_SCOPE = 'stage5-s1-j1-live-20261118'
 
 
 def _transport():
@@ -82,9 +81,26 @@ class LiveBillingClient(BillingClient):
     def audit(self):
         return {**super().audit, 'mode': 'live'}
 
+    def _settle(self, usage, raw):
+        # The provider sees the credential in its Authorization header. If it
+        # echoes it in a response, retain usage but never persist that payload.
+        stack = [raw]
+        while stack:
+            part = stack.pop()
+            if isinstance(part, dict):
+                stack.extend(part)
+                stack.extend(part.values())
+            elif isinstance(part, list):
+                stack.extend(part)
+            elif isinstance(part, str) and self._backend._api_key in part:
+                super()._settle(usage, {'diagnostic_omitted': True, 'reason': 'credential_echo'})
+                raise ServiceError('upstream_error')
+        super()._settle(usage, raw)
+
     def complete(self, request):
         # Recheck root/scope/expiry immediately before the inherited durable
         # reserve. The inherited ledger.reserve binds the full wire/context.
         with self._lock:
-            self._backend._check(self.kind, self.ledger)
-            return super().complete(request)
+            with self._backend._lock:
+                self._backend._check(self.kind, self.ledger)
+                return super().complete(request)

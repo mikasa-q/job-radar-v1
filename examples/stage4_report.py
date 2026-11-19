@@ -23,7 +23,7 @@ def main(argv=None):
         retrieval=match_jobs_indexed(request,index=index)
     client=SyntheticReportClient()
     report=generate_match_report(request,retrieval,doc,report_id='synthetic-stage4-demo',generated_at=datetime.now(timezone.utc),client=client)
-    jp,mp=export_match_report(report,args.output)
+    jp,mp=export_match_report(report,args.output,mode='scripted')
     print('mode=offline; real_requests=0; scripted_responses_not_model_quality')
     print(f'retrieval={retrieval.matching.status}; analysis={report.status}; scripted_calls={client.calls}')
     print(f'json={jp}\nmarkdown={mp}')

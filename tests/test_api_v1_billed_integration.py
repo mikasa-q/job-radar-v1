@@ -4,6 +4,8 @@ from copy import deepcopy
 from datetime import datetime,timedelta,timezone
 from pathlib import Path
 import json
+import subprocess
+import sys
 import threading
 import time
 
@@ -119,6 +121,22 @@ def test_http_profile_match_report_shared_persistent_billing_and_replay(tmp_path
         assert report['payload']['report']['packet']['retrieval']==match['payload']['retrieval']
         assert '本报告使用模拟响应' in report['payload']['markdown'] and '预设响应只验证' not in report['payload']['markdown']
         assert client.get(f"/v1/reports/{report['resource_id']}?format=markdown").text==report['payload']['markdown']
+        markdown = report['payload']['markdown']
+        assert '### 未找到使用记录（unknown）' in markdown and '## 引用证据' in markdown
+        assert report['payload']['report']['packet_sha256'] not in markdown
+        assert '](#evidence-' in markdown
+        # The new view is also reproducible from the persisted report, without
+        # reopening the store or keeping the synthetic provider available.
+        journal = settings.store_root / 'state.json'
+        journal_before = journal.read_bytes()
+        script = Path(__file__).resolve().parents[1] / 'examples/export_readable_report.py'
+        output = tmp_path / 'readable'
+        subprocess.run([sys.executable, '-B', str(script), '--store-state', str(journal),
+                        '--report-id', report['resource_id'], '--output', str(output)],
+                       check=True, capture_output=True, timeout=15)
+        assert (output / 'match-report.md').read_text() == markdown
+        assert json.loads((output / 'match-report.json').read_text()) == report['payload']['report']
+        assert journal.read_bytes() == journal_before
         assert client.get('/v1/ready').json()['data']['real_llm'] is False
         state=ledger.status();assert state['new_attempts']==2 and not state['halted'] and state['inflight'] is None
         assert state['actual_cny']=='0.05749458'

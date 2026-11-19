@@ -317,11 +317,11 @@ def test_budget_exact_cap_allows_and_minimal_overflow_rejects():
     from job_radar.api_v1_billing import _fits
     # The test exercises the exact arithmetic used by both preflight and
     # event replay; frozen historical amounts never change in a real journal.
-    assert _fits(Decimal('.1'), Decimal('.5'), Decimal('.1'), Decimal('.15'))
-    assert not _fits(Decimal('.1'), Decimal('.500000000001'), Decimal('.1'), Decimal('.15'))
-    assert not _fits(Decimal('.1'), Decimal('.5'), Decimal('.100000000001'), Decimal('.15'))
-    assert _fits(Decimal('.05320458'), Decimal('.6829056'), Decimal(0), Decimal('.0530088'))
-    assert not _fits(Decimal('.05320458'), Decimal('.9'), Decimal(0), Decimal('.0530088'))
+    assert _fits(Decimal('.1'), Decimal('.5'), Decimal('.1'), Decimal('.15'), cap='1.00')
+    assert not _fits(Decimal('.1'), Decimal('.500000000001'), Decimal('.1'), Decimal('.15'), cap='1.00')
+    assert not _fits(Decimal('.1'), Decimal('.5'), Decimal('.100000000001'), Decimal('.15'), cap='1.00')
+    assert _fits(Decimal('.05320458'), Decimal('.6829056'), Decimal(0), Decimal('.0530088'), cap='1.00')
+    assert not _fits(Decimal('.05320458'), Decimal('.9'), Decimal(0), Decimal('.0530088'), cap='1.00')
 
 
 def test_distinct_two_report_calls_hit_shared_double_occupancy_budget(tmp_path):
@@ -417,3 +417,11 @@ def test_require_ready_classifies_batch_exhaustion(setup):
         aid=reserve(ledger,plan);settle(ledger,aid);ledger.complete(aid)
     with pytest.raises(ServiceError,match='attempt_limit'):ledger.require_ready()
     assert not ledger.ready()
+
+
+def test_service_cap_upgrade_cannot_change_other_scope(setup):
+    _, ledger, _ = setup
+    before = ledger.status()
+    with pytest.raises(ServiceError, match='snapshot_conflict'):
+        ledger.raise_service_cap()
+    assert ledger.status() == before and before['cap_cny'] == '1.00'

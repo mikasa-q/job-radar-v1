@@ -1,0 +1,614 @@
+{
+  "source": "Frozen Stage 4 v3 OFFLINE_EVALUATION_RELEASE/evaluation.json (2026-11-16, authored synthetic responses)",
+  "samples": [
+    {
+      "sample": "S1",
+      "job_id": 1,
+      "rank": 1,
+      "packet_sha256": "d4489adabf284f3946980a555c3796bda89ec81bc8e32199afd9650ec883acc7",
+      "wire_sha256": "7a476ad85a884eb7a029e9d2ff4945107d03f239367f9d5d8748be20ae8a8641",
+      "expected_findings": [
+        [
+          "Python",
+          "supported",
+          "required"
+        ],
+        [
+          "FastAPI",
+          "supported",
+          "required"
+        ],
+        [
+          "Docker",
+          "unknown",
+          "bonus"
+        ]
+      ],
+      "draft": {
+        "key": {
+          "dataset_id": "synthetic-stage4",
+          "job_id": 1
+        },
+        "claims": [
+          {
+            "claim_id": "c1",
+            "kind": "strength",
+            "subject": "Python",
+            "status": "supported",
+            "text": "课程项目使用 Python。",
+            "requirement_kind": "required",
+            "evidence_ids": [
+              "ee82bca61986b9ccaae13c66b",
+              "e0a3b836baf4f1f650fb8decf",
+              "ed292e125f1a1af94d6968cd2"
+            ],
+            "related_claim_ids": []
+          },
+          {
+            "claim_id": "c2",
+            "kind": "strength",
+            "subject": "FastAPI",
+            "status": "supported",
+            "text": "课程项目使用 FastAPI。",
+            "requirement_kind": "required",
+            "evidence_ids": [
+              "ee82bca61986b9ccaae13c66b",
+              "ee74d33379449c97c1d0de10b",
+              "ed292e125f1a1af94d6968cd2"
+            ],
+            "related_claim_ids": []
+          },
+          {
+            "claim_id": "c3",
+            "kind": "unknown",
+            "subject": "Docker",
+            "status": "unknown",
+            "text": "简历未提及 Docker 使用经历。",
+            "requirement_kind": "bonus",
+            "evidence_ids": [
+              "ee82bca61986b9ccaae13c66b",
+              "ef5a5f232b8bae1f50a63ca2a",
+              "eb465b25466ca87ee1cf8cc5f"
+            ],
+            "related_claim_ids": []
+          }
+        ]
+      }
+    },
+    {
+      "sample": "S1",
+      "job_id": 2,
+      "rank": 2,
+      "packet_sha256": "d4489adabf284f3946980a555c3796bda89ec81bc8e32199afd9650ec883acc7",
+      "wire_sha256": "5762c2b993c92f1123b6900d080752937537f34f273f8b97382d2498a3add69c",
+      "expected_findings": [
+        [
+          "Python",
+          "supported",
+          "required"
+        ],
+        [
+          "Git",
+          "unknown",
+          "bonus"
+        ]
+      ],
+      "draft": {
+        "key": {
+          "dataset_id": "synthetic-stage4",
+          "job_id": 2
+        },
+        "claims": [
+          {
+            "claim_id": "c1",
+            "kind": "strength",
+            "subject": "Python",
+            "status": "supported",
+            "text": "课程项目使用 Python。",
+            "requirement_kind": "required",
+            "evidence_ids": [
+              "e3b24c28bde9fe747f1c7bbdd",
+              "e7d2586cf1d113adf6935dbff",
+              "ed292e125f1a1af94d6968cd2"
+            ],
+            "related_claim_ids": []
+          },
+          {
+            "claim_id": "c2",
+            "kind": "unknown",
+            "subject": "Git",
+            "status": "unknown",
+            "text": "简历未提及 Git 使用经历。",
+            "requirement_kind": "bonus",
+            "evidence_ids": [
+              "e3b24c28bde9fe747f1c7bbdd",
+              "e5313ff8138ae826c193106e2",
+              "eb465b25466ca87ee1cf8cc5f"
+            ],
+            "related_claim_ids": []
+          }
+        ]
+      }
+    },
+    {
+      "sample": "S1",
+      "job_id": 3,
+      "rank": 3,
+      "packet_sha256": "d4489adabf284f3946980a555c3796bda89ec81bc8e32199afd9650ec883acc7",
+      "wire_sha256": "2a097d193e48f22507c757cc2e77b0ace7446cd61eb226d5c37d6b5125b1d3f2",
+      "expected_findings": [
+        [
+          "Python",
+          "supported",
+          "required"
+        ],
+        [
+          "SQL",
+          "unknown",
+          "required"
+        ],
+        [
+          "Redis",
+          "unknown",
+          "bonus"
+        ]
+      ],
+      "draft": {
+        "key": {
+          "dataset_id": "synthetic-stage4",
+          "job_id": 3
+        },
+        "claims": [
+          {
+            "claim_id": "c1",
+            "kind": "strength",
+            "subject": "Python",
+            "status": "supported",
+            "text": "课程项目使用 Python。",
+            "requirement_kind": "required",
+            "evidence_ids": [
+              "e2f1940a63ea9ea93150535d4",
+              "ed61811ccb175b7da3f5b6c3b",
+              "ed292e125f1a1af94d6968cd2"
+            ],
+            "related_claim_ids": []
+          },
+          {
+            "claim_id": "c2",
+            "kind": "unknown",
+            "subject": "SQL",
+            "status": "unknown",
+            "text": "简历未提及 SQL 使用经历。",
+            "requirement_kind": "required",
+            "evidence_ids": [
+              "e2f1940a63ea9ea93150535d4",
+              "e9600b1270decaf595903fa14",
+              "eb465b25466ca87ee1cf8cc5f"
+            ],
+            "related_claim_ids": []
+          },
+          {
+            "claim_id": "c3",
+            "kind": "unknown",
+            "subject": "Redis",
+            "status": "unknown",
+            "text": "简历未提及 Redis 使用经历。",
+            "requirement_kind": "bonus",
+            "evidence_ids": [
+              "e2f1940a63ea9ea93150535d4",
+              "e6510dbbd005709a98654c9b4",
+              "eb465b25466ca87ee1cf8cc5f"
+            ],
+            "related_claim_ids": []
+          }
+        ]
+      }
+    },
+    {
+      "sample": "S2",
+      "job_id": 2,
+      "rank": 1,
+      "packet_sha256": "2dd08b861c6630b32b73fce06dc10721b71da3407fbb56babf09df82555af950",
+      "wire_sha256": "e6a0f8f5db75cb5b6a22bf1f9d81b1f3968514e6c4d116cd1f817c8035836c72",
+      "expected_findings": [
+        [
+          "Python",
+          "supported",
+          "required"
+        ],
+        [
+          "Git",
+          "supported",
+          "bonus"
+        ]
+      ],
+      "draft": {
+        "key": {
+          "dataset_id": "synthetic-stage4",
+          "job_id": 2
+        },
+        "claims": [
+          {
+            "claim_id": "c1",
+            "kind": "strength",
+            "subject": "Python",
+            "status": "supported",
+            "text": "个人项目使用 Python。",
+            "requirement_kind": "required",
+            "evidence_ids": [
+              "e3b24c28bde9fe747f1c7bbdd",
+              "e82c8e7286ce9ecf3fb381229",
+              "eb4bf57f5a1364e46e6279ab3"
+            ],
+            "related_claim_ids": []
+          },
+          {
+            "claim_id": "c2",
+            "kind": "strength",
+            "subject": "Git",
+            "status": "supported",
+            "text": "个人项目使用 Git。",
+            "requirement_kind": "bonus",
+            "evidence_ids": [
+              "e3b24c28bde9fe747f1c7bbdd",
+              "e665c7140afba5ae2fe78f923",
+              "eb4bf57f5a1364e46e6279ab3"
+            ],
+            "related_claim_ids": []
+          }
+        ]
+      }
+    },
+    {
+      "sample": "S2",
+      "job_id": 1,
+      "rank": 2,
+      "packet_sha256": "2dd08b861c6630b32b73fce06dc10721b71da3407fbb56babf09df82555af950",
+      "wire_sha256": "a7565936c90d101d188d682bb4fee011044724621eb1fcaa4bc50ff8e3b7511a",
+      "expected_findings": [
+        [
+          "Python",
+          "supported",
+          "required"
+        ],
+        [
+          "FastAPI",
+          "unknown",
+          "required"
+        ],
+        [
+          "Docker",
+          "unknown",
+          "bonus"
+        ]
+      ],
+      "draft": {
+        "key": {
+          "dataset_id": "synthetic-stage4",
+          "job_id": 1
+        },
+        "claims": [
+          {
+            "claim_id": "c1",
+            "kind": "strength",
+            "subject": "Python",
+            "status": "supported",
+            "text": "个人项目使用 Python。",
+            "requirement_kind": "required",
+            "evidence_ids": [
+              "ee82bca61986b9ccaae13c66b",
+              "e56026a289ce8fee1b668035e",
+              "eb4bf57f5a1364e46e6279ab3"
+            ],
+            "related_claim_ids": []
+          },
+          {
+            "claim_id": "c2",
+            "kind": "unknown",
+            "subject": "FastAPI",
+            "status": "unknown",
+            "text": "简历未提及 FastAPI 使用经历。",
+            "requirement_kind": "required",
+            "evidence_ids": [
+              "ee82bca61986b9ccaae13c66b",
+              "ef9735d9634bf5d82d5e6bf8d",
+              "e72b3fd90bfa723f6cec56948"
+            ],
+            "related_claim_ids": []
+          },
+          {
+            "claim_id": "c3",
+            "kind": "unknown",
+            "subject": "Docker",
+            "status": "unknown",
+            "text": "简历未提及 Docker 使用经历。",
+            "requirement_kind": "bonus",
+            "evidence_ids": [
+              "ee82bca61986b9ccaae13c66b",
+              "e523d9349866e49f700e4dae3",
+              "e72b3fd90bfa723f6cec56948"
+            ],
+            "related_claim_ids": []
+          }
+        ]
+      }
+    },
+    {
+      "sample": "S2",
+      "job_id": 3,
+      "rank": 3,
+      "packet_sha256": "2dd08b861c6630b32b73fce06dc10721b71da3407fbb56babf09df82555af950",
+      "wire_sha256": "f4c1c97cf6cf54b31d1188b5171be8c491070e0cc859108d6ef8b23300aaf7e3",
+      "expected_findings": [
+        [
+          "Python",
+          "supported",
+          "required"
+        ],
+        [
+          "SQL",
+          "unknown",
+          "required"
+        ],
+        [
+          "Redis",
+          "unknown",
+          "bonus"
+        ]
+      ],
+      "draft": {
+        "key": {
+          "dataset_id": "synthetic-stage4",
+          "job_id": 3
+        },
+        "claims": [
+          {
+            "claim_id": "c1",
+            "kind": "strength",
+            "subject": "Python",
+            "status": "supported",
+            "text": "个人项目使用 Python。",
+            "requirement_kind": "required",
+            "evidence_ids": [
+              "e2f1940a63ea9ea93150535d4",
+              "e62c3ba85b2babfd9e25873b8",
+              "eb4bf57f5a1364e46e6279ab3"
+            ],
+            "related_claim_ids": []
+          },
+          {
+            "claim_id": "c2",
+            "kind": "unknown",
+            "subject": "SQL",
+            "status": "unknown",
+            "text": "简历未提及 SQL 使用经历。",
+            "requirement_kind": "required",
+            "evidence_ids": [
+              "e2f1940a63ea9ea93150535d4",
+              "e4895b3f26b016e80557b343a",
+              "e72b3fd90bfa723f6cec56948"
+            ],
+            "related_claim_ids": []
+          },
+          {
+            "claim_id": "c3",
+            "kind": "unknown",
+            "subject": "Redis",
+            "status": "unknown",
+            "text": "简历未提及 Redis 使用经历。",
+            "requirement_kind": "bonus",
+            "evidence_ids": [
+              "e2f1940a63ea9ea93150535d4",
+              "ed82d4ee085db7af9cd1f2fab",
+              "e72b3fd90bfa723f6cec56948"
+            ],
+            "related_claim_ids": []
+          }
+        ]
+      }
+    },
+    {
+      "sample": "S3",
+      "job_id": 1,
+      "rank": 1,
+      "packet_sha256": "3bfcaf89f3b8071547765254e7408fc64a59c0112c0f9400ba39ae51b53d74f1",
+      "wire_sha256": "d9a73db6abfa8995b88e78b6dbbd4056d26ab3ff9936a1f8cbe2a3afdad5d3e9",
+      "expected_findings": [
+        [
+          "Python",
+          "supported",
+          "required"
+        ],
+        [
+          "FastAPI",
+          "supported",
+          "required"
+        ],
+        [
+          "Docker",
+          "unknown",
+          "bonus"
+        ]
+      ],
+      "draft": {
+        "key": {
+          "dataset_id": "synthetic-stage4",
+          "job_id": 1
+        },
+        "claims": [
+          {
+            "claim_id": "c1",
+            "kind": "strength",
+            "subject": "Python",
+            "status": "supported",
+            "text": "课程项目使用 Python。",
+            "requirement_kind": "required",
+            "evidence_ids": [
+              "ee82bca61986b9ccaae13c66b",
+              "e216947a9719ceb6dd99d1c45",
+              "e99b835e99ae00a63f479f370"
+            ],
+            "related_claim_ids": []
+          },
+          {
+            "claim_id": "c2",
+            "kind": "strength",
+            "subject": "FastAPI",
+            "status": "supported",
+            "text": "课程项目使用 FastAPI。",
+            "requirement_kind": "required",
+            "evidence_ids": [
+              "ee82bca61986b9ccaae13c66b",
+              "e6362b1697559d2750fea92f3",
+              "e99b835e99ae00a63f479f370"
+            ],
+            "related_claim_ids": []
+          },
+          {
+            "claim_id": "c3",
+            "kind": "unknown",
+            "subject": "Docker",
+            "status": "unknown",
+            "text": "简历未提及 Docker 使用经历。",
+            "requirement_kind": "bonus",
+            "evidence_ids": [
+              "ee82bca61986b9ccaae13c66b",
+              "e513b5d885f6be7c194cf20d5",
+              "e232fa8cebebeefbc1e013a48"
+            ],
+            "related_claim_ids": []
+          }
+        ]
+      }
+    },
+    {
+      "sample": "S3",
+      "job_id": 2,
+      "rank": 2,
+      "packet_sha256": "3bfcaf89f3b8071547765254e7408fc64a59c0112c0f9400ba39ae51b53d74f1",
+      "wire_sha256": "6a792d5a11c70b1aca9f206b49d40a258af333a147401ac349705cdc8bc153ba",
+      "expected_findings": [
+        [
+          "Python",
+          "supported",
+          "required"
+        ],
+        [
+          "Git",
+          "unknown",
+          "bonus"
+        ]
+      ],
+      "draft": {
+        "key": {
+          "dataset_id": "synthetic-stage4",
+          "job_id": 2
+        },
+        "claims": [
+          {
+            "claim_id": "c1",
+            "kind": "strength",
+            "subject": "Python",
+            "status": "supported",
+            "text": "课程项目使用 Python。",
+            "requirement_kind": "required",
+            "evidence_ids": [
+              "e3b24c28bde9fe747f1c7bbdd",
+              "eedcc540892984fea05ffee64",
+              "e99b835e99ae00a63f479f370"
+            ],
+            "related_claim_ids": []
+          },
+          {
+            "claim_id": "c2",
+            "kind": "unknown",
+            "subject": "Git",
+            "status": "unknown",
+            "text": "简历未提及 Git 使用经历。",
+            "requirement_kind": "bonus",
+            "evidence_ids": [
+              "e3b24c28bde9fe747f1c7bbdd",
+              "eee7c3d416263a8406997ee4f",
+              "e232fa8cebebeefbc1e013a48"
+            ],
+            "related_claim_ids": []
+          }
+        ]
+      }
+    },
+    {
+      "sample": "S3",
+      "job_id": 3,
+      "rank": 3,
+      "packet_sha256": "3bfcaf89f3b8071547765254e7408fc64a59c0112c0f9400ba39ae51b53d74f1",
+      "wire_sha256": "fa20dcb90f097109a26b49185b2338e9f5e5c282bb351e00f4d212923b042193",
+      "expected_findings": [
+        [
+          "Python",
+          "supported",
+          "required"
+        ],
+        [
+          "SQL",
+          "explicit_gap",
+          "required"
+        ],
+        [
+          "Redis",
+          "unknown",
+          "bonus"
+        ]
+      ],
+      "draft": {
+        "key": {
+          "dataset_id": "synthetic-stage4",
+          "job_id": 3
+        },
+        "claims": [
+          {
+            "claim_id": "c1",
+            "kind": "strength",
+            "subject": "Python",
+            "status": "supported",
+            "text": "课程项目使用 Python。",
+            "requirement_kind": "required",
+            "evidence_ids": [
+              "e2f1940a63ea9ea93150535d4",
+              "ee2af12e02ea63271a6fc84c2",
+              "e99b835e99ae00a63f479f370"
+            ],
+            "related_claim_ids": []
+          },
+          {
+            "claim_id": "c2",
+            "kind": "skill_gap",
+            "subject": "SQL",
+            "status": "explicit_gap",
+            "text": "简历注明从未使用 SQL。",
+            "requirement_kind": "required",
+            "evidence_ids": [
+              "e2f1940a63ea9ea93150535d4",
+              "e64f5e76cd987deb4e1cb77e1",
+              "e48982cc3c0ced048ebce6f95"
+            ],
+            "related_claim_ids": []
+          },
+          {
+            "claim_id": "c3",
+            "kind": "unknown",
+            "subject": "Redis",
+            "status": "unknown",
+            "text": "简历未提及 Redis 使用经历。",
+            "requirement_kind": "bonus",
+            "evidence_ids": [
+              "e2f1940a63ea9ea93150535d4",
+              "eb2876afad2455146750ffc97",
+              "e232fa8cebebeefbc1e013a48"
+            ],
+            "related_claim_ids": []
+          }
+        ]
+      }
+    }
+  ]
+}

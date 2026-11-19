@@ -13,6 +13,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from .api import create_app as create_legacy_app
 from .api_v1_models import Envelope, Accepted, ApiError, ERROR_HTTP, Ready
+from .api_v1_pdf_report import PDF_REPORT_ROUTE
 from .api_v1_runtime import OfflineService, ServiceSettings
 from .api_v1_store import ServiceError
 
@@ -29,7 +30,7 @@ class BodyLimit:
         if scope['type']!='http' or not scope.get('path','').startswith('/v1'):
             return await self.app(scope,receive,send)
         scope.setdefault('state',{})['request_id']='req_'+uuid.uuid4().hex
-        limit=MAX_MULTIPART if scope['path']=='/v1/resumes' else MAX_JSON
+        limit=MAX_MULTIPART if scope['path'] in {'/v1/resumes', PDF_REPORT_ROUTE} else MAX_JSON
         # No await downstream until the complete bounded body is available.
         chunks=[];total=0
         while True:
@@ -147,8 +148,10 @@ def create_app(settings: ServiceSettings | None = None, *, legacy_database_path=
     from .api_v1_resumes import register_routes as resume_routes
     from .api_v1_matching import register_routes as matching_routes
     from .api_v1_reports import register_routes as report_routes
+    from .api_v1_pdf_report import register_routes as pdf_report_routes
     for register in (resume_routes, matching_routes, report_routes):
         register(app,service,wrap=wrap,typed=typed,accepted=accepted,responses=responses)
+    pdf_report_routes(app, service, wrap=wrap, accepted=accepted, responses=responses)
     return app
 
 

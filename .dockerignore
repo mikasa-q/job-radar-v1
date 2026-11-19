@@ -1,0 +1,8 @@
+# Deny by default: never send local data, snapshots, venvs or .env files.
+**
+!Dockerfile
+!.dockerignore
+!requirements.lock.txt
+!src/
+!src/job_radar/
+!src/job_radar/*.py

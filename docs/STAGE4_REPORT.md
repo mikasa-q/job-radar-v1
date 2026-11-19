@@ -2,6 +2,7 @@
 
 本节为当前约定；下方既有v1/v2与否定修复章节是历史记录，未覆盖本节。用户本轮只授权 Phase 0–2，真实 Phase 3 未运行。
 
+- 2026-11-18 起，可读 Markdown 由已校验的 v3 短事实和本地模板生成；查看 [取用和离线重渲染方式](READABLE_REPORT.md)。本节原提示词和校验约定不变。
 - 新生成仅接受精确 v3 prompt/version/schema，报告仍 `match-report-v1`。完整冻结协议及精确词表见 `/Users/thc/Documents/Codex/2026-10-21/build-ios-apps-plugin-build-ios-3/outputs/job-radar/docs/STAGE4_V3_PROTOCOL.md`，完整提示词见同目录 `STAGE4_V3_SYSTEM_PROMPT.txt`，实施和证据索引见 `STAGE4_V3_IMPLEMENTATION.md`。
 - 全 draft 按结构、规则、证据、文本顺序；subject 是当前岗位的单个规范技能名，requirement_kind 复制被引用同主题规则。unknown finding统一kind/status=unknown/unknown，引用JD、scope与规则，正文恰为“简历未提及 <subject> 使用经历。”。不能由未找到证据推断不会；已有课程使用记录也不得unknown，明确负向原文不降格为缺证据。
 - text为最多80 Unicode码点单句，膨胀词无否定/引文/advisory豁免；有限禁词、控制符、敏感内容检查不修改原输出。有限门禁不是通用语义真实性或能力认证。

@@ -1,3 +1,72 @@
+## 当前（LLM 报告可读化与一站式接口已验收，等待人工确认）
+
+- 模型仍用 `gpt-6.1-sol / low` 和严格 v3 结构化响应；原证据包及结构、规则、证据、文本安全四层门禁未改。Markdown 本地分组，短编号可跳到证据，完整审计字段保留在 JSON，不改原结论、引用、岗位顺序和复核状态。
+- 新增 `POST /v1/reports/from-pdf`：只上传 PDF，默认规则画像 → BM25 匹配 → HTTP 201 下载报告；显式 `mode=llm` 只对首岗生成，须已有精确审批，成功接收只返回一个报告任务。既有接口合同保持不变。宿主机独立离线 HTTP 实测：用合成 PDF 和桌面只读 15 岗证据库跑通，真实 LLM 拒绝 503，原库哈希不变。Docker 首次更新曾卡在 `Recreate`；2026-11-19 已切换 `127.0.0.1:8080` 到新版容器 `901ac5001891`，保持离线模式及原持久化挂载。容器健康，`/v1/ready` 200，合成 PDF 上传 201 返回 Markdown，显式 LLM 503；证据库哈希未变，未使用用户简历或调用真实 LLM。详见[切换验收记录](/Users/thc/.codex/visualizations/2026/11/18/01a1ef18-43bb-7951-bbd2-ce471cefab1d/docker-upgrade-20261119.OCKJNY/result.json)。
+- 离线验收：原 S1/S2/S3 × J1/J2/J3 **9/9**，冻结的 **24/24** 条结论及逐条引用完全一致；原 v3 协议评估和新旧离线 HTTP 链路通过；全量 **2401** 项通过（5 个既有 SWIG 弃用警告）。
+- 已结算的真实 J1 已离线重渲染：[可读 Markdown](/Users/thc/.codex/visualizations/2026/11/18/01a1ef18-43bb-7951-bbd2-ce471cefab1d/J1-report/match-report.md)、[原结构化 JSON](/Users/thc/.codex/visualizations/2026/11/18/01a1ef18-43bb-7951-bbd2-ce471cefab1d/J1-report/match-report.json)。原模型响应、证据包、wire 哈希与导出核对一致；原报告未覆盖，仍待人工复核。此次无须重发：真实调用 **0**、真实密钥读取 **0**、新增费用 **¥0**。
+- `stage5-service-live-20261118` 的实际账本已追加 **¥1.10 → ¥2.00**。累计实际 ¥0.080519985、保留预留 ¥0.9230208、保守占用 ¥1.003540785 均不变。待结算为 0、未 halt；旧 scope、历史事件、2/2 次已用审批原样保留，不自动新增调用。更早的 ¥1.00 scope 未改。
+- 用法：`docs/READABLE_REPORT.md`；实测说明：`/Users/thc/.codex/visualizations/2026/11/18/01a1ef18-43bb-7951-bbd2-ce471cefab1d/VERIFICATION.md`。停止：无 commit / push，等用户人工确认。
+
+## 置顶任务原始要求（2026-11-18 22:43，LLM 报告可读化 + 一站式接口）
+
+- 用户定：先不推仓库。先做 LLM 报告可读化（V2 的结构化输出+模板渲染提前做），做完再推。就在当前窗口做（用户 22:43 定，晚了不换窗口）。
+- 一次到位：本轮一次做完，不再拆成设计/实现/验收多轮。实现+离线验收+按需真实调用验证都在这轮完成，交付可直接用的可读报告。
+- 简化流程：用户只上传 PDF 简历就能拿到报告。新增一个一站式接口（上传 PDF → 服务端依次跑画像、匹配、报告，返回报告或单个任务），不要让用户在 /docs 里手动抄 id、轮询五个接口。默认离线，显式要 LLM 分析时再走 LiveBackend 审批。
+- 背景：J1 报告（`/Users/thc/.codex/visualizations/2026/11/18/01a1ee8d-422f-7f70-8c09-339f45d42416/stage5-service-s1-j1/J1_REPORT.md`）现在是给校验器看的证据编号+哈希堆，人读不懂。目标：模型只出结构化事实，本地模板渲染成一份人能读的报告。
+- 预算：用户定，**上限从 ¥1.10 提到 ¥2.00**（scope `stage5-service-live-20261118`，在账本/scope 配置里改）。现账：累计实际 ¥0.080519985、保留预留 ¥0.9230208、保守占用 ¥1.003540785。先离线实现与验收（模拟/预设响应），再按需发真实调用验证（串行零重试，首失败即停）；真实调用仍走 gpt-6.1-sol/low、v3 提示词。
+- 硬约束：结论和证据不能变——每条结论仍须有证据引用、无证据标 unknown、不编数字、不给录用概率；v3 校验器的四层检查不能丢。离线验收：原 9 份样本（S1/S2/S3 × J1/J2/J3）的结论与引用要对得上。
+- 只改报告生成与渲染，不动仓库推送；不 commit、不 push。GitHub 仓库 mikasa-q/job-radar-v1，本地与 GitHub 无共同历史（快照推送），不要直接 git push。
+- 停止点：可读报告+一站式接口一次做完并验收通过后汇报，等用户人工确认；无 commit/push。
+
+## 当前（2026-11-18，Docker 一键启动已通过离线验收）
+
+- Intel Mac 的 Docker Desktop 已运行。仓库根目录 `./docker-start.sh` 构建并等待就绪；`./docker-start.sh stop` 停止且保留状态。默认容器仍在运行，仅发布 `127.0.0.1:8080`（不占用宿主机 8000）。`/v1/ready` HTTP 200，`evidence=true`、`index=true`、`real_llm=false`、`hybrid=false`；桌面证据库 15 岗位可读取，停止重启前后原库 SHA-256 一致。
+- 默认走 `api_v1_serve.py --offline`，生成临时词法索引，持久状态独立于历史账本；不读、不挂载 API key。已定位阶段三归档中的 BGE 唯一快照并只读挂载，未复制/删除，未启用模型或 Hybrid；本机镜像约 367 MB。
+- 独立合成容器通过实际 HTTP 的 PDF → 规则画像 → BM25 匹配 → 离线 Markdown 报告闭环；报告 `not_run / unconfirmed`，LLM 请求在本地拒绝（`503 llm_disabled`）。`--live` 仅用合成账本和占位 key 验证了启动/就绪，无生成、测试账本不变。真实 key 和历史账本均未使用，真实 LLM 请求 0 次。全量回归 2367 通过。
+- 显式 Live 保持 `allow_report=True` 和原预算/次数/wire 绑定，原 canonical 路径挂载账本，只在运行时只读挂载密钥文件；现有历史审批已用完。使用说明 `docs/DOCKER.md`。到一键启动通过为止，等用户确认；无 commit / push。
+
+## 启动前记录（2026-11-18 21:32，Docker 一键启动）
+
+- 用户定：接线验证已闭环（2026-11-18 21:20 他人工确认 J1 报告），下一件做 Docker 一键启动。Docker Desktop 已装好（/Applications/Docker.app，Intel 版），但尚未启动过：命令行 docker 未装、引擎未运行。用户先打开 Docker Desktop 完成首次启动，等 `docker --version` 与 `docker ps` 能跑再开始。
+- 任务：给 JobRadar V1 服务写 Dockerfile + 一键启动（docker compose 或启动脚本），一条命令起来，能过 /v1/ready，离线流程能跑通。
+- 硬约束：镜像里绝不放 API key（key 走运行时注入；服务入口是 api_v1_serve.py，读 ~/.claude-mem/.env，allow_report=True；不要用默认 `job_radar.api_v1:app`，那版 llm 是关闭的）。
+- 服务要的东西：项目代码、证据库 ~/Desktop/jobradar-v1-data/evidence.sqlite3、Embedding 模型（.codex/visualizations/models，本地唯一副本，只能挂载或复制、绝不删）。api_v1_serve.py 里绑 127.0.0.1，容器里端口映射要能通，Codex 自行处理绑定。
+- 验证只跑离线，不发真实 LLM 调用（预算门已紧：保守占用 ¥1.0035/¥1.10，下一通真实调用会撞上限，须先提上限；Docker 验证不花钱）。
+- 磁盘只剩 20GB，注意镜像体积。停止点：一键启动跑通后汇报，等用户确认；无 commit/push。
+
+## 当前（2026-11-18 20:52 上海时间，S1 已获人工确认，服务真实 J1 完成）
+
+- 用户确认本轮 S1 画像并授权仅发 J1。复用本轮 S1 和原四岗的只读证据库/索引；离线 BM25 顺序 `J1 → J3 → J4 → J2`，四岗身份/事实哈希、共同技能规则和覆盖率均核对通过。S1 的人工确认记录在对话与检查点，不改冻结画像字段。
+- 原 ¥1.10 同账本追加一次完整 wire 审批，发送前双占用 ¥1.06244658。通过显式本机 HTTP 服务仅 POST J1 一次（`gpt-6.1-sol / low`、`match-analysis-prompt-v3`、`top_n=1`），HTTP 202、终态 `succeeded`、零重试、未重跑 S1。本 scope 的两次均已用完，旧账本和历史证据不变，服务正常关闭。
+- 报告 `rpt_4da98ec45d9d43909aede70e3e8cc1f1` 自动核对 **10/10**：仅分析 J1；Python/FastAPI 为有证据支持的必需技能；Docker 为加分项，简历未提及其使用经历，标作 `unknown`，不推断不会。三条结论均有证据引用。报告仍为 `unconfirmed`，待人工审阅。
+- J1 usage 输入/输出/总计 3931/319/4250 token；按冻结保守费率，本次 ¥0.008143005，本轮 S1+J1 合计 ¥0.013677105。累计实际 ¥0.080519985，保留预留 ¥0.92302080，无待结算额度，保守占用 ¥1.003540785 / ¥1.10。预留不是扣费；账本未 halt、无 inflight。
+- 私有产物：`/Users/thc/.codex/visualizations/2026/11/18/01a1ee8d-422f-7f70-8c09-339f45d42416/stage5-service-s1-j1/J1_REPORT.md`（真实报告）、`/Users/thc/.codex/visualizations/2026/11/18/01a1ee8d-422f-7f70-8c09-339f45d42416/stage5-service-s1-j1/J1_RESULT.json`（脱敏验收与结算）。到此停止，无其他模型调用、commit / push / Docker。
+
+## 当前（2026-11-18 20:41 上海时间，服务真实 S1 已完成，待人工确认）
+
+- 用户本次只授权 S1。通过本机显式 Uvicorn 服务提交冻结的 S1 合成简历画像：POST 一次、HTTP 202、终态 `succeeded`；账本验证通过，`send_intent → settled → complete`，真实生成 1 次（APINebula，`gpt-6.1-sol / low`），0 次重试，0 次 J1 请求。服务已正常完成 lifespan 关闭；密钥未打印、未落盘。旧账本 SHA-256 未变。
+- 画像 `prf_348acc702af94841add5d970b535530a`：自动核对 6/6，仅 Python、FastAPI，1 个课程项目，6 处来源引用，未新增教育或工作经历；画像仍为 `unconfirmed`，不能沿用旧批次的人工确认。
+- Usage（输入 / 输出 / 总计）：2060 / 492 / 2552 token。按已冻结保守费率，本次 ¥0.00553410，累计实际 ¥0.07237698、保留预留 ¥0.85597200、待结算额度 0，合计保守占用 ¥0.92834898 / ¥1.10；账本未 halt、无 inflight。预留不是实际扣费。
+- 私有脱敏结果：`/Users/thc/.codex/visualizations/2026/11/18/01a1ee8d-422f-7f70-8c09-339f45d42416/stage5-service-s1-j1/S1_RESULT.json`。本轮到此停止，未匹配、冻结或批准 J1；若用户另行放行，用本次画像核对原四岗及 J1 是否仍为第一，冻结 `top_n=1` 后再复核预算。仅按当前已结算账本估算，J1 双占用为 ¥1.06244658，并不构成批准。无 commit / push / Docker。
+
+## 当前（2026-11-18，接 LiveBackend 进服务启动，优先于 Docker）
+
+- 用户定：先接 LiveBackend 再做 Docker；用户自传 API key（服务不 baked 用户 key、内存中用一次、不存盘）放 V2，本轮不做。
+- 旧 scope `stage5-s1-j1-live-20261118` 已用完两次，旧账本仍为 ¥1.00 且不改写；新 scope `stage5-service-live-20261118` 从旧账本承接累计实际 ¥0.06684288、保留预留 ¥0.80296320，不清零。
+- 2026-11-18 20:12 用户定：预算上限放宽到 ¥1.10（新 scope 独享调整。S1 发送前投影 ¥0.97582368；以历史 S1 费用预估，J1 为 ¥1.06244658，待本次 S1 出 usage 后重新核算）。
+- 启动服务时按 api_v1_live.py 已有的注入方式接 LiveBackend，key 从 ~/.claude-mem/.env 读，不走 env/HTTP，不打日志、不写 store。模型 gpt-6.1-sol、effort low 不变。
+- 报告必须 allow_report=True（默认 False 只许画像），报告 top_n 必须 =1（top_n!=1 会被 core_rejected）。
+- 先离线验收通过，再提 2 次真实调用验证：画像 1 次 + J1 报告 1 次，串行零重试，首失败即停；验证约 ¥0.02–0.03。
+- 默认不接 LiveBackend 的启动方式保持原样（llm_disabled 不变），离线流程不受影响。
+- 停止点：验证完成或首失败即汇报，等用户人工确认；无 commit/push。Docker 待接线验证通过后再做（Mac 未装 Docker，Docker Desktop Intel 版由用户自装）。
+
+## 服务接线离线交付（2026-11-18，待真实验证放行）
+
+- 显式入口 `python -m job_radar.api_v1_serve`；本机回环、单进程、固定新 scope、账本先验，成功才读取指定密钥。默认 `job_radar.api_v1:app` 未改。启动不发请求，正常关闭先结算已接收任务再释放密钥引用。报告显式放行但仍需本地逐笔审批。
+- 文档 `docs/STAGE5_SERVICE_LIVE.md`；管理命令 `examples/stage5_service_checkpoint.py`。S1 原 PDF 和 wire 已在新账本冻结，实际次数 0。J1 要使用新 S1 画像匹配原四岗位，确认 J1 首位和原岗位事实，按 `top_n=1` 冻结新 wire 并核销预算后再批准。S1 费用超过 ¥0.04308752 或任一核对失败则不发送 J1。
+- 全量回归 2361 通过，专项 125 通过；本机真实 Uvicorn TCP + MockTransport 回环验收通过：S1 6/6、J1 10/10，模拟发送 2，上游 0，幂等重放不再发送。旧 `state.json` SHA-256 仍为 `cfdd9af488086349ee7ba1d1e619102851f29211f3cbb286f0d5e08eecbabc5b`。
+- 新运行根与证据：`/Users/thc/.codex/visualizations/2026/11/18/01a1ee8d-422f-7f70-8c09-339f45d42416`（`stage5-service-s1-j1/S1_PLAN.json`、`pytest.log`、`pytest-focused.log`、`loopback-smoke.log`）。本轮未读取真实密钥，未产生费用，无 Docker / commit / push。原验证计划：S1 与 J1 各一次、串行零重试、首失败即停；实际进度和当前授权见文件顶部。
+
 ## 当前（2026-11-18，S1画像已人工确认，J1单岗报告已放行）
 
 - 用户确认S1真实画像结果，继续原两笔候选批次的第2笔：仅J1单岗报告1次，gpt-6.1-sol/low、match-analysis-prompt-v3、top_n=1，串行零重试首失败停止。S1已完成不重跑，不自动扩样本/Top3。

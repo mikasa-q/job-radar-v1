@@ -75,6 +75,15 @@ class MatchingInterface:
             # Explicitly disabled even when allow_dense_fallback is true.
             raise ServiceError('hybrid_not_enabled')
 
+        return self._submit_match('/v1/matches', key, body, value)
+
+    def match_dataset(self, profile_id, key, *, config: EngineConfig):
+        """Use all configured jobs, bound at first execution like explicit matches."""
+        body = MatchCreate(profile_id=profile_id, candidate_keys=[], retrieval=config)
+        value = {**body.model_dump(mode='json'), 'candidate_scope': 'configured_dataset'}
+        return self._submit_match('/v1/reports/from-pdf:match', key, body, value, all_candidates=True)
+
+    def _submit_match(self, route, key, body, value, *, all_candidates=False):
         def prepare():
             parent = self.completed(body.profile_id, 'profile')
             try:
@@ -87,7 +96,9 @@ class MatchingInterface:
             except (ValueError, TypeError, KeyError):
                 raise ServiceError('snapshot_corrupt') from None
             available = {(j.dataset_id, j.job_id): j for j in self.jobs()}
-            keys = [(k.dataset_id, k.job_id) for k in body.candidate_keys]
+            if all_candidates and len(available) > body.retrieval.max_jobs:
+                raise ServiceError('core_rejected')
+            keys = list(available) if all_candidates else [(k.dataset_id, k.job_id) for k in body.candidate_keys]
             if any(k not in available for k in keys):
                 raise ServiceError('resource_not_found')
             jobs = [available[k] for k in keys]
@@ -143,7 +154,7 @@ class MatchingInterface:
             return {**snapshot, 'retrieval': result.model_dump(mode='json'),
                     'snapshot_sha256': canonical_hash(snapshot)}
 
-        return self.submit('/v1/matches', key, value, 'match', 'bm25_rules', prepare, execute)
+        return self.submit(route, key, value, 'match', 'bm25_rules', prepare, execute)
 
 
 def register_routes(app, service, *, wrap, typed, accepted, responses):

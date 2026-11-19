@@ -13,7 +13,7 @@ from job_radar.api_v1 import create_app
 from job_radar.api_v1_budget import BudgetRejected, BudgetState, FROZEN_POLICY, reserve
 from job_radar.api_v1_runtime import OfflineService, ServiceSettings
 from job_radar.api_v1_store import ResourceStore, ServiceError
-from job_radar.api_v1_presentation import render_api_report, OLD_BANNER, BANNERS
+from job_radar.api_v1_presentation import render_api_report, BANNERS
 from job_radar.rag_models import canonical_hash
 from job_radar.report_models import AnalysisConfig, ReportError
 from job_radar.report_engine import generate_match_report
@@ -35,14 +35,15 @@ def report_fixture(tmp_path, client=None):
         config=AnalysisConfig(top_n=1))
 
 
-def test_display_changes_only_header_and_preserves_core(tmp_path):
+def test_display_supplies_provenance_in_template_without_mutating_report(tmp_path):
     report=report_fixture(tmp_path)
     before=report.model_dump_json(); original=render_match_report(report)
     output=render_api_report(report)
-    assert output==original.replace(OLD_BANNER,BANNERS['offline'],1)
+    assert [line for line in original.splitlines() if '本报告未标注生成来源。' != line] == [
+        line for line in output.splitlines() if line != BANNERS['offline']]
+    assert BANNERS['offline'] not in original and BANNERS['offline'] in output
     assert report.model_dump_json()==before
     assert report.status=='not_run' and report.review_status=='unconfirmed'
-    assert OLD_BANNER in render_match_report(report)
 
 
 def test_completed_scripted_is_never_assumed_live(tmp_path):
@@ -70,9 +71,9 @@ def test_live_display_with_manufactured_audit_only_no_call(tmp_path):
 
 def test_display_does_not_replace_evidence_banner(tmp_path):
     report=report_fixture(tmp_path)
-    report.report_id=OLD_BANNER
+    report.report_id=BANNERS['scripted']
     output=render_api_report(report)
-    assert OLD_BANNER in output and BANNERS['offline'] in output
+    assert BANNERS['scripted'] in output and BANNERS['offline'] in output
 
 
 @pytest.mark.parametrize('code',['llm_disabled','budget_exhausted','attempt_limit','budget_halted'])

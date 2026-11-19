@@ -28,6 +28,14 @@ SEED = {'cap_cny': '1.00', 'historical_actual_cny': '0.05320458',
         'historical_reserved_cny': '0.6829056',
         'historical_exposure_cny': '0.73611018'}
 SEED_SHA256 = canonical_hash(SEED)
+PREVIOUS_SERVICE_SCOPE = 'stage5-s1-j1-live-20261118'
+SERVICE_SCOPE = 'stage5-service-live-20261118'
+SERVICE_SEED = {'cap_cny': '1.10', 'historical_actual_cny': '0.06684288',
+                'historical_reserved_cny': '0.8029632',
+                'historical_exposure_cny': '0.86980608', 'historical_new_attempts': 2}
+SERVICE_SEED_SHA256 = canonical_hash(SERVICE_SEED)
+# The original cap is part of the hashed genesis; the increase is an event.
+SERVICE_CAP_CNY = '2.00'
 RATES = {'input_cny_per_million': '0.78',
          'cache_create_cny_per_million': '0.975',
          'output_cny_per_million': '3.90'}
@@ -53,7 +61,7 @@ class Approval(BaseModel):
     model_config = ConfigDict(extra='forbid', strict=True)
     root: str
     scope: str = Field(min_length=1, max_length=128)
-    seed_sha256: Literal[SEED_SHA256] = SEED_SHA256
+    seed_sha256: Literal[SEED_SHA256, SERVICE_SEED_SHA256] = SEED_SHA256
     seed_refs: dict[str, str]
     expires_at: datetime
     max_calls: int = Field(ge=1, le=2)
@@ -67,11 +75,14 @@ class Approval(BaseModel):
         if (self.root != str(Path(self.root).resolve()) or not self.seed_refs
                 or self.expires_at.utcoffset() is None
                 or self.expires_at.utcoffset().total_seconds() != 0
-                or type(self.max_calls) is not int):
+                or type(self.max_calls) is not int
+                or (self.scope == SERVICE_SCOPE) != (self.seed_sha256 == SERVICE_SEED_SHA256)):
             raise ValueError('invalid_approval')
         for path, digest in self.seed_refs.items():
             if not Path(path).is_absolute() or not re.fullmatch(SHA, digest):
                 raise ValueError('invalid_seed_ref')
+        if self.scope == SERVICE_SCOPE and (len(self.allowed) != 1 or self.allowed[0].kind != 'profile'):
+            raise ValueError('service_genesis_requires_profile_only')
         keys = [(x.kind, x.context_sha256, x.payload_sha256) for x in self.allowed]
         if len(set(keys)) != len(keys):
             raise ValueError('duplicate_allowed_call')
@@ -106,8 +117,16 @@ def _reserve_amount(call):
     return _cost(call.input_limit, call.output_limit)
 
 
-def _fits(actual, reserved, pending, amount):
-    return actual + reserved + pending + 2 * amount <= Decimal('1.00')
+def _seed(approval):
+    return SERVICE_SEED if approval.seed_sha256 == SERVICE_SEED_SHA256 else SEED
+
+
+def _max_attempts(approval):
+    return min(9 - _seed(approval).get('historical_new_attempts', 0), approval.max_calls)
+
+
+def _fits(actual, reserved, pending, amount, *, cap):
+    return actual + reserved + pending + 2 * amount <= _money(cap)
 
 
 def _usage(value):
@@ -151,8 +170,10 @@ def _append(state, typ, **data):
 
 def _derive(state):
     b = state['billing']; approval = _approval(b['approval'])
-    actual = _money(SEED['historical_actual_cny'])
-    reserved = _money(SEED['historical_reserved_cny']); pending = Decimal(0)
+    seed = _seed(approval)
+    cap = seed['cap_cny']
+    actual = _money(seed['historical_actual_cny'])
+    reserved = _money(seed['historical_reserved_cny']); pending = Decimal(0)
     attempts = {}; used = set(); halted = False; halt_code = None; inflight = None
     previous = _genesis(b)
     allowed = list(approval.allowed)
@@ -169,7 +190,14 @@ def _derive(state):
         if stamp.utcoffset() is None:raise ValueError('event_time')
         previous = event['sha256']; typ = event['type']
         common = {'seq', 'type', 'at', 'prev_sha256', 'sha256'}
-        if typ == 'authorize':
+        if typ == 'raise_service_cap':
+            if (set(event) != common | {'previous_cap_cny', 'cap_cny'}
+                    or approval.scope != SERVICE_SCOPE or halted or inflight is not None
+                    or cap != SERVICE_SEED['cap_cny'] or event['previous_cap_cny'] != cap
+                    or event['cap_cny'] != SERVICE_CAP_CNY):
+                raise ValueError('invalid_service_cap_change')
+            cap = event['cap_cny']
+        elif typ == 'authorize':
             if (set(event) != common | {'allowed'} or halted or inflight is not None
                     or stamp >= approval.expires_at or not attempts
                     or any(a['state'] != 'completed' for a in attempts.values())):
@@ -192,7 +220,7 @@ def _derive(state):
                 raise ValueError('allowed_index')
             call = allowed[index]; amount = _reserve_amount(call)
             if (set(event) != expected or halted or inflight is not None
-                    or index in used or len(attempts) >= min(9, approval.max_calls)
+                    or index in used or len(attempts) >= _max_attempts(approval)
                     or not re.fullmatch(r'att_[0-9a-f]{32}', event['attempt_id'])
                     or event['attempt_id'] in attempts
                     or event['kind'] != call.kind
@@ -202,7 +230,7 @@ def _derive(state):
                     or type(event['local_input_allocation']) is not int
                     or not 1024 <= event['local_input_allocation'] <= call.input_limit
                     or _money(event['reservation_cny']) != amount
-                    or not _fits(actual, reserved, pending, amount)
+                    or not _fits(actual, reserved, pending, amount, cap=cap)
                     or stamp >= approval.expires_at):
                 raise ValueError('invalid_send_intent')
             inflight = event['attempt_id']; used.add(index)
@@ -262,10 +290,12 @@ def validate_billing(state, root):
         b = state['billing']
         if (state['schema_version'] != 'api-store-v1.1'
                 or set(b) != {'schema_version', 'seed', 'approval', 'events', 'totals'}
-                or b['schema_version'] != SCHEMA or b['seed'] != SEED):
+                or b['schema_version'] != SCHEMA):
             raise ValueError('billing_schema')
         approval = _approval(b['approval'])
-        if approval.root != str(Path(root).resolve()):raise ValueError('billing_root')
+        if (approval.root != str(Path(root).resolve())
+                or canonical_hash(b['seed']) != approval.seed_sha256):
+            raise ValueError('billing_binding')
         totals = _derive(state)
         if canonical_hash(totals) != canonical_hash(b['totals']):raise ValueError('billing_totals')
         if (any(a['state'] == 'settled' and
@@ -290,12 +320,39 @@ def complete_in_state(state, attempt_id):
     except Exception:raise ServiceError('budget_halted') from None
 
 
+def _effective_cap(b):
+    # Call only after validation. Replay checked each send against the then-current cap.
+    return next((event['cap_cny'] for event in reversed(b['events'])
+                 if event['type'] == 'raise_service_cap'), b['seed']['cap_cny'])
+
+
 def _effective_allowed(b):
     calls = list(_approval(b['approval']).allowed)
     for event in b['events']:
         if event['type'] == 'authorize':
             calls.extend(AllowedCall.model_validate_json(json.dumps(c)) for c in event['allowed'])
     return calls
+
+
+def _verify_service_predecessor(path, raw):
+    """Read-only import of the completed S1/J1 scope, never a balance override."""
+    saved = json.loads(raw)
+    state = saved['content']
+    if canonical_hash(state) != saved['sha256']:
+        raise ValueError('seed_snapshot_hash')
+    validate_billing(state, path.parent)
+    billing = state['billing']
+    totals = billing['totals']
+    if (billing['approval']['scope'] != PREVIOUS_SERVICE_SCOPE
+            or billing['approval']['seed_sha256'] != SEED_SHA256
+            or totals['halted'] or totals['inflight'] is not None
+            or _money(totals['pending_usage_ceiling_cny']) != 0
+            or totals['actual_cny'] != SERVICE_SEED['historical_actual_cny']
+            or totals['retained_reserve_cny'] != SERVICE_SEED['historical_reserved_cny']
+            or totals['new_attempts'] != SERVICE_SEED['historical_new_attempts']
+            or [(a['kind'], a['state']) for a in totals['attempts'].values()]
+                != [('profile', 'completed'), ('report', 'completed')]):
+        raise ValueError('seed_predecessor_mismatch')
 
 
 def initialize(store, approval):
@@ -309,17 +366,24 @@ def initialize(store, approval):
         # Only explicit administration reads ordinary provenance artifacts.
         # Runtime/recovery does not depend on external seed files remaining.
         try:
+            service_seed = approval.seed_sha256 == SERVICE_SEED_SHA256
+            if service_seed and len(approval.seed_refs) != 1:
+                raise ValueError('seed_predecessor_required')
             for name, digest in approval.seed_refs.items():
                 path = Path(name)
                 if (path.name in {'.env', 'auth.json'} or path.is_symlink()
-                        or not path.is_file() or path.stat().st_size > 8 * 1024 * 1024
-                        or hashlib.sha256(path.read_bytes()).hexdigest() != digest):
+                        or not path.is_file() or path.stat().st_size > 8 * 1024 * 1024):
                     raise ValueError('seed_source_mismatch')
+                raw = path.read_bytes()
+                if len(raw) > 8 * 1024 * 1024 or hashlib.sha256(raw).hexdigest() != digest:
+                    raise ValueError('seed_source_mismatch')
+                if service_seed:
+                    _verify_service_predecessor(path, raw)
         except Exception:
             raise ServiceError('snapshot_conflict') from None
         def commit():
             store.state['schema_version'] = 'api-store-v1.1'
-            store.state['billing'] = {'schema_version': SCHEMA, 'seed': deepcopy(SEED),
+            store.state['billing'] = {'schema_version': SCHEMA, 'seed': deepcopy(_seed(approval)),
                 'approval': approval.model_dump(mode='json'), 'events': [], 'totals': {}}
             store.state['billing']['totals'] = _derive(store.state)
         _transaction(store, commit)
@@ -347,7 +411,7 @@ class BillingJournal:
         with self.store.mutex:
             b = self._state()
             return deepcopy({**b['totals'], 'events': b['events'], 'approval': b['approval'],
-                             'cap_cny': SEED['cap_cny']})
+                             'cap_cny': _effective_cap(b)})
 
     def require_ready(self):
         with self.store.mutex:
@@ -356,11 +420,11 @@ class BillingJournal:
             if datetime.now(timezone.utc) >= a.expires_at:raise ServiceError('llm_disabled')
             used = {x['allowed_index'] for x in t['attempts'].values()}
             remaining = [c for i, c in enumerate(_effective_allowed(b)) if i not in used]
-            if t['new_attempts'] >= min(9, a.max_calls) or not remaining:
+            if t['new_attempts'] >= _max_attempts(a) or not remaining:
                 raise ServiceError('attempt_limit')
             amounts = tuple(_money(t[k]) for k in ('actual_cny', 'retained_reserve_cny',
                                                   'pending_usage_ceiling_cny'))
-            if not any(_fits(*amounts, _reserve_amount(c)) for c in remaining):
+            if not any(_fits(*amounts, _reserve_amount(c), cap=_effective_cap(b)) for c in remaining):
                 raise ServiceError('budget_exhausted')
 
     def ready(self):
@@ -396,7 +460,7 @@ class BillingJournal:
             raise ServiceError('attempt_limit')
         amount = _reserve_amount(call)
         if not _fits(*(_money(t[k]) for k in ('actual_cny', 'retained_reserve_cny',
-             'pending_usage_ceiling_cny')), amount):
+             'pending_usage_ceiling_cny')), amount, cap=_effective_cap(b)):
             raise ServiceError('budget_exhausted')
         return call_index, call, allocated
 
@@ -447,6 +511,22 @@ class BillingJournal:
                     _append(self.store.state, 'halt', code='upstream_error')
             _transaction(self.store, commit)
             if not within or not raw_valid:raise ServiceError('upstream_error')
+
+    def raise_service_cap(self):
+        """Apply the one approved cap increase without granting another call."""
+        with self.store.mutex:
+            if self.store.lock is None:
+                raise ServiceError('store_unavailable')
+            b = self._state()
+            if b['approval']['scope'] != SERVICE_SCOPE:
+                raise ServiceError('snapshot_conflict')
+            cap = _effective_cap(b)
+            if cap != SERVICE_CAP_CNY:
+                if b['totals']['inflight'] is not None or b['totals']['halted']:
+                    raise ServiceError('budget_halted')
+                _transaction(self.store, lambda: _append(self.store.state, 'raise_service_cap',
+                    previous_cap_cny=cap, cap_cny=SERVICE_CAP_CNY))
+            return self.status()
 
     def authorize(self, allowed):
         """Explicit local report checkpoint, never changes genesis/expiry/cap."""

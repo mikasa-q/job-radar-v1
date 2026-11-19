@@ -132,7 +132,7 @@ def test_readiness_legacy_openapi(client):
     expected=['/v1/ready','/v1/jobs','/v1/jobs/{dataset_id}/{job_id}','/v1/resumes',
               '/v1/resumes/{resume_id}','/v1/resumes/{resume_id}/profiles',
               '/v1/profiles/{profile_id}','/v1/matches','/v1/matches/{match_id}',
-              '/v1/reports','/v1/reports/{report_id}']
+              '/v1/reports','/v1/reports/{report_id}','/v1/reports/from-pdf']
     assert all(p in spec['paths'] for p in expected)
     assert 'multipart/form-data' in spec['paths']['/v1/resumes']['post']['requestBody']['content']
     assert client.get('/v1/jobs?limit=2&offset=1').json()['data']['total']==3
@@ -382,7 +382,9 @@ def test_snapshot_generation_change_before_execute_fails(settings):
 def test_frozen_openapi_matches_source(client):
     from pathlib import Path
     frozen=json.loads((Path(__file__).resolve().parents[1]/'docs/STAGE5_OPENAPI_V1_1.json').read_text())
-    assert client.get('/openapi.json').json()==frozen
+    current = client.get('/openapi.json').json()
+    assert set(current['paths'].pop('/v1/reports/from-pdf')) == {'post'}
+    assert current == frozen
 
 
 def test_journal_failed_write_keeps_memory_and_disk(tmp_path,monkeypatch):

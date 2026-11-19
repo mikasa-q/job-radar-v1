@@ -192,42 +192,49 @@ class ResumeInterface:
                            'profile', 'rules', prepare, execute)
 
 
+PDF_REQUEST_BODY = {'requestBody': {'required': True, 'content': {
+    'multipart/form-data': {'schema': {
+        'type': 'object', 'required': ['file'], 'additionalProperties': False,
+        'properties': {'file': {'type': 'string', 'format': 'binary'}},
+    }}}}}
+
+
+async def read_pdf_upload(request: Request) -> bytes:
+    """Read exactly one bounded PDF part and always close its spool."""
+    media_type = request.headers.get('content-type', '').split(';', 1)[0].strip().lower()
+    if media_type != 'multipart/form-data':
+        raise ServiceError('unsupported_media_type')
+    try:
+        async with request.form(max_files=1, max_fields=0, max_part_size=MAX_UPLOAD) as form:
+            try:
+                values = form.multi_items()
+                if len(values) != 1 or values[0][0] != 'file' or not isinstance(values[0][1], UploadFile):
+                    raise ServiceError('invalid_request')
+                file = values[0][1]
+                if file.content_type not in ('application/pdf', 'application/octet-stream'):
+                    raise ServiceError('unsupported_media_type')
+                return await file.read(MAX_UPLOAD + 1)
+            finally:
+                # Starlette closes successful forms on exit; shield this first
+                # close so cancellation also releases disk-spooled PDF files.
+                with anyio.CancelScope(shield=True):
+                    await form.close()
+    except HTTPException as error:
+        if error.status_code != 400:
+            raise
+        raise ServiceError('invalid_request') from None
+
+
 def register_routes(app, service, *, wrap, typed, accepted, responses):
     """Register only A's four paths, preserving operation names and wire types."""
 
     @app.post('/v1/resumes', status_code=201,
               response_model=Envelope[Resource[ResumeDocument]], responses=responses,
-              openapi_extra={'requestBody': {'required': True, 'content': {
-                  'multipart/form-data': {'schema': {
-                      'type': 'object', 'required': ['file'], 'additionalProperties': False,
-                      'properties': {'file': {'type': 'string', 'format': 'binary'}},
-                  }}}}})
+              openapi_extra=PDF_REQUEST_BODY)
     async def upload(request: Request, idempotency_key: Annotated[str | None, Header()] = None):
-        media_type = request.headers.get('content-type', '').split(';', 1)[0].strip().lower()
-        if media_type != 'multipart/form-data':
-            raise ServiceError('unsupported_media_type')
-        try:
-            async with request.form(max_files=1, max_fields=0, max_part_size=MAX_UPLOAD) as form:
-                try:
-                    values = form.multi_items()
-                    if len(values) != 1 or values[0][0] != 'file' or not isinstance(values[0][1], UploadFile):
-                        raise ServiceError('invalid_request')
-                    file = values[0][1]
-                    if file.content_type not in ('application/pdf', 'application/octet-stream'):
-                        raise ServiceError('unsupported_media_type')
-                    raw = await file.read(MAX_UPLOAD + 1)
-                    record = await run_in_threadpool(service.upload, raw, idempotency_key)
-                    return Envelope(request_id=request.state.request_id,
-                                    data=typed(record, Resource[ResumeDocument]))
-                finally:
-                    # Starlette closes successful forms on exit; shield this first
-                    # close so cancellation also releases disk-spooled PDF files.
-                    with anyio.CancelScope(shield=True):
-                        await form.close()
-        except HTTPException as error:
-            if error.status_code != 400:
-                raise
-            raise ServiceError('invalid_request') from None
+        raw = await read_pdf_upload(request)
+        record = await run_in_threadpool(service.upload, raw, idempotency_key)
+        return Envelope(request_id=request.state.request_id, data=typed(record, Resource[ResumeDocument]))
 
     @app.get('/v1/resumes/{resume_id}', response_model=Envelope[Resource[ResumeDocument]],
              responses=responses)

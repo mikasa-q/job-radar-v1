@@ -1,0 +1,45 @@
+name: jobradar-v1
+services:
+  api:
+    image: jobradar-v1:local
+    build: .
+    user: "${JOBRADAR_UID:-10001}:${JOBRADAR_GID:-10001}"
+    command:
+      - --offline
+      - --temporary-lexical-index
+      - --host
+      - 0.0.0.0
+      - --store-root
+      - /state
+      - --evidence-db
+      - /evidence.sqlite3
+      - --dataset-id
+      - "${JOBRADAR_DATASET_ID:-v1-evidence}"
+    ports:
+      - target: 8000
+        published: "${JOBRADAR_PORT:-8080}"
+        host_ip: 127.0.0.1
+    volumes:
+      - type: bind
+        source: "${JOBRADAR_EVIDENCE_DB:-${HOME}/Desktop/jobradar-v1-data/evidence.sqlite3}"
+        target: /evidence.sqlite3
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: "${JOBRADAR_OFFLINE_STORE:-${HOME}/.jobradar/docker-v1}"
+        target: /state
+        bind:
+          create_host_path: false
+    read_only: true
+    tmpfs:
+      - /tmp:mode=1777
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    stop_grace_period: 120s
+    healthcheck:
+      test: [CMD, python, -c, "from http.client import HTTPConnection; c = HTTPConnection('127.0.0.1', 8000, timeout=3); c.request('GET', '/v1/ready'); raise SystemExit(c.getresponse().status != 200)"]
+      interval: 5s
+      timeout: 4s
+      retries: 6
+      start_period: 5s

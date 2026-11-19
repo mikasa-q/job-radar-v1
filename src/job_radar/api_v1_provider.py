@@ -137,7 +137,8 @@ class BillingClient:
                             follow_redirects=False, timeout=TIMEOUT_SECONDS)
         try:
             self._sdk = openai.OpenAI(api_key=api_key, base_url=BASE_URL,
-                organization='', project='', max_retries=0, http_client=http,
+                admin_api_key='', organization='', project='', webhook_secret='',
+                max_retries=0, http_client=http,
                 timeout=TIMEOUT_SECONDS)
         except Exception:
             http.close()
@@ -181,6 +182,9 @@ class BillingClient:
             raise TimeoutError('execution_timeout')
         return min(value, TIMEOUT_SECONDS)
 
+    def _settle(self, usage, raw):
+        self.ledger.settle(self.attempt_id, usage, raw)
+
     def _read(self, response, deadline):
         body = bytearray()
         for block in response.iter_bytes(chunk_size=4096):
@@ -197,7 +201,7 @@ class BillingClient:
         except (ValueError, UnicodeError, RecursionError):
             # Preserve a bounded undecodable response as plain diagnostic text;
             # unknown usage keeps the full pending ceiling and globally halts.
-            self.ledger.settle(self.attempt_id, None, body.decode('utf-8', errors='replace'))
+            self._settle(None, body.decode('utf-8', errors='replace'))
             raise ServiceError('upstream_error') from None
 
     def complete(self, request):
@@ -219,7 +223,7 @@ class BillingClient:
                     result = self._read(response, deadline)
                 # Preserve the original bounded response before interpreting
                 # model/finish status. Known fees remain charged on rejection.
-                self.ledger.settle(self.attempt_id, result.get('usage'), result)
+                self._settle(result.get('usage'), result)
                 usage = _usage(result.get('usage'), self.kind)
                 self._last_audit = CallAudit(provider='apinebula', model=MODEL,
                     attempts=1, reserved_units=RESERVATIONS[self.kind], billing_unit='CNY',

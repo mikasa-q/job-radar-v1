@@ -1,0 +1,9 @@
+services:
+  api:
+    volumes:
+      - type: bind
+        source: "${JOBRADAR_MODEL_DIR:?set JOBRADAR_MODEL_DIR}"
+        target: /models/bge
+        read_only: true
+        bind:
+          create_host_path: false

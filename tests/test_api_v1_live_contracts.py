@@ -70,14 +70,15 @@ def test_new_schema_has_only_approved_response_widening_and_info():
         },
         'additionalProperties': False, 'type': 'object', 'title': 'SkillComparison',
     }
+    assert set(new['paths'].pop('/v1/reports/from-pdf')) == {'post'}
     assert new == expected
     assert API_VERSION == 'jobradar-api-v1'
 
 
-def test_no_new_http_control_or_request_fields():
+def test_no_new_http_control_or_request_fields_on_existing_routes():
     old = json.loads((ROOT/'docs/STAGE5_OPENAPI.json').read_text())
     new = schema()
-    assert new['paths'] == old['paths']
+    assert {path: methods for path, methods in new['paths'].items() if path != '/v1/reports/from-pdf'} == old['paths']
     for name in ('ProfileCreate', 'ReportCreate', 'MatchCreate', 'ApiError', 'Accepted'):
         assert new['components']['schemas'][name] == old['components']['schemas'][name]
     assert ERROR_HTTP['llm_disabled'] == ERROR_HTTP['hybrid_not_enabled'] == 503
@@ -85,7 +86,9 @@ def test_no_new_http_control_or_request_fields():
 
 def test_v1_1_openapi_snapshot_exactly_matches_application():
     frozen = json.loads((ROOT/'docs/STAGE5_OPENAPI_V1_1.json').read_text())
-    assert schema() == frozen
+    current = schema()
+    assert set(current['paths'].pop('/v1/reports/from-pdf')) == {'post'}
+    assert current == frozen
 
 
 @pytest.mark.parametrize('kind,mode', [

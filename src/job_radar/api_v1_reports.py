@@ -63,6 +63,16 @@ class ReportInterface:
                     'markdown':render_api_report(report,mode='live' if live else 'scripted')}
         return self.submit_llm('/v1/reports',key,value,'report',prepare,execute,requests)
 
+    def require_report_backend(self):
+        from .api_v1_live import LiveBackend
+        if getattr(self, 'mock_backend', None) is not None:
+            return  # submit_llm verifies its exact backend type and ledger
+        backend = getattr(self, 'live_backend', None)
+        if type(backend) is LiveBackend and backend.allow_report:
+            return
+        self.require_live()
+        raise ServiceError('llm_disabled')
+
     def report(self, body: ReportCreate, key):
         # Capture request scalars now: queued execution never observes later mutation.
         value = body.model_dump(mode='json')
@@ -72,14 +82,8 @@ class ReportInterface:
             raise ServiceError('core_rejected') from None
         match_id, top_n, mode = frozen.match_id, frozen.top_n, frozen.mode
         if mode == 'llm':
-            if getattr(self,'mock_backend',None) is not None:
-                return self.report_llm(frozen,key)
-            from .api_v1_live import LiveBackend
-            backend = getattr(self, 'live_backend', None)
-            if type(backend) is LiveBackend and backend.allow_report:
-                return self.report_llm(frozen,key)
-            self.require_live()
-            raise ServiceError('llm_disabled')
+            self.require_report_backend()
+            return self.report_llm(frozen, key)
 
         def prepare():
             snapshot = deepcopy(self.completed(match_id, 'match'))
@@ -105,6 +109,12 @@ class ReportInterface:
         return self.submit('/v1/reports', key, value, 'report', 'offline', prepare, execute)
 
 
+def markdown_download(row, *, status_code=200, headers=None):
+    rid = row['resource_id']
+    return PlainTextResponse(row['payload']['markdown'], status_code=status_code, media_type='text/markdown',
+        headers={**(headers or {}), 'Content-Disposition': f'attachment; filename="{rid}.md"'})
+
+
 def register_routes(app, service, *, wrap, typed, accepted, responses):
     """Keep v1 endpoint names and wire schemas stable during module extraction."""
 
@@ -122,6 +132,5 @@ def register_routes(app, service, *, wrap, typed, accepted, responses):
         if format == 'markdown':
             if row['state'] != 'succeeded':
                 raise ServiceError('snapshot_conflict')
-            return PlainTextResponse(row['payload']['markdown'], media_type='text/markdown',
-                headers={'Content-Disposition': f'attachment; filename="{report_id}.md"'})
+            return markdown_download(row)
         return Envelope(request_id=request.state.request_id, data=typed(row, Resource[ReportPayload]))

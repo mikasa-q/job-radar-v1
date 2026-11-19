@@ -1,43 +1,42 @@
 # JobRadar V1：AI 求职匹配助手
 
-面向本科在校生的 AI 求职匹配 / 决策助手（学习与求职项目，非商业产品）。
+面向本科在校生的 AI 求职匹配 / 决策助手（学习与求职项目，非商业产品）。项目从 JobRadar 爬虫版演进而来，保留原有的岗位采集与查询能力。
 
-链路：简历 PDF → 解析画像 → 混合 RAG 检索岗位 → 匹配度 → 技能差距报告 → 求职建议。
+## 快速上手
 
-## 它是什么
+### Docker 一键启动（默认离线）
 
-- 不是传统 RAG 问答：LLM 只当分析员不当裁判，每条结论必须引用证据 ID，无证据标 unknown，不生成录用概率。
-- 检索内核：Embedding + BM25 混合检索，RRF 融合；检索取前 10（topK=10），LLM 只分析前 3（topN=3）。Reranker 与 LangGraph Agent 放在 V2。
-- 本仓库由 JobRadar 爬虫版演进而来，保留原采集与查询能力，V1 在此基础上做 AI 匹配。
-
-## 当前状态
-
-- 阶段 1–5 已完成。阶段 5 已通过两次真实 LLM 调用验收：S1 画像 1 次、J1 报告 1 次，累计 ¥0.06684288 / ¥1.00 预算；J1 报告自动核对 10/10 通过。
-- 检索评测：45 条人工标注（3 条查询 × 15 个岗位），Macro Recall@10 0.95、MRR@10 0.75、nDCG@10 0.834。dev 与 test 共用同一批 15 个岗位，指标为描述性结果。
-- 全量回归 2339 项通过。
-
-## 快速开始
-
-Python 3.10+。
+启动 Docker Desktop 后，在仓库根目录运行：
 
 ```bash
-git clone https://github.com/mikasa-q/job-radar-v1.git
-cd job-radar-v1
-python3 -m venv .venv
-.venv/bin/python -m pip install -e .
-.venv/bin/python -m uvicorn job_radar.api_v1:app --host 127.0.0.1 --port 8000
+./docker-start.sh
 ```
 
-打开 http://127.0.0.1:8000/docs。
+脚本会构建镜像并等待 `/v1/ready` 就绪。服务仅在本机 `http://127.0.0.1:8080`，打开 [API 文档（`/docs`）](http://127.0.0.1:8080/docs) 即可试用：选择 **上传 PDF，一站式生成岗位报告**，上传简历后直接下载 Markdown，无需手动串 API。
 
-只绑定 127.0.0.1；无账户、鉴权、多用户与生产部署能力。
+**默认不读取 API key，也不调用真实 LLM。** 离线报告包含岗位排序和规则证据覆盖，模型分析状态为 `not_run`。停止服务用 `./docker-start.sh stop`，本地状态会保留。数据路径与故障排查见 [Docker 启动说明](docs/DOCKER.md)。
+
+### 真实 LLM（仅显式开启）
+
+已有有效审批账本时，才使用 `api_v1_serve.py` 的 Live 入口：`python -m job_radar.api_v1_serve`，Docker 对应 `./docker-start.sh --live`。该入口挂接 `LiveBackend`（`allow_report=True`），密钥仅在运行时读取。启动本身不发请求；只有显式 `mode=llm` 且通过次数、预算及请求审批校验的任务才可调用。所需参数见 [Live 服务启动说明](docs/STAGE5_SERVICE_LIVE.md) 和 [Docker Live 模式](docs/DOCKER.md#显式-live-模式仅在已有有效审批时使用)。
+
+## 核心流程
+
+简历 PDF → 画像 → 检索与规则匹配 → 报告。索引内核支持 **BM25＋向量检索＋RRF**，但当前 V1 HTTP 接口（含 Live 模式）只开放 **BM25＋规则**。LLM 分析引用已有证据，不改变岗位排序，也不生成录用概率；简历没提及某技能不等于不会。见 [核心流程架构图](docs/ARCHITECTURE.md)。
+
+## 已验证
+
+- Docker 离线验收：本机证据库 **15 岗**可读取，合成 PDF 到离线 Markdown 报告的 HTTP 流程已跑通。
+- 全量回归 **2401 项**通过。历史检索评测及 Live 验收与审批记录见 [NOTES.md](NOTES.md)。
 
 ## 离线演示
 
-不触真实数据的可重复演示（合成 PDF、合成证据库，HTTP 走内存 TestClient）：
+不触真实数据的可重复演示（合成 PDF、合成证据库，HTTP 走内存 TestClient）。不用 Docker 时，可用本机 Python 建立虚拟环境：
 
 ```bash
-.venv/bin/python -B examples/stage5_offline.py --output /absolute/new/directory
+python3 -m venv .venv
+.venv/bin/python -m pip install -e .
+.venv/bin/python -B examples/stage5_pdf_report.py --output /absolute/new/directory
 ```
 
 ## API（一览，统一 /v1）
@@ -47,13 +46,14 @@ python3 -m venv .venv
 - `POST /v1/resumes`、`GET /v1/resumes/{resume_id}`
 - `POST /v1/resumes/{resume_id}/profiles`、`GET /v1/profiles/{profile_id}`
 - `POST /v1/matches`、`GET /v1/matches/{match_id}`
+- `POST /v1/reports/from-pdf`：单次上传，默认直接返回 Markdown；显式 `?mode=llm` 须审批，只返回一个报告任务。
 - `POST /v1/reports`、`GET /v1/reports/{report_id}`（`format=markdown`）
 
-上传返回 201；画像 / 匹配 / 报告创建返回 202，再 GET 轮询进度。真实 LLM 调用全局串行、零重试；默认离线模式不发真实请求。
+分步接口的上传返回 201；画像 / 匹配 / 报告创建返回 202，再 GET 轮询进度。新报告从已通过 v3 校验的结构化事实在本地渲染，结论按证据状态分组，引用可点击，完整审计信息保留在 JSON。旧报告也可离线重渲染，见 [可读报告说明](docs/READABLE_REPORT.md)。真实 LLM 调用仍全局串行、零重试；默认离线模式不发真实请求。
 
 ## 配置
 
-仅服务端读取：
+以下为本机 Python 服务的配置；Docker 挂载及环境变量见 [Docker 启动说明](docs/DOCKER.md)。
 
 - `JOBRADAR_API_STORE`（默认 `~/.jobradar/api-v1`）
 - `JOBRADAR_EVIDENCE_DB`（独立证据库）
@@ -68,7 +68,7 @@ python3 -m venv .venv
 src/job_radar/   业务引擎（解析、检索、匹配、报告、FastAPI）
 docs/            阶段契约与说明（STAGE4 / STAGE5 系列）
 examples/        检查点与离线演示脚本
-tests/           2339 项回归与专项测试
+tests/           回归与专项测试
 verification/    基线、补丁与验证记录
 NOTES.md         当前项目状态与下一步
 ```
